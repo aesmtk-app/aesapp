@@ -34,3 +34,4 @@ doc/api/
 
 # Mac
 .DS_Store
+/.firebase/
