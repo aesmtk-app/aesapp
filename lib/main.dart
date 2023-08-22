@@ -3,11 +3,11 @@ import 'package:aesapp/ui/homepage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const AESApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class AESApp extends StatelessWidget {
+  const AESApp({super.key});
 
   // This widget is the root of your application.
   @override
