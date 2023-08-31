@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:appwrite/appwrite.dart';
 import 'package:get/get.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 import '../main.dart';
 class HomePage extends StatefulWidget {
@@ -115,6 +116,7 @@ class _HomePageState extends State<HomePage> {
         }
       ),
       Text(token?.substring(0,40)??"no token"),
+      if(token!=null)QrImageView(data: token!, size: 500,backgroundColor: Colors.white,),
       ElevatedButton(onPressed: ()=>Get.toNamed("/test"), child: Text("test"))
     ],);
   }

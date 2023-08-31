@@ -1,0 +1,3 @@
+class WikiEntry{
+  String title;
+}
