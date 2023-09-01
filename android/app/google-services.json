@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "590479197727",
+    "project_id": "aesmtk-app-test",
+    "storage_bucket": "aesmtk-app-test.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:590479197727:android:15ec15700a46a66572b72a",
+        "android_client_info": {
+          "package_name": "net.redsolver.aesapp.debug"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "590479197727-1lm4vmnph1kv61s4t8nic65furlj1lql.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYbI3EdkpcK20AbiBZ8s5_Pw397sI9qOQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "590479197727-1lm4vmnph1kv61s4t8nic65furlj1lql.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "590479197727-nvm07tdmbu5flbal4kl8v8l3kuoq0kfd.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "net.redsolver.aesapp.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
