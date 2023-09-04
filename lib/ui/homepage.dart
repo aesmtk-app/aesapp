@@ -1,7 +1,6 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:appwrite/appwrite.dart';
 import 'package:get/get.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
@@ -67,51 +66,6 @@ class _HomePageState extends State<HomePage> {
       ElevatedButton(
         child: const Text("testAppwrite"),
         onPressed: ()async{
-          Client client = Client();
-          client
-              .setEndpoint('http://localhost:8080/v1')
-              .setProject('64e77a31d0ecf18d7da0')
-              .setSelfSigned(status: true); // For self signed certificates, only use for development
-          final account = Account(client);
-
-          final session = await account.createEmailSession(
-              email: 'test@example.com',
-              password: 'test1234'
-          );
-          Databases databases = Databases(client);
-
-          Future result = databases.listDocuments(
-            databaseId: '64e7906f49a1ed6e24b8',
-            collectionId: '64e79079d4796a023166',
-          );
-
-          result
-              .then((response) {
-            print(response);
-          }).catchError((error) {
-            print(error.response);
-          });
-
-
-          final realtime = Realtime(client);
-          final subscription = realtime.subscribe(['databases.64e7906f49a1ed6e24b8.collections.64e79079d4796a023166.documents', 'files']);
-
-          subscription.stream.listen((response) {
-            // Callback will be executed on changes for documents A and all files.
-            print(response);
-          });
-
-          Future res = databases.createDocument(databaseId: "64e7906f49a1ed6e24b8", collectionId: "64e79079d4796a023166", documentId: ID.unique(), data: {
-            "id":1234,
-            "runs": true,
-            "mail": "mail1234@web1234.de"
-          });
-
-          res.then((response) {
-            print(response);
-          }).catchError((error) {
-            print(error.response);
-          });
 
         }
       ),

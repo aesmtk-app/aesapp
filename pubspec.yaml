@@ -15,7 +15,6 @@ dependencies:
   hexcolor: ^3.0.1
   firebase_core: ^2.15.1
   firebase_messaging: ^14.6.6
-  appwrite: ^9.0.1
   get: ^4.6.5
   qr_flutter: ^4.1.0
   drift: ^2.11.1
@@ -23,6 +22,7 @@ dependencies:
   path_provider: ^2.0.0
   path: ^1.8.3
   logging: ^1.2.0
+  supabase_flutter: ^1.10.14
 
 dev_dependencies:
   flutter_test:
