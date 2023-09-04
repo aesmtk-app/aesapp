@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:logging/logging.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 import 'firebase_options.dart';
 import 'dart:io';
 import 'package:flutter_web_plugins/url_strategy.dart';
@@ -37,11 +38,18 @@ void main() async {
       options: DefaultFirebaseOptions.currentPlatform,
     );
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
-}
-  else{
-    logger.info("Firebase not available");
   }
+
+  // init supabase
+  await Supabase.initialize(
+    url: "http://192.168.178.165:8000",
+    debug: true,
+    anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE",
+  ).then((value)async {
+
+    final supabase = Supabase.instance.client;
+    print(await supabase.from("vplan_entries").select().csv());
+  });
 
 
   runApp(const AESApp());
