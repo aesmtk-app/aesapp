@@ -1,6 +1,7 @@
 import 'package:aesapp/main.dart';
 import 'package:aesapp/ui/homepage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Page{
   Page({required this.index, required this.label, required this.icon, required this.selectedIcon, required this.showWhenPortrait, required this.showWhenLandscape, required this.content});
@@ -50,7 +51,12 @@ class _PageSelectorState extends State<PageSelector> {
   AppBar get appBar => AppBar(
     title: Text(MediaQuery.of(context).orientation.name),
     backgroundColor: Theme.of(context).colorScheme.tertiary,
-    leading: isPortrait?menuButton:Container()
+    leading: isPortrait?menuButton:Container(),
+    systemOverlayStyle: SystemUiOverlayStyle(
+      systemStatusBarContrastEnforced: true,
+      statusBarIconBrightness: Brightness.light,
+      statusBarColor: Theme.of(context).colorScheme.tertiary
+    ),
   );
 
   NavigationBar get bottomNavigationBar => NavigationBar(

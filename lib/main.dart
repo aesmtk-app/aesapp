@@ -6,10 +6,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
+import 'package:logging/logging.dart';
 import 'firebase_options.dart';
 import 'dart:io';
 import 'package:flutter_web_plugins/url_strategy.dart';
-
+final Logger logger = Logger("main");
 String? token;
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
@@ -22,6 +23,14 @@ void main() async {
   usePathUrlStrategy();
 
   WidgetsFlutterBinding.ensureInitialized();
+  Logger.root.level = Level.FINEST; // defaults to Level.INFO
+  Logger.root.onRecord.listen((record) {
+    if (kDebugMode) {
+      print(
+          '${record.loggerName}: ${record.level.name}: ${record.time}: ${record.message}');
+    }
+  });
+
   // init firebase
   if(kIsWeb||Platform.isIOS||Platform.isAndroid||Platform.isMacOS){
     await Firebase.initializeApp(
@@ -30,6 +39,9 @@ void main() async {
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
 }
+  else{
+    logger.info("Firebase not available");
+  }
 
 
   runApp(const AESApp());

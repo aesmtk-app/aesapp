@@ -35,7 +35,7 @@ class DarkDashTheme extends AESTheme{
       error: red,
       onPrimary: backgroundAlt,
       onSecondary: foreground,
-      onTertiary: backgroundAlt,
+      onTertiary: foreground,
       onSurface: foreground,
       onBackground: foreground,
       onError: backgroundAlt
