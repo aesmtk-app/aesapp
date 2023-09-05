@@ -1,3 +1,4 @@
+import 'package:aesapp/objects/vplan.dart';
 import 'package:aesapp/static/themes.dart';
 import 'package:aesapp/ui/TestPage.dart';
 import 'package:aesapp/ui/page_selector.dart';
@@ -42,16 +43,29 @@ void main() async {
 
   // init supabase
   await Supabase.initialize(
-    url: "http://192.168.178.165:8000",
+    url: "https://supabase.aws1313.de",
     debug: true,
-    anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE",
+    anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.ewogICJyb2xlIjogImFub24iLAogICJpc3MiOiAic3VwYWJhc2UiLAogICJpYXQiOiAxNjkzNzc4NDAwLAogICJleHAiOiAxODUxNjMxMjAwCn0.u3gLP7HKsvFeROPdSOb2hsjRCrPOwaYOUOsp8KRZ30k",
   ).then((value)async {
 
     final supabase = Supabase.instance.client;
     print(await supabase.from("vplan_entries").select().csv());
   });
-
-
+  final supabase = Supabase.instance.client;
+  supabase.from("vplan_entries").stream(primaryKey: ["date",
+      "is_info",
+      "course",
+      "subject_new",
+      "lesson_start",
+      "lesson_end",
+    "subject_old"
+  ]).listen((List<Map<String,dynamic>>event) {
+    for (Map<String,dynamic> m in event){
+      print(VPlanEntries.fromSupabase(m));
+    }
+    });
+  final res = await supabase.functions.invoke("hello", body: {"name":"test"});
+  print(res.data);
   runApp(const AESApp());
 }
 

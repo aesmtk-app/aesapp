@@ -1,5 +1,6 @@
 import 'package:aesapp/main.dart';
 import 'package:aesapp/ui/homepage.dart';
+import 'package:aesapp/ui/vplan/vplan.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -24,7 +25,7 @@ class PageSelector extends StatefulWidget {
 class _PageSelectorState extends State<PageSelector> {
   List<Page> pages = [
     Page(index: 0, label: "Home", icon: const Icon(Icons.home), selectedIcon: const Icon(Icons.home_outlined), showWhenPortrait: true, content: const HomePage(), showWhenLandscape: true),
-    Page(index: 1, label: "Temp", icon: const Icon(Icons.alarm), selectedIcon: const Icon(Icons.alarm_outlined), showWhenPortrait: true, content: Text("${token?.substring(0,20)}...",), showWhenLandscape: true)
+    Page(index: 1, label: "Vertretung", icon: const Icon(Icons.table_chart), selectedIcon: const Icon(Icons.alarm_outlined), showWhenPortrait: true, content: Expanded(child: VPlan(),), showWhenLandscape: true)
   ];
   int _selectedPageIndex = 0;
   bool isPortrait = true;
