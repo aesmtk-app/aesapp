@@ -1,3 +1,5 @@
+import 'package:aesapp/database/database.dart';
+import 'package:aesapp/objects/theme.dart';
 import 'package:aesapp/objects/vplan.dart';
 import 'package:aesapp/static/themes.dart';
 import 'package:aesapp/ui/TestPage.dart';
@@ -66,16 +68,21 @@ void main() async {
     });
   final res = await supabase.functions.invoke("hello", body: {"name":"test"});
   print(res.data);
+
+  // set services
+  Get.put(Database());
+  Get.put(DarkDashTheme() as AESTheme);
+
   runApp(const AESApp());
 }
 
 class AESApp extends StatelessWidget {
   const AESApp({super.key});
-
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: DarkDashTheme().toSwatchScheme(),

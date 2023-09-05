@@ -17,11 +17,6 @@ final Logger log = Logger("Database");
 ])
 class Database extends _$Database{
   Database():super(Database._openConnection());
-  static Database? _instance;
-  static Database getInstance() {
-    _instance ??= Database();
-    return _instance as Database;
-  }
   static LazyDatabase _openConnection() {
     ///open.overrideFor(OperatingSystem.windows, _openOnWindows);
     //open.overrideFor(OperatingSystem.linux, _openOnLinux);

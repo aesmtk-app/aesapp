@@ -25,7 +25,7 @@ class PageSelector extends StatefulWidget {
 class _PageSelectorState extends State<PageSelector> {
   List<Page> pages = [
     Page(index: 0, label: "Home", icon: const Icon(Icons.home), selectedIcon: const Icon(Icons.home_outlined), showWhenPortrait: true, content: const HomePage(), showWhenLandscape: true),
-    Page(index: 1, label: "Vertretung", icon: const Icon(Icons.table_chart), selectedIcon: const Icon(Icons.alarm_outlined), showWhenPortrait: true, content: Expanded(child: VPlan(),), showWhenLandscape: true)
+    Page(index: 1, label: "Vertretung", icon: const Icon(Icons.table_chart), selectedIcon: const Icon(Icons.table_chart_outlined), showWhenPortrait: true, content: Expanded(child: VPlan(),), showWhenLandscape: true)
   ];
   int _selectedPageIndex = 0;
   bool isPortrait = true;
@@ -56,11 +56,12 @@ class _PageSelectorState extends State<PageSelector> {
     systemOverlayStyle: SystemUiOverlayStyle(
       systemStatusBarContrastEnforced: true,
       statusBarIconBrightness: Brightness.light,
-      statusBarColor: Theme.of(context).colorScheme.tertiary
     ),
   );
 
   NavigationBar get bottomNavigationBar => NavigationBar(
+    backgroundColor: Theme.of(context).colorScheme.surface,
+    surfaceTintColor: Theme.of(context).colorScheme.surface,
     destinations: pages.where((element) => element.showWhenPortrait).map((e) => NavigationDestination(
       icon: e.icon,
       label: e.label,
@@ -71,7 +72,9 @@ class _PageSelectorState extends State<PageSelector> {
   );
 
   NavigationRail get navigationRail => NavigationRail(
-      destinations: pages.where((element) => element.showWhenLandscape).map((e) => NavigationRailDestination(
+    backgroundColor: Theme.of(context).colorScheme.surface,
+
+    destinations: pages.where((element) => element.showWhenLandscape).map((e) => NavigationRailDestination(
         icon: e.icon,
         label: Text(e.label)
       )).toList(),

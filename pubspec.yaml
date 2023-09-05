@@ -24,6 +24,7 @@ dependencies:
   logging: ^1.2.0
   web_socket_channel: ^2.4.0
   supabase_flutter: ^1.10.14
+  basic_utils: ^5.6.1
 
 dev_dependencies:
   flutter_test:
