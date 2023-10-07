@@ -1,6 +1,7 @@
 import 'package:aesapp/main.dart';
 import 'package:aesapp/ui/homepage.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Page{
   Page({required this.index, required this.label, required this.icon, required this.selectedIcon, required this.showWhenPortrait, required this.showWhenLandscape, required this.content});
@@ -23,7 +24,7 @@ class PageSelector extends StatefulWidget {
 class _PageSelectorState extends State<PageSelector> {
   List<Page> pages = [
     Page(index: 0, label: "Home", icon: const Icon(Icons.home), selectedIcon: const Icon(Icons.home_outlined), showWhenPortrait: true, content: const HomePage(), showWhenLandscape: true),
-    Page(index: 1, label: "Temp", icon: const Icon(Icons.alarm), selectedIcon: const Icon(Icons.alarm_outlined), showWhenPortrait: true, content: Text("${token?.substring(0,20)}...",), showWhenLandscape: true)
+    Page(index: 1, label: "Vertretung", icon: const Icon(Icons.table_chart), selectedIcon: const Icon(Icons.table_chart_outlined), showWhenPortrait: true, content: Container(), showWhenLandscape: true)
   ];
   int _selectedPageIndex = 0;
   bool isPortrait = true;
@@ -50,10 +51,16 @@ class _PageSelectorState extends State<PageSelector> {
   AppBar get appBar => AppBar(
     title: Text(MediaQuery.of(context).orientation.name),
     backgroundColor: Theme.of(context).colorScheme.tertiary,
-    leading: isPortrait?menuButton:Container()
+    leading: isPortrait?menuButton:Container(),
+    systemOverlayStyle: SystemUiOverlayStyle(
+      systemStatusBarContrastEnforced: true,
+      statusBarIconBrightness: Brightness.light,
+    ),
   );
 
   NavigationBar get bottomNavigationBar => NavigationBar(
+    backgroundColor: Theme.of(context).colorScheme.surface,
+    surfaceTintColor: Theme.of(context).colorScheme.surface,
     destinations: pages.where((element) => element.showWhenPortrait).map((e) => NavigationDestination(
       icon: e.icon,
       label: e.label,
@@ -64,7 +71,9 @@ class _PageSelectorState extends State<PageSelector> {
   );
 
   NavigationRail get navigationRail => NavigationRail(
-      destinations: pages.where((element) => element.showWhenLandscape).map((e) => NavigationRailDestination(
+    backgroundColor: Theme.of(context).colorScheme.surface,
+
+    destinations: pages.where((element) => element.showWhenLandscape).map((e) => NavigationRailDestination(
         icon: e.icon,
         label: Text(e.label)
       )).toList(),
