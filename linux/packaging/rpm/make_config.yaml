@@ -1,0 +1,20 @@
+display_name: AES
+summary: AESMTK-App
+group: Applications/Education
+vendor: aesmtk-app
+packager: aesmtk-app
+packagerEmail: info@aesmtk.app
+license: BSD-4-Clause
+url: https://github.com/aesmtk-app/aesapp
+
+
+icon: assets/icons/web/icon-512.png
+
+keywords:
+  - aesapp
+  - aesmtk-app
+
+generic_name: AESMTK-App
+
+categories:
+  - Education
