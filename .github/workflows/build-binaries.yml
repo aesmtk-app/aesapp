@@ -5,23 +5,26 @@ on:
       - "v*.*.*"
   workflow_dispatch:
 jobs:
-  build:
+  build_android:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Prepare Flutter-Env
-      - uses: subosito/flutter-action@v2
+        uses: subosito/flutter-action@v2
         with:
           channel: 'stable'
-      - uses: actions/setup-java@v2
+      - name: Java Setup
+        uses: actions/setup-java@v2
         with:
           distribution: 'zulu'
           java-version: '11'
-      - run: flutter --version
-      - run: flutter pub get
+      - name: Get dependencies
+        run: | 
+          flutter --version
+          flutter pub get
       - name: Build Android
-      - run: flutter build apk
+        run: flutter build apk
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
