@@ -1,3 +1,4 @@
+[![Build binaries](https://github.com/aesmtk-app/aesapp/actions/workflows/build-binaries.yml/badge.svg)](https://github.com/aesmtk-app/aesapp/actions/workflows/build-binaries.yml)
 # AESApp
 
 # Supported Browsers for Web/PWA
