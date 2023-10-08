@@ -1,9 +1,9 @@
 # https://github.com/marketplace/actions/publish-docker
 name: Docker-publish
 on:
-  push:
-    tags:
-      - v*
+  release:
+    types: [published]
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
