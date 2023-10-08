@@ -1,0 +1,26 @@
+display_name: AES
+
+package_name: aesmtk-app
+
+maintainer:
+  name: aesmtk-app
+  email: info@aesmtk.app
+
+priority: optional
+
+section: x11
+
+installed_size: 6604
+
+essential: false
+
+icon: assets/icons/web/icon-512.png
+
+keywords:
+  - aesapp
+  - aesmtk-app
+
+generic_name: AESMTK-App
+
+categories:
+  - Education
