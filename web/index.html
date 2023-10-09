@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <link rel="stylesheet" href="loading.css">
   <!--
     If you are serving your web app in a path other than the root, change the
     href value below to reflect the base path you are serving from.
@@ -48,6 +49,14 @@
   </script>
 </head>
 <body>
+  <!-- Loading Indicator -->
+  <div class="center">
+    <img src="icons/Icon-512.png" alt="logo">
+  </div>
+  <div class="wrapper">
+      <p class="load-wrapper"><span class="loader"></span></p>
+  </div>
+  <!-- End Loading Indicator -->
   <script>
     window.addEventListener('load', function(ev) {
       // Download main.dart.js
