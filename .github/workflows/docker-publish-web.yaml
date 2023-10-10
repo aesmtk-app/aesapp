@@ -16,3 +16,4 @@ jobs:
         name: aws1313/aesmtk-app-frontend
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
+        tags: "latest,${{ steps.pre-step.outputs.release-version }}"
