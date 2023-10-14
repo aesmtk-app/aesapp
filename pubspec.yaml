@@ -23,6 +23,8 @@ dependencies:
   web_socket_channel: ^2.4.0
   basic_utils: ^5.6.1
   shared_preferences: ^2.2.1
+  dio: ^5.3.3
+  crypto: ^3.0.3
 
 dev_dependencies:
   flutter_test:

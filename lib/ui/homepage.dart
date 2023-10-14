@@ -1,3 +1,8 @@
+import 'dart:convert';
+
+import 'package:aesapp/static/app.dart';
+import 'package:crypto/crypto.dart';
+import 'package:dio/dio.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -17,9 +22,34 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late TextEditingController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(children: [
+      SizedBox(
+        width: 100,
+        child: TextField(
+          controller: _controller,
+          decoration: InputDecoration(
+            hintText: "Filter",
+            border: OutlineInputBorder()
+          ),
+        ),
+
+      ),
       ElevatedButton(
           onPressed: ()async{
             // init FCM
@@ -58,24 +88,12 @@ class _HomePageState extends State<HomePage> {
               }
             });
 
-            // FCM subscribe topic
-            // subscribe to topic on each app start-up
-            if(!kIsWeb){
-              await FirebaseMessaging.instance.subscribeToTopic('test');
-            }
+            // send to endpoint
+           await Dio().post(apiEndpoint+vplanSubscribe, queryParameters: {"token": token,"id":md5.convert(utf8.encode(token!)).toString(), "filter":_controller.text, "device":"Web",},);
 
           },
           child: const Text("setupFCM")
       ),
-      ElevatedButton(
-        child: const Text("testAppwrite"),
-        onPressed: ()async{
-
-        }
-      ),
-      Text(token?.substring(0,40)??"no token"),
-      if(token!=null)QrImageView(data: token!, size: 500,backgroundColor: Colors.white,),
-      ElevatedButton(onPressed: ()=>Get.toNamed("/test"), child: Text("test"))
     ],);
   }
 }
