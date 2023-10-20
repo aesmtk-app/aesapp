@@ -1,18 +1,22 @@
 import 'package:aesapp/objects/theme.dart';
+import 'package:aesapp/static/app.dart';
+import 'package:aesapp/static/hive.dart';
 import 'package:aesapp/static/themes.dart';
 import 'package:aesapp/ui/TestPage.dart';
 import 'package:aesapp/ui/page_selector.dart';
+import 'package:aesapp/ui/settings/settings_home.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:logging/logging.dart';
-import 'firebase_options.dart';
+import 'static/firebase_options.dart';
 import 'dart:io';
 import 'package:flutter_web_plugins/url_strategy.dart';
 final Logger logger = Logger("main");
-String? token;
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,
   // make sure you call `initializeApp` before using other Firebase services.
@@ -24,26 +28,71 @@ void main() async {
   usePathUrlStrategy();
 
   WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+  await Hive.openBox(HiveKeys.boxName);
+  Box box = Hive.box(HiveKeys.boxName);
+
+  // Logger
   Logger.root.level = Level.FINEST; // defaults to Level.INFO
   Logger.root.onRecord.listen((record) {
-    if (kDebugMode) {
+    if (kDebugMode||(box.get(HiveKeys.settings.debugging.enabled)??false)) {
       print(
           '${record.loggerName}: ${record.level.name}: ${record.time}: ${record.message}');
     }
   });
+  // set services
+  Get.put(DarkDashTheme() as AESTheme);
+  initFirebase().whenComplete(() => logger.info("fcm initialized"));
+  runApp(const AESApp());
+}
 
+Future initFirebase({bool force=false})async{
+  Box box = Hive.box(HiveKeys.boxName);
+  String? token;
   // init firebase
-  if(kIsWeb||Platform.isIOS||Platform.isAndroid||Platform.isMacOS){
+  if(AESAppUtils.supportsFCM()&&((box.get(HiveKeys.settings.notifications.fcmBasedNotificationsEnabled)??false)||force)){
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    // init FCM
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
+    logger.info('User granted permission: ${settings.authorizationStatus}');
+    logger.info("IsWeb: $kIsWeb");
+    // FCM
+
+    token = await messaging.getToken(
+      vapidKey: kIsWeb?"BKQDFqLyjkDiJXcilsd2nVjBVSoeRy5ydXzeMyIniZN-5VkJsW5HMLhqm-y8Zbtd7SosUksbJ0yYMJNzPHoSbOs":null,
+    );
+
+
+    logger.info("TOKEN: $token");
+
+    // FCM in foreground
+    FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      logger.info('Got a message whilst in the foreground!');
+      logger.info('Message data: ${message.data}');
+      logger.info(message.data.entries);
+
+      if (message.notification != null) {
+        logger.info('Message also contained a notification: ${message.notification}');
+        logger.info(message.notification?.title);
+        logger.info(message.notification?.body);
+      }
+    });
   }
-
-  // set services
-  Get.put(DarkDashTheme() as AESTheme);
-
-  runApp(const AESApp());
+  else{
+    logger.info("FCM not available or disabled");
+  }
 }
 
 class AESApp extends StatelessWidget {
@@ -59,8 +108,9 @@ class AESApp extends StatelessWidget {
         useMaterial3: true,
       ),
       getPages: [
-        GetPage(name: "/", page: ()=>PageSelector()),
-        GetPage(name: "/test", page: ()=>TestPage(),)
+        GetPage(name: "/", page: ()=>const PageSelector()),
+        GetPage(name: "/test", page: ()=>const TestPage(),),
+        ...SettingsCategory.categories.map((e) => GetPage(name: e.routeName, page: ()=>e.page()))
       ],
     );
   }
