@@ -6,7 +6,8 @@ import 'package:aesapp/ui/settings/notification_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 class SettingsHome extends StatefulWidget {
-  const SettingsHome({super.key});
+  const SettingsHome({this.calledAsWidget=false, super.key});
+  final bool calledAsWidget;
 
   @override
   State<SettingsHome> createState() => _SettingsHomeState();

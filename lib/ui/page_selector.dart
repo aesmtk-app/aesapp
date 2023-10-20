@@ -1,4 +1,5 @@
 import 'package:aesapp/main.dart';
+import 'package:aesapp/ui/TestPage.dart';
 import 'package:aesapp/ui/aesapp/appbar.dart';
 import 'package:aesapp/ui/homepage.dart';
 import 'package:aesapp/ui/settings/settings_home.dart';
@@ -7,15 +8,24 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
-class Page{
-  Page({ required this.id, required this.label, required this.icon, required this.selectedIcon, required this.showWhenPortrait, required this.showWhenLandscape, required this.content});
+class AESPage{
+  AESPage({ required this.id, required this.label, required this.icon, required this.selectedIcon, required this.showWhenPortrait, required this.showWhenLandscape, required this.page, required this.routeName});
   String label;
   int id;
   Icon icon;
   Icon selectedIcon;
   bool showWhenPortrait;
   bool showWhenLandscape;
-  Widget content;
+  Widget Function({bool asWidget}) page;
+  String routeName;
+  
+
+  static Map<int, AESPage> defaultPages = {
+    0:AESPage(id: 0, label: "Home", icon: const Icon(Icons.home), selectedIcon: const Icon(Icons.home_outlined), showWhenPortrait: true, page: ({bool asWidget=false})=> HomePage(), showWhenLandscape: true, routeName: "/home"),
+    1:AESPage(id: 1, label: "Vertretung", icon: const Icon(Icons.table_chart), selectedIcon: const Icon(Icons.table_chart_outlined), showWhenPortrait: true, page: ({bool asWidget=false})=>Container(), showWhenLandscape: true, routeName: "/vertretung"),
+    2:AESPage(id: 2, label: "test", icon: const Icon(Icons.table_chart), selectedIcon: const Icon(Icons.table_chart_outlined), showWhenPortrait: false, page: ({bool asWidget=false})=>const TestPage(), showWhenLandscape: false, routeName: "/test"),
+    99:AESPage(id: 99, label: "Settings", icon: const Icon(Icons.settings), selectedIcon: const Icon(Icons.settings_outlined), showWhenPortrait: true, showWhenLandscape: true, page: ({bool asWidget=false})=>const SettingsHome(), routeName: "/settings")
+  };
 }
 
 class PageSelector extends StatefulWidget {
@@ -26,54 +36,25 @@ class PageSelector extends StatefulWidget {
 }
 
 class _PageSelectorState extends State<PageSelector> {
-  Map<int, Page> defaultPages = {
-    0:Page(id: 0, label: "Home", icon: const Icon(Icons.home), selectedIcon: const Icon(Icons.home_outlined), showWhenPortrait: true, content: const HomePage(), showWhenLandscape: true),
-    1:Page(id: 1, label: "Vertretung", icon: const Icon(Icons.table_chart), selectedIcon: const Icon(Icons.table_chart_outlined), showWhenPortrait: true, content: Container(), showWhenLandscape: true),
-    2:Page(id: 2, label: "test", icon: const Icon(Icons.table_chart), selectedIcon: const Icon(Icons.table_chart_outlined), showWhenPortrait: false, content: Container(child: Text("teet"),), showWhenLandscape: false),
-    99:Page(id: 99, label: "Settings", icon: const Icon(Icons.settings), selectedIcon: const Icon(Icons.settings_outlined), showWhenPortrait: true, showWhenLandscape: true, content: const SettingsHome())
-  };
-  List<Page> pages = [];
+
+  List<AESPage> pages = [];
 
   @override
   void initState() {
-    pages = defaultPages.values.where((element) => element.showWhenLandscape).toList();
+    pages = AESPage.defaultPages.values.where((element) => element.showWhenLandscape).toList();
     super.initState();
   }
   int _selectedPageIndex = 0;
   int _selectedPageId = 0;
   bool isPortrait = true;
-  bool _isRailForwarded = false;
 
 
   void _changePage(int changeTo){
     setState(() {
       _selectedPageIndex = changeTo;
-      _selectedPageId = defaultPages.values.firstWhere((element) => pages[changeTo].id==element.id).id;
+      _selectedPageId = AESPage.defaultPages.values.firstWhere((element) => pages[changeTo].id==element.id).id;
     });
   }
-
-  Widget get menuButton => Builder(
-    builder: (BuildContext context) {
-      return IconButton(
-        icon: const Icon(Icons.menu),
-        onPressed: () {
-          Scaffold.of(context).openDrawer();
-        },
-        tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-
-      );
-    },
-  );
-
-  AppBar get appBar => AppBar(
-    title: Text(MediaQuery.of(context).orientation.name),
-    backgroundColor: Theme.of(context).colorScheme.tertiary,
-    leading: _isRailForwarded?null:(isPortrait?menuButton:Container()),
-    systemOverlayStyle: SystemUiOverlayStyle(
-      systemStatusBarContrastEnforced: true,
-      statusBarIconBrightness: Brightness.light,
-    ),
-  );
 
   NavigationBar get bottomNavigationBar => NavigationBar(
     backgroundColor: Theme.of(context).colorScheme.surface,
@@ -97,11 +78,13 @@ class _PageSelectorState extends State<PageSelector> {
       onDestinationSelected: _changePage,
       selectedIndex: _selectedPageIndex,
       labelType: NavigationRailLabelType.all,
-      leading: menuButton,
+      leading: CustomAppBar.menuButton(),
   );
 
   NavigationDrawer get navigationDrawer => NavigationDrawer(
-      children: defaultPages.map((key, value) => MapEntry(key, ListTile(
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      surfaceTintColor: Theme.of(context).colorScheme.surface,
+      children: AESPage.defaultPages.map((key, value) => MapEntry(key, ListTile(
         leading: value.icon,
         title: Text(value.label),
         onTap: (){
@@ -110,13 +93,12 @@ class _PageSelectorState extends State<PageSelector> {
             setState(() {
               _selectedPageId=key;
               _selectedPageIndex=0;
-              Page? p = pages.firstWhereOrNull((element) => element.id==key);
+              AESPage? p = pages.firstWhereOrNull((element) => element.id==key);
               _selectedPageIndex = p==null?0:pages.indexOf(p);
             });
           }
           else{
-            _isRailForwarded = true;
-            Get.to(()=>Scaffold(body: value.content, appBar: CustomAppBar.get(isRailForwarded: _isRailForwarded, title: value.label),))?.whenComplete(() => _isRailForwarded = false);
+            Get.toNamed(value.routeName);
           }
         },)
       )).values.toList()
@@ -127,14 +109,14 @@ class _PageSelectorState extends State<PageSelector> {
   Widget build(BuildContext context) {
     isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
     return Scaffold(
-      appBar: isPortrait?CustomAppBar.get(isRailForwarded: _isRailForwarded):null,
+      appBar: isPortrait?CustomAppBar.get():null,
       bottomNavigationBar: isPortrait? bottomNavigationBar:null,
       drawer: navigationDrawer,
       body: SafeArea(
           child: Row(
             children: [
               isPortrait?Container():navigationRail,
-              defaultPages[_selectedPageId]!.content,
+              AESPage.defaultPages[_selectedPageId]!.page(asWidget: true),
             ],
           )
       ),

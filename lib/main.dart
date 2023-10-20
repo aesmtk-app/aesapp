@@ -6,6 +6,7 @@ import 'package:aesapp/ui/TestPage.dart';
 import 'package:aesapp/ui/page_selector.dart';
 import 'package:aesapp/ui/settings/settings_home.dart';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -47,7 +48,7 @@ void main() async {
   runApp(const AESApp());
 }
 
-Future initFirebase({bool force=false})async{
+Future<bool> initFirebase({bool force=false})async{
   Box box = Hive.box(HiveKeys.boxName);
   String? token;
   // init firebase
@@ -90,9 +91,28 @@ Future initFirebase({bool force=false})async{
         logger.info(message.notification?.body);
       }
     });
+    if(token!=null&&box.get(HiveKeys.settings.notifications.fcmToken)!=token){
+      logger.info("Updating or creating token on api");
+      late dio.Response response;
+      if(box.get(HiveKeys.settings.notifications.aesAppId)==null){
+        response = await dio.Dio().post(apiEndpoint+subscribe, queryParameters: {"token":token});
+      }
+      else{
+        response = await dio.Dio().put(apiEndpoint+subscribe, queryParameters: {"id":box.get(HiveKeys.settings.notifications.aesAppId),"token":token});
+      }
+      if([200,201].contains(response.statusCode)){
+        box.put(HiveKeys.settings.notifications.fcmToken, token);
+        box.put(HiveKeys.settings.notifications.aesAppId, response.data["id"]);
+      }
+      else{
+        return false;
+      }
+    }
+    return true;
   }
   else{
     logger.info("FCM not available or disabled");
+    return false;
   }
 }
 
@@ -113,7 +133,8 @@ class AESApp extends StatelessWidget {
       getPages: [
         GetPage(name: "/", page: ()=>const PageSelector()),
         GetPage(name: "/test", page: ()=>const TestPage(),),
-        ...SettingsCategory.categories.map((e) => GetPage(name: e.routeName, page: ()=>e.page()))
+        ...SettingsCategory.categories.map((e) => GetPage(name: e.routeName, page: ()=>e.page())),
+        ...AESPage.defaultPages.values.map((e) => GetPage(name: e.routeName, page: ()=>e.page()))
       ],
     );
   }

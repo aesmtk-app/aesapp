@@ -11,11 +11,13 @@ import 'package:logging/logging.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import '../main.dart';
+import 'aesapp/appbar.dart';
 
 final logger = Logger("appwrite");
 
 class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+  const HomePage({this.calledAsWidget=false, super.key});
+  final bool calledAsWidget;
 
   @override
   State<HomePage> createState() => _HomePageState();
@@ -38,27 +40,30 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      SizedBox(
-        width: 100,
-        child: TextField(
-          controller: _controller,
-          decoration: InputDecoration(
-            hintText: "Filter",
-            border: OutlineInputBorder()
+    return Scaffold(
+      appBar: context.isPortrait||(!widget.calledAsWidget)?CustomAppBar.get(title: "Home"):null,
+      body: Column(children: [
+        SizedBox(
+          width: 100,
+          child: TextField(
+            controller: _controller,
+            decoration: InputDecoration(
+                hintText: "Filter",
+                border: OutlineInputBorder()
+            ),
           ),
+
         ),
+        ElevatedButton(
+            onPressed: ()async{
+              AESAppUtils.showErrorToast(Navigator.canPop(context).toString());
 
-      ),
-      ElevatedButton(
-          onPressed: ()async{
-            AESAppUtils.showErrorToast(Navigator.canPop(context).toString());
+              // send to endpoint
 
-            // send to endpoint
-
-          },
-          child: const Text("setupFCM")
-      ),
-    ],);
+            },
+            child: const Text("setupFCM")
+        ),
+      ],),
+    );
   }
 }

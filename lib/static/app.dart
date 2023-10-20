@@ -6,8 +6,9 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-const apiEndpoint = "https:://api.aesmtk.app";
+const apiEndpoint = "https://api.aesmtk.app";
 const vplanSubscribe = "/vplan/subscribe";
+const subscribe = "/subscribe";
 
 class AESAppUtils{
   static int getLandscapeSecondFlexFactor(BuildContext context){
