@@ -1,6 +1,7 @@
 import 'package:aesapp/main.dart';
 import 'package:aesapp/static/app.dart';
 import 'package:aesapp/static/hive.dart';
+import 'package:aesapp/ui/aesapp/appbar.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart' as fcm;
 import 'package:flutter/material.dart';
@@ -55,6 +56,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
           sound: true,
         );
         if(!(settings.authorizationStatus==fcm.AuthorizationStatus.authorized)){
+          AESAppUtils.showErrorToast("Berechtigung verwehrt");
           return;
         }
         pd.update(msg: "Firebase einrichten");
@@ -81,7 +83,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: context.isPortrait||(!widget.calledAsWidget)?AppBar():null,
+      appBar: context.isPortrait||(!widget.calledAsWidget)?CustomAppBar.get(title: "Benachrichtigungen"):null,
       body: ListView(
         children: [
           ListTile(
@@ -93,6 +95,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
             title: Text("Benachrichtungen durch Firebase-Cloud-Messaging (Google)"),
             value: fcmEnabled,
             onChanged: setFCM,
+            thumbColor: MaterialStateProperty.resolveWith((states) => AESAppUtils.getSwitchThumbColor(states)),
           ),
         ],
       ),

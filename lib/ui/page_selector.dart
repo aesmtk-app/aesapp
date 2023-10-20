@@ -1,4 +1,5 @@
 import 'package:aesapp/main.dart';
+import 'package:aesapp/ui/aesapp/appbar.dart';
 import 'package:aesapp/ui/homepage.dart';
 import 'package:aesapp/ui/settings/settings_home.dart';
 import 'package:flutter/material.dart';
@@ -115,7 +116,7 @@ class _PageSelectorState extends State<PageSelector> {
           }
           else{
             _isRailForwarded = true;
-            Get.to(()=>Scaffold(body: value.content, appBar: appBar,))?.whenComplete(() => _isRailForwarded = false);
+            Get.to(()=>Scaffold(body: value.content, appBar: CustomAppBar.get(isRailForwarded: _isRailForwarded, title: value.label),))?.whenComplete(() => _isRailForwarded = false);
           }
         },)
       )).values.toList()
@@ -126,7 +127,7 @@ class _PageSelectorState extends State<PageSelector> {
   Widget build(BuildContext context) {
     isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
     return Scaffold(
-      appBar: isPortrait?appBar:null,
+      appBar: isPortrait?CustomAppBar.get(isRailForwarded: _isRailForwarded):null,
       bottomNavigationBar: isPortrait? bottomNavigationBar:null,
       drawer: navigationDrawer,
       body: SafeArea(

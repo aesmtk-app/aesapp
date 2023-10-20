@@ -5,6 +5,7 @@ import 'package:aesapp/static/themes.dart';
 import 'package:aesapp/ui/TestPage.dart';
 import 'package:aesapp/ui/page_selector.dart';
 import 'package:aesapp/ui/settings/settings_home.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -107,6 +108,8 @@ class AESApp extends StatelessWidget {
         colorScheme: DarkDashTheme().toSwatchScheme(),
         useMaterial3: true,
       ),
+      builder: BotToastInit(),
+      navigatorObservers: [BotToastNavigatorObserver()],
       getPages: [
         GetPage(name: "/", page: ()=>const PageSelector()),
         GetPage(name: "/test", page: ()=>const TestPage(),),

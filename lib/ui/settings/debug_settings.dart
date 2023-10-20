@@ -1,3 +1,5 @@
+import 'package:aesapp/static/app.dart';
+import 'package:aesapp/ui/aesapp/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
@@ -30,7 +32,7 @@ class _DebugSettingsState extends State<DebugSettings> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: context.isPortrait||(!widget.calledAsWidget)?AppBar():null,
+      appBar: context.isPortrait||(!widget.calledAsWidget)?CustomAppBar.get(title: "Debugging"):null,
       body: ListView(
         children: [
           ListTile(
@@ -41,6 +43,7 @@ class _DebugSettingsState extends State<DebugSettings> {
             title: Text("Debugging-Eintellungen eingeschaltet?"),
             value: enabled,
             onChanged: setEnabled,
+            thumbColor: MaterialStateProperty.resolveWith((states) => AESAppUtils.getSwitchThumbColor(states)),
 
           )
         ],
