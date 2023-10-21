@@ -13,7 +13,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 import '../main.dart';
 import 'aesapp/appbar.dart';
 
-final logger = Logger("appwrite");
+final logger = Logger("home");
 
 class HomePage extends StatefulWidget {
   const HomePage({this.calledAsWidget=false, super.key});
@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: context.isPortrait||(!widget.calledAsWidget)?CustomAppBar.get(title: "Home"):null,
+      appBar: (!widget.calledAsWidget)?CustomAppBar.get(title: "Home"):null,
       body: Column(children: [
         SizedBox(
           width: 100,

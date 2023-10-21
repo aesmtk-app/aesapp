@@ -5,6 +5,8 @@ import 'package:aesapp/ui/settings/debug_settings.dart';
 import 'package:aesapp/ui/settings/notification_settings.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../aesapp/appbar.dart';
 class SettingsHome extends StatefulWidget {
   const SettingsHome({this.calledAsWidget=false, super.key});
   final bool calledAsWidget;
@@ -42,26 +44,29 @@ class _SettingsHomeState extends State<SettingsHome> {
   @override
   Widget build(BuildContext context) {
 
-    return Expanded(child: Row(
-      children: [
-        Flexible(
-          flex: 700,
-          child: ListView.builder(
-              itemCount: SettingsCategory.categories.length,
+    return Scaffold(
+      appBar: (!widget.calledAsWidget)?CustomAppBar.get(title: "Einstellungen"):null,
+      body: Row(
+        children: [
+          Flexible(
+            flex: 700,
+            child: ListView.builder(
+                itemCount: SettingsCategory.categories.length,
 
-              itemBuilder: (BuildContext context, int index){
-                SettingsCategory e = SettingsCategory.categories[index];
-                return ListTile(leading: e.icon, title: Text(e.title), subtitle: Text(e.description), onTap: ()=>_onCategorySelect(e),);
-              }
+                itemBuilder: (BuildContext context, int index){
+                  SettingsCategory e = SettingsCategory.categories[index];
+                  return ListTile(leading: e.icon, title: Text(e.title), subtitle: Text(e.description), onTap: ()=>_onCategorySelect(e),);
+                }
+            ),
+
           ),
-
-        ),
-        if (context.isLandscape)
-          const VerticalDivider(),
-        if (context.isLandscape)
-          Flexible(flex: AESAppUtils.getLandscapeSecondFlexFactor(context),child: _selectedPage,)
-      ],
-    ));
+          if (context.isLandscape)
+            const VerticalDivider(),
+          if (context.isLandscape)
+            Flexible(flex: AESAppUtils.getLandscapeSecondFlexFactor(context),child: _selectedPage,)
+        ],
+      ),
+    );
   }
 }
 class SelectCategory extends StatelessWidget {

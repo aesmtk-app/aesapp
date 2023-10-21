@@ -21,10 +21,10 @@ class AESPage{
   
 
   static Map<int, AESPage> defaultPages = {
-    0:AESPage(id: 0, label: "Home", icon: const Icon(Icons.home), selectedIcon: const Icon(Icons.home_outlined), showWhenPortrait: true, page: ({bool asWidget=false})=> HomePage(), showWhenLandscape: true, routeName: "/home"),
+    0:AESPage(id: 0, label: "Home", icon: const Icon(Icons.home), selectedIcon: const Icon(Icons.home_outlined), showWhenPortrait: true, page: ({bool asWidget=false})=> HomePage(calledAsWidget: asWidget,), showWhenLandscape: true, routeName: "/home"),
     1:AESPage(id: 1, label: "Vertretung", icon: const Icon(Icons.table_chart), selectedIcon: const Icon(Icons.table_chart_outlined), showWhenPortrait: true, page: ({bool asWidget=false})=>Container(), showWhenLandscape: true, routeName: "/vertretung"),
-    2:AESPage(id: 2, label: "test", icon: const Icon(Icons.table_chart), selectedIcon: const Icon(Icons.table_chart_outlined), showWhenPortrait: false, page: ({bool asWidget=false})=>const TestPage(), showWhenLandscape: false, routeName: "/test"),
-    99:AESPage(id: 99, label: "Settings", icon: const Icon(Icons.settings), selectedIcon: const Icon(Icons.settings_outlined), showWhenPortrait: true, showWhenLandscape: true, page: ({bool asWidget=false})=>const SettingsHome(), routeName: "/settings")
+    2:AESPage(id: 2, label: "test", icon: const Icon(Icons.table_chart), selectedIcon: const Icon(Icons.table_chart_outlined), showWhenPortrait: false, page: ({bool asWidget=false})=>TestPage(calledAsWidget: asWidget,), showWhenLandscape: false, routeName: "/test"),
+    99:AESPage(id: 99, label: "Settings", icon: const Icon(Icons.settings), selectedIcon: const Icon(Icons.settings_outlined), showWhenPortrait: true, showWhenLandscape: true, page: ({bool asWidget=false})=>SettingsHome(calledAsWidget: asWidget,), routeName: "/settings")
   };
 }
 
@@ -116,7 +116,7 @@ class _PageSelectorState extends State<PageSelector> {
           child: Row(
             children: [
               isPortrait?Container():navigationRail,
-              AESPage.defaultPages[_selectedPageId]!.page(asWidget: true),
+              Expanded(child: AESPage.defaultPages[_selectedPageId]!.page(asWidget: true)),
             ],
           )
       ),
