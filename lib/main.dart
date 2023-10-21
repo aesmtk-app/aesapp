@@ -1,4 +1,5 @@
 import 'package:aesapp/objects/theme.dart';
+import 'package:aesapp/static/api.dart';
 import 'package:aesapp/static/app.dart';
 import 'package:aesapp/static/hive.dart';
 import 'package:aesapp/static/themes.dart';
@@ -30,9 +31,11 @@ void main() async {
   usePathUrlStrategy();
 
   WidgetsFlutterBinding.ensureInitialized();
+  // init hive
   await Hive.initFlutter();
   await Hive.openBox(HiveKeys.boxName);
   Box box = Hive.box(HiveKeys.boxName);
+  if(box.get(HiveKeys.apiEndpoint)==null) box.put(HiveKeys.apiEndpoint, API.defaultApiEndpoint);
 
   // Logger
   Logger.root.level = Level.FINEST; // defaults to Level.INFO
@@ -95,10 +98,10 @@ Future<bool> initFirebase({bool force=false})async{
       logger.info("Updating or creating token on api");
       late dio.Response response;
       if(box.get(HiveKeys.settings.notifications.aesAppId)==null){
-        response = await dio.Dio().post(apiEndpoint+subscribe, queryParameters: {"token":token});
+        response = await dio.Dio().post(box.get(HiveKeys.apiEndpoint)+subscribe, queryParameters: {"token":token});
       }
       else{
-        response = await dio.Dio().put(apiEndpoint+subscribe, queryParameters: {"id":box.get(HiveKeys.settings.notifications.aesAppId),"token":token});
+        response = await dio.Dio().put(box.get(HiveKeys.apiEndpoint)+subscribe, queryParameters: {"id":box.get(HiveKeys.settings.notifications.aesAppId),"token":token});
       }
       if([200,201].contains(response.statusCode)){
         box.put(HiveKeys.settings.notifications.fcmToken, token);

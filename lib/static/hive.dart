@@ -1,5 +1,6 @@
 class HiveKeys{
   static String boxName = "aesapp";
+  static String apiEndpoint = "api_endpoint";
   static HiveSettingsKeys settings = HiveSettingsKeys();
 }
 

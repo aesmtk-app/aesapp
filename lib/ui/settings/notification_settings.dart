@@ -31,6 +31,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
 
   Future setFCM(bool enabled)async{
     if (!AESAppUtils.supportsFCM()&&enabled){
+      AESAppUtils.showErrorToast("OS not supported");
       logger.warning("FCM not supported");
       return;
     }
