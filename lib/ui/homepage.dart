@@ -4,10 +4,9 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 import 'package:logging/logging.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:http/http.dart' as http;
-import 'package:html/dom.dart' as dom;
 
 
 
@@ -31,17 +30,8 @@ class _HomePageState extends State<HomePage> {
     super.initState();
   }
 
-  Future<void> getWebdata() async{
+  Future getWebdata() async{
     
-    var response = await http.get(Uri.parse('https://www.google.com'),headers: {"Access-Control-Allow-Origin": "*","Access-Control-Allow-Methods": "POST, GET, OPTIONS, PUT, DELETE, HEAD",});
-    
-    //dom.Document html = dom.Document.html(response.body);
-
-
-    //final titel = html.querySelector('div.items-leading.clearfix > div > h2 > a')?.innerHtml;
-
-    debugPrint('Count: ${response}');
-
   }
 
 
