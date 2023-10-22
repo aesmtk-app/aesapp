@@ -1,14 +1,16 @@
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:aesapp/static/themes.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hive/hive.dart';
+
+import 'hive.dart';
 
 const apiEndpoint = "https://api.aesmtk.app";
-const vplanSubscribe = "/vplan/subscribe";
-const subscribe = "/subscribe";
 
 class AESAppUtils{
   static int getLandscapeSecondFlexFactor(BuildContext context){
@@ -39,5 +41,12 @@ class AESAppUtils{
   static void showErrorToast(String msg){
     BuildContext context = Get.context!;
     BotToast.showText(duration: const Duration(seconds: 4),text: "FEHLER: $msg", borderRadius: BorderRadius.circular(20.0), contentColor: Theme.of(context).colorScheme.surface, textStyle: TextStyle(color: Theme.of(context).colorScheme.primary));
+  }
+  static ThemeData getTheme(){
+    Box box = Hive.box(HiveKeys.boxName);
+    return ThemeData(
+      colorScheme: (box.get(HiveKeys.settings.appearance.materialYouEnabled)??false)?ColorScheme.fromSeed(seedColor: Color(box.get(HiveKeys.settings.appearance.materialYouColorValue)),brightness: WidgetsBinding.instance.platformDispatcher.platformBrightness):DarkDashTheme().toSwatchScheme(),
+      useMaterial3: true,
+    );
   }
 }

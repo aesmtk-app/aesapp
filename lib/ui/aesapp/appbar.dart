@@ -26,6 +26,8 @@ class CustomAppBar{
   static AppBar get({String title="AESMTK-APP", bool isRailForwarded=true}){
     BuildContext context = Get.context!;
     return AppBar(
+      elevation: 0.0,
+      scrolledUnderElevation: 0.0,
       title: Text(title),
       leading: Navigator.canPop(context)?null:((Get.currentRoute!="/")?homeButton():menuButton()),
     );

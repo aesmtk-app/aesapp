@@ -17,7 +17,6 @@ import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:logging/logging.dart';
 import 'static/firebase_options.dart';
-import 'dart:io';
 import 'package:flutter_web_plugins/url_strategy.dart';
 final Logger logger = Logger("main");
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -29,14 +28,14 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 void main() async {
   usePathUrlStrategy();
-
+  // set services
   WidgetsFlutterBinding.ensureInitialized();
+  Get.put(DarkDashTheme() as AESTheme);
   // init hive
   await Hive.initFlutter();
   await Hive.openBox(HiveKeys.boxName);
+  await HiveKeys.setDefaults();
   Box box = Hive.box(HiveKeys.boxName);
-  if(box.get(HiveKeys.apiEndpoint)==null) box.put(HiveKeys.apiEndpoint, API.defaultApiEndpoint);
-
   // Logger
   Logger.root.level = Level.FINEST; // defaults to Level.INFO
   Logger.root.onRecord.listen((record) {
@@ -45,10 +44,9 @@ void main() async {
           '${record.loggerName}: ${record.level.name}: ${record.time}: ${record.message}');
     }
   });
-  // set services
-  Get.put(DarkDashTheme() as AESTheme);
+
   initFirebase().whenComplete(() => logger.info("fcm initialized"));
-  runApp(const AESApp());
+  runApp(AESApp(box: box,));
 }
 
 Future<bool> initFirebase({bool force=false})async{
@@ -98,10 +96,10 @@ Future<bool> initFirebase({bool force=false})async{
       logger.info("Updating or creating token on api");
       late dio.Response response;
       if(box.get(HiveKeys.settings.notifications.aesAppId)==null){
-        response = await dio.Dio().post(box.get(HiveKeys.apiEndpoint)+subscribe, queryParameters: {"token":token});
+        response = await dio.Dio().post(API.apiEndpoint+API.subscribe, queryParameters: {"token":token});
       }
       else{
-        response = await dio.Dio().put(box.get(HiveKeys.apiEndpoint)+subscribe, queryParameters: {"id":box.get(HiveKeys.settings.notifications.aesAppId),"token":token});
+        response = await dio.Dio().put(API.apiEndpoint+API.subscribe, queryParameters: {"id":box.get(HiveKeys.settings.notifications.aesAppId),"token":token});
       }
       if([200,201].contains(response.statusCode)){
         box.put(HiveKeys.settings.notifications.fcmToken, token);
@@ -120,17 +118,16 @@ Future<bool> initFirebase({bool force=false})async{
 }
 
 class AESApp extends StatelessWidget {
-  const AESApp({super.key});
+  const AESApp({required this.box, super.key});
+  final Box box;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: DarkDashTheme().toSwatchScheme(),
-        useMaterial3: true,
-      ),
+      title: 'AESMTK-APP',
+      theme: AESAppUtils.getTheme(),
+      themeMode: ThemeMode.light, // until get v5 released
       builder: BotToastInit(),
       navigatorObservers: [BotToastNavigatorObserver()],
       getPages: [

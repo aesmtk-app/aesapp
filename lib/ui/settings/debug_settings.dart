@@ -18,7 +18,6 @@ class _DebugSettingsState extends State<DebugSettings> {
 
   @override
   void initState() {
-    enabled = box.get(HiveKeys.settings.debugging.enabled)??false;
     super.initState();
   }
 
@@ -31,8 +30,10 @@ class _DebugSettingsState extends State<DebugSettings> {
 
   @override
   Widget build(BuildContext context) {
+    enabled = box.get(HiveKeys.settings.debugging.enabled)??false;
+
     return Scaffold(
-      appBar: context.isPortrait||(!widget.calledAsWidget)?CustomAppBar.get(title: "Debugging"):null,
+      appBar: (!widget.calledAsWidget)?CustomAppBar.get(title: "Debugging"):null,
       body: ListView(
         children: [
           ListTile(
@@ -50,6 +51,10 @@ class _DebugSettingsState extends State<DebugSettings> {
             title: Text("API-Endpoint"),
             subtitle: Text(box.get(HiveKeys.apiEndpoint)),
             onTap: ()=>Get.dialog(const APIEndpointDialog()).then((value) {setState(() {});}),
+          ),
+          ListTile(
+            title: Text("Speicher zurücksetzen"),
+            trailing: ElevatedButton(child: Text("Reset"),onPressed: ()async=>await HiveKeys.reset().then((value){setState(() {});}),),
           )
         ],
       ),

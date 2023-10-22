@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:aesapp/static/app.dart';
+import 'package:aesapp/ui/settings/appearance_settings.dart';
 import 'package:aesapp/ui/settings/debug_settings.dart';
 import 'package:aesapp/ui/settings/notification_settings.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,7 @@ class SettingsCategory{
   Widget Function({bool asWidget}) page;
 
   static List<SettingsCategory> categories = [
+    SettingsCategory(icon: const Icon(Icons.palette), title: "Design & Aussehen", description: "Erscheinungsbild anpassen", routeName: "/settings/appearance", page: ({bool asWidget=false})=>AppearanceSettings(calledAsWidget: asWidget,)),
     SettingsCategory(icon: const Icon(Icons.message), title: "Benachrichtungen", description: "Benachrictigungen verwalten", routeName: "/settings/notifications", page: ({bool asWidget=false})=>NotificationSettings(calledAsWidget: asWidget,)),
     SettingsCategory(icon: const Icon(Icons.bug_report), title: "Debugging", description: "Debugging-Einstellungen", routeName: "/settings/debugging", page: ({bool asWidget=false})=>DebugSettings(calledAsWidget: asWidget,))
   ];
