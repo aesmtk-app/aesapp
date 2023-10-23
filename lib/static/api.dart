@@ -7,4 +7,5 @@ class API{
   static String vPlanSubscribe = "/vplan/subscribe";
   static String vPlan = "/vplan";
   static String subscribe = "/subscribe";
+  static String mensa = "/mensa";
 }

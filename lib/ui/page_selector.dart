@@ -2,6 +2,7 @@ import 'package:aesapp/main.dart';
 import 'package:aesapp/ui/TestPage.dart';
 import 'package:aesapp/ui/aesapp/appbar.dart';
 import 'package:aesapp/ui/homepage.dart';
+import 'package:aesapp/ui/mensa/mensa_page.dart';
 import 'package:aesapp/ui/settings/settings_home.dart';
 import 'package:aesapp/ui/vplan/vplan_page.dart';
 import 'package:flutter/material.dart';
@@ -24,6 +25,7 @@ class AESPage{
   static Map<int, AESPage> defaultPages = {
     0:AESPage(id: 0, label: "Home", icon: const Icon(Icons.home), selectedIcon: const Icon(Icons.home_outlined), showWhenPortrait: true, page: ({bool asWidget=false})=> HomePage(calledAsWidget: asWidget,), showWhenLandscape: true, routeName: "/home"),
     1:AESPage(id: 1, label: "Vertretung", icon: const Icon(Icons.table_chart), selectedIcon: const Icon(Icons.table_chart_outlined), showWhenPortrait: true, page: ({bool asWidget=false})=>VPlanPage(calledAsWidget: asWidget,), showWhenLandscape: true, routeName: "/vplan"),
+    3:AESPage(id: 3, label: "Mensa", icon: const Icon(Icons.restaurant_menu), selectedIcon: const Icon(Icons.restaurant_menu_outlined), showWhenPortrait: true, showWhenLandscape: true, page: ({bool asWidget=false})=>MensaPage(calledAsWidget: asWidget,), routeName: "/mensa"),
     2:AESPage(id: 2, label: "test", icon: const Icon(Icons.table_chart), selectedIcon: const Icon(Icons.table_chart_outlined), showWhenPortrait: false, page: ({bool asWidget=false})=>TestPage(calledAsWidget: asWidget,), showWhenLandscape: false, routeName: "/test"),
     99:AESPage(id: 99, label: "Settings", icon: const Icon(Icons.settings), selectedIcon: const Icon(Icons.settings_outlined), showWhenPortrait: true, showWhenLandscape: true, page: ({bool asWidget=false})=>SettingsHome(calledAsWidget: asWidget,), routeName: "/settings")
   };
