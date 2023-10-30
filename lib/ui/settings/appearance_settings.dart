@@ -45,27 +45,27 @@ class _AppearanceSettingsState extends State<AppearanceSettings> {
   Widget build(BuildContext context) {
     materialYouEnabled = box.get(HiveKeys.settings.appearance.materialYouEnabled)??false;
     return Scaffold(
-      appBar: (!widget.calledAsWidget)?CustomAppBar.get(title: "Debugging"):null,
+      appBar: (!widget.calledAsWidget)?CustomAppBar.get(title: "Aussehen"):null,
       body: ListView(
         children: [
-          ListTile(
-            title: Text("MaterialYou"),
-            textColor: Theme.of(context).colorScheme.primary,
-          ),
           FutureBuilder(
               future: supportMaterialYou,
               builder: (BuildContext context, AsyncSnapshot<bool> snap){
-                print(snap.data);
-            return ColorFiltered(
-              colorFilter: ColorFilter.mode(
-                (snap.hasData&&snap.data!)?Colors.transparent:Colors.grey,
-                BlendMode.saturation,
-              ),
-              child: SwitchListTile(
-                  title: Text("MaterialYou nutzen?"),
-                  value: materialYouEnabled, onChanged: setMaterialYouEnabled
-              ),
-            );
+                  return Column(
+                    children: [
+                      if(snap.hasData&&snap.data!)
+                      ListTile(
+                        title: Text("MaterialYou"),
+                        textColor: Theme.of(context).colorScheme.primary,
+                      ),
+                      if(snap.hasData&&snap.data!)
+                      SwitchListTile(
+                          title: Text("MaterialYou nutzen?"),
+                          subtitle: Text("Passe an System an (Android 12+)"),
+                          value: materialYouEnabled, onChanged: setMaterialYouEnabled
+                      ),
+                    ],
+                  );
 
               })
 

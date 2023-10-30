@@ -12,10 +12,13 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:intl/date_symbol_data_file.dart';
 import 'package:logging/logging.dart';
+import 'generated/l10n.dart';
 import 'static/firebase_options.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 final Logger logger = Logger("main");
@@ -136,6 +139,14 @@ class AESApp extends StatelessWidget {
         ...SettingsCategory.categories.map((e) => GetPage(name: e.routeName, page: ()=>e.page())),
         ...AESPage.defaultPages.values.map((e) => GetPage(name: e.routeName, page: ()=>e.page()))
       ],
+
+      localizationsDelegates: const [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
     );
   }
 }
