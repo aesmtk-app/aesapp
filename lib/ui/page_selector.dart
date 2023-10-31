@@ -1,4 +1,3 @@
-import 'package:aesapp/main.dart';
 import 'package:aesapp/ui/TestPage.dart';
 import 'package:aesapp/ui/aesapp/appbar.dart';
 import 'package:aesapp/ui/homepage.dart';
@@ -6,9 +5,7 @@ import 'package:aesapp/ui/mensa/mensa_page.dart';
 import 'package:aesapp/ui/settings/settings_home.dart';
 import 'package:aesapp/ui/vplan/vplan_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class AESPage{
   AESPage({ required this.id, required this.label, required this.icon, required this.selectedIcon, required this.showWhenPortrait, required this.showWhenLandscape, required this.page, required this.routeName});

@@ -88,12 +88,12 @@ class _NotificationSettingsState extends State<NotificationSettings> {
       body: ListView(
         children: [
           ListTile(
-            title: Text("Notifications-Provider"),
+            title: const Text("Notifications-Provider"),
             textColor: Theme.of(context).colorScheme.primary,
           ),
           // FMC enabled?
           SwitchListTile(
-            title: Text("Benachrichtungen durch Firebase-Cloud-Messaging (Google)"),
+            title: const Text("Benachrichtungen durch Firebase-Cloud-Messaging (Google)"),
             value: fcmEnabled,
             onChanged: setFCM,
             thumbColor: MaterialStateProperty.resolveWith((states) => AESAppUtils.getSwitchThumbColor(states)),

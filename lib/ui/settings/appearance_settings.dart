@@ -9,7 +9,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart' as hive;
-import 'package:material_color_utilities/material_color_utilities.dart';
 
 import 'package:aesapp/static/hive.dart';
 class AppearanceSettings extends StatefulWidget {
@@ -55,13 +54,13 @@ class _AppearanceSettingsState extends State<AppearanceSettings> {
                     children: [
                       if(snap.hasData&&snap.data!)
                       ListTile(
-                        title: Text("MaterialYou"),
+                        title: const Text("MaterialYou"),
                         textColor: Theme.of(context).colorScheme.primary,
                       ),
                       if(snap.hasData&&snap.data!)
                       SwitchListTile(
-                          title: Text("MaterialYou nutzen?"),
-                          subtitle: Text("Passe an System an (Android 12+)"),
+                          title: const Text("MaterialYou nutzen?"),
+                          subtitle: const Text("Passe an System an (Android 12+)"),
                           value: materialYouEnabled, onChanged: setMaterialYouEnabled
                       ),
                     ],

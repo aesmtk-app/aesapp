@@ -47,7 +47,7 @@ class TestPage extends StatelessWidget {
             )
           );
         }
-        return CircularProgressIndicator();
+        return const CircularProgressIndicator();
       })
     ],
       )

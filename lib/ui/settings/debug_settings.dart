@@ -37,24 +37,24 @@ class _DebugSettingsState extends State<DebugSettings> {
       body: ListView(
         children: [
           ListTile(
-            title: Text("Debugging-Einstellungen"),
+            title: const Text("Debugging-Einstellungen"),
             textColor: Theme.of(context).colorScheme.primary,
           ),
           SwitchListTile(
-            title: Text("Debugging-Eintellungen eingeschaltet?"),
+            title: const Text("Debugging-Eintellungen eingeschaltet?"),
             value: enabled,
             onChanged: setEnabled,
             thumbColor: MaterialStateProperty.resolveWith((states) => AESAppUtils.getSwitchThumbColor(states)),
 
           ),
           ListTile(
-            title: Text("API-Endpoint"),
+            title: const Text("API-Endpoint"),
             subtitle: Text(box.get(HiveKeys.apiEndpoint)),
             onTap: ()=>Get.dialog(const APIEndpointDialog()).then((value) {setState(() {});}),
           ),
           ListTile(
-            title: Text("Speicher zurücksetzen"),
-            trailing: ElevatedButton(child: Text("Reset"),onPressed: ()async=>await HiveKeys.reset().then((value){setState(() {});}),),
+            title: const Text("Speicher zurücksetzen"),
+            trailing: ElevatedButton(child: const Text("Reset"),onPressed: ()async=>await HiveKeys.reset().then((value){setState(() {});}),),
           )
         ],
       ),
@@ -84,7 +84,7 @@ class _APIEndpointDialogState extends State<APIEndpointDialog> {
     return AlertDialog(
       surfaceTintColor: Theme.of(context).colorScheme.surface,
       actions: [
-        ElevatedButton(onPressed: ()=>Get.back(), child: Text("Abbrechen")),
+        ElevatedButton(onPressed: ()=>Get.back(), child: const Text("Abbrechen")),
         ElevatedButton(
             onPressed: (){
               if (_formKey.currentState!.validate()) {
@@ -92,7 +92,7 @@ class _APIEndpointDialogState extends State<APIEndpointDialog> {
                 Get.back();
               }
             },
-            child: Text("Speichern")
+            child: const Text("Speichern")
         )
       ],
       content: Form(

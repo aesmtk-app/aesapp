@@ -1,16 +1,8 @@
-import 'dart:convert';
 
 import 'package:aesapp/static/app.dart';
-import 'package:crypto/crypto.dart';
-import 'package:dio/dio.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:logging/logging.dart';
-import 'package:qr_flutter/qr_flutter.dart';
 
-import '../main.dart';
 import 'aesapp/appbar.dart';
 
 final logger = Logger("home");
@@ -47,7 +39,7 @@ class _HomePageState extends State<HomePage> {
           width: 100,
           child: TextField(
             controller: _controller,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
                 hintText: "Filter",
                 border: OutlineInputBorder()
             ),

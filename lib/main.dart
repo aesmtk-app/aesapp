@@ -1,4 +1,3 @@
-import 'package:aesapp/objects/theme.dart';
 import 'package:aesapp/static/api.dart';
 import 'package:aesapp/static/app.dart';
 import 'package:aesapp/static/hive.dart';
@@ -14,9 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:intl/date_symbol_data_file.dart';
 import 'package:logging/logging.dart';
 import 'generated/l10n.dart';
 import 'static/firebase_options.dart';
@@ -33,7 +30,7 @@ void main() async {
   usePathUrlStrategy();
   // set services
   WidgetsFlutterBinding.ensureInitialized();
-  Get.put(DarkDashTheme() as AESTheme);
+  Get.put(DarkDashTheme());
   // init hive
   await Hive.initFlutter();
   await Hive.openBox(HiveKeys.boxName);

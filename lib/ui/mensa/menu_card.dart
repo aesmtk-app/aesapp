@@ -15,18 +15,18 @@ class MenuCard extends StatelessWidget {
                   children: [
                     Expanded(child: Text(menu.normal??"Kein Essen", maxLines: 5, softWrap: true, textAlign: TextAlign.center,),),
                     if(menu.veggie!=null)
-                      VerticalDivider(width: 0, thickness: 0,),
+                      const VerticalDivider(width: 0, thickness: 0,),
                     if(menu.veggie!=null)
                       Expanded(child: Text(menu.veggie!,  maxLines: 5, softWrap: true, textAlign: TextAlign.center,)),
                     if(menu.pasta!=null)
-                      VerticalDivider(width: 0, thickness: 0,),
+                      const VerticalDivider(width: 0, thickness: 0,),
                     if(menu.pasta!=null)
                       Expanded(child: Text(menu.pasta!,  maxLines: 5, softWrap: true, textAlign: TextAlign.center,))
 
                   ],),
               ),
               if(menu.dessert!=null)
-                Divider(height: 0,thickness: 0,),
+                const Divider(height: 0,thickness: 0,),
               if(menu.dessert!=null)
                 Text(menu.dessert!,  maxLines: 5, softWrap: true, textAlign: TextAlign.center,)
             ],

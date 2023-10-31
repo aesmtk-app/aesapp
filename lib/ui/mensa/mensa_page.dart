@@ -42,7 +42,7 @@ class _MensaPageState extends State<MensaPage> {
               return Row(
                 children: [
                   Flexible(
-                    flex: 500,
+                    flex: 550,
                     child: ListView(
                       children: menusByWeek.values.map((e) => Column(
                         children: [
@@ -55,12 +55,12 @@ class _MensaPageState extends State<MensaPage> {
                   if (context.isLandscape)
                     const VerticalDivider(),
                   if (context.isLandscape)
-                    Flexible(flex: AESAppUtils.getLandscapeSecondFlexFactor(context),child: Placeholder(),)
+                    Flexible(flex: AESAppUtils.getLandscapeSecondFlexFactor(context),child: const Placeholder(),)
                 ],
               );
             }
           }
-          return CircularProgressIndicator();
+          return const Center(child: CircularProgressIndicator());
         },
       ),
     );

@@ -23,13 +23,13 @@ class VPlanCard extends StatelessWidget {
           children: v.isInfo?[
             Expanded(child: Text(
               v.comment??"",
-              style: TextStyle(color: Colors.black, ),
+              style: const TextStyle(color: Colors.black, ),
               textAlign: TextAlign.center,
             ))
           ]:[
             Text(
               (v.lessonStart==v.lessonEnd)?v.lessonStart.toString():"${v.lessonStart} - ${v.lessonEnd}",
-              style: TextStyle(color: Colors.black),)
+              style: const TextStyle(color: Colors.black),)
           ],
         ),
       ));
