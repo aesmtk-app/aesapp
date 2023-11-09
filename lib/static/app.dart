@@ -51,6 +51,6 @@ class AESAppUtils{
     );
   }
 
-  static final DateFormat dateFormat = DateFormat("dd.MM.yy");
+  static final DateFormat dateFormat = DateFormat("EEEE, 'den' dd.MM.",);
 
 }

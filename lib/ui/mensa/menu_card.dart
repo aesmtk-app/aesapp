@@ -4,6 +4,16 @@ class MenuCard extends StatelessWidget {
   const MenuCard({required this.menu, super.key});
   final Menu menu;
 
+  Widget _text(String text) => Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 4),
+      child: Text(
+        text,
+        softWrap: true,
+        maxLines: 7,
+        textAlign: TextAlign.center,
+      ),
+  );
+
   @override
   Widget build(BuildContext context) {
       return Card(
@@ -13,22 +23,22 @@ class MenuCard extends StatelessWidget {
               IntrinsicHeight(
                 child: Row(
                   children: [
-                    Expanded(child: Text(menu.normal??"Kein Essen", maxLines: 5, softWrap: true, textAlign: TextAlign.center,),),
+                    Expanded(child: _text(menu.normal??"Kein Essen"),),
                     if(menu.veggie!=null)
                       const VerticalDivider(width: 0, thickness: 0,),
                     if(menu.veggie!=null)
-                      Expanded(child: Text(menu.veggie!,  maxLines: 5, softWrap: true, textAlign: TextAlign.center,)),
+                      Expanded(child: _text(menu.veggie!)),
                     if(menu.pasta!=null)
                       const VerticalDivider(width: 0, thickness: 0,),
                     if(menu.pasta!=null)
-                      Expanded(child: Text(menu.pasta!,  maxLines: 5, softWrap: true, textAlign: TextAlign.center,))
+                      Expanded(child: _text(menu.pasta!))
 
                   ],),
               ),
               if(menu.dessert!=null)
                 const Divider(height: 0,thickness: 0,),
               if(menu.dessert!=null)
-                Text(menu.dessert!,  maxLines: 5, softWrap: true, textAlign: TextAlign.center,)
+                _text(menu.dessert!)
             ],
           ),
       );

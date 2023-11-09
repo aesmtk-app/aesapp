@@ -28,17 +28,25 @@ class _MensaPageState extends State<MensaPage> {
         future: menus,
         builder: (BuildContext context, AsyncSnapshot<List<Menu>> snap){
           if (snap.hasData){
+            List<Menu> sortedMenus = snap.data!.sorted((a, b) => a.date.compareTo(b.date));
+
             if(context.isPortrait){
               return ListView.builder(
-                  itemCount: snap.data!.length,
+                  itemCount: sortedMenus.length,
                   itemBuilder: (BuildContext context, int index){
-                    return MenuCard(menu: snap.data![index]);
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+
+                        Text(AESAppUtils.dateFormat.format(sortedMenus[index].date), textAlign: TextAlign.start,),
+                        MenuCard(menu: sortedMenus[index])
+                      ],
+                    );
                   }
               );
             }else{
-              Map<int,List<Menu>> menusByWeek = groupBy(snap.data!, (p0) => p0.date.weekOfYear);
+              Map<int,List<Menu>> menusByWeek = groupBy(sortedMenus, (p0) => p0.date.weekOfYear);
               menusByWeek = Map.fromEntries(menusByWeek.entries.toList()..sort((a, b) => a.key.compareTo(b.key)));
-              
               return Row(
                 children: [
                   Flexible(
@@ -47,7 +55,7 @@ class _MensaPageState extends State<MensaPage> {
                       children: menusByWeek.values.map((e) => Column(
                         children: [
                           ListTile(title: Text("KW ${e.first.date.weekOfYear}"), textColor: Theme.of(context).colorScheme.primary,),
-                          ...e.map((f) => ListTile(title: Text(DateFormat("EEEE, 'den' dd.MM.",).format(f.date)),))
+                          ...e.map((f) => ListTile(title: Text(AESAppUtils.dateFormat.format(f.date)),))
                         ],)).toList(),
                     )
 

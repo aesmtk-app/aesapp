@@ -1,3 +1,4 @@
+import 'package:aesapp/objects/theme.dart';
 import 'package:aesapp/static/api.dart';
 import 'package:aesapp/static/app.dart';
 import 'package:aesapp/static/hive.dart';
@@ -30,7 +31,7 @@ void main() async {
   usePathUrlStrategy();
   // set services
   WidgetsFlutterBinding.ensureInitialized();
-  Get.put(DarkDashTheme());
+  Get.put(DarkDashTheme() as AESTheme);
   // init hive
   await Hive.initFlutter();
   await Hive.openBox(HiveKeys.boxName);

@@ -5,19 +5,20 @@ import 'package:get/get.dart';
 class VPlanCard extends StatelessWidget {
   const VPlanCard({required this.v, super.key});
   final VPlanEntry v;
-
+  Color _getColor(){
+    AESTheme aesTheme = Get.find<AESTheme>();
+    if (v.isInfo) return aesTheme.cyan;
+    if (v.isCancelled??false) return aesTheme.red;
+    return aesTheme.green;
+  }
   @override
   Widget build(BuildContext context) {
-    AESTheme aesTheme = Get.find<AESTheme>();
-    Color getColor(){
-      if (v.isInfo) return aesTheme.cyan;
-      if (v.isCancelled??false) return aesTheme.red;
-      return aesTheme.green;
-    }
+    double? leftFontSize = Theme.of(context).textTheme.titleLarge?.fontSize;
+
     return Card(
-      color: getColor(),
+      color: _getColor(),
       child: Container(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.all(7),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: v.isInfo?[
@@ -29,7 +30,12 @@ class VPlanCard extends StatelessWidget {
           ]:[
             Text(
               (v.lessonStart==v.lessonEnd)?v.lessonStart.toString():"${v.lessonStart} - ${v.lessonEnd}",
-              style: const TextStyle(color: Colors.black),)
+              style: TextStyle(color: Colors.black,fontSize: leftFontSize)),
+            Column(
+              children: [
+                Text(v.course??v.subjectOld??"")
+              ],
+            )
           ],
         ),
       ));

@@ -1,5 +1,6 @@
 import 'package:aesapp/objects/vplan.dart';
 import 'package:aesapp/static/api.dart';
+import 'package:aesapp/static/app.dart';
 import 'package:aesapp/ui/aesapp/appbar.dart';
 import 'package:aesapp/ui/vplan/vplan_card.dart';
 import 'package:collection/collection.dart';
@@ -32,9 +33,18 @@ class _VPlanPageState extends State<VPlanPage> {
             List<VPlanEntry> entries = snapshot.data!.data!.map((e) => VPlanEntry.fromJSON(e)).toList();
             Map<DateTime, List<VPlanEntry>> entriesByDate = groupBy(entries, (p0) => p0.date);
             entriesByDate = Map.fromEntries(entriesByDate.entries.toList()..sort((a, b) => a.key.compareTo(b.key)));
+            for (var element in entriesByDate.values) {element.sort((a,b){
+              int aLS = a.lessonStart ?? 0;
+              int bLS = b.lessonStart ?? 0;
+              int aLE = a.lessonEnd ?? aLS;
+              int bLE = b.lessonEnd ?? bLS;
+              int lSc = aLS.compareTo(bLS);
+              if (lSc!=0) return lSc;
+              return aLE.compareTo(bLE);
+            });}
             if(context.isPortrait){
               List<Widget> w = [];
-              for (List<Widget> wl in entriesByDate.values.map((e) => [Text(e.first.date.toIso8601String()),...e.map((f) => VPlanCard(v: f))])) {
+              for (List<Widget> wl in entriesByDate.values.map((e) => [Text(AESAppUtils.dateFormat.format(e.first.date)),...e.map((f) => VPlanCard(v: f))])) {
                 w.addAll(wl);
               }
               return ListView(
