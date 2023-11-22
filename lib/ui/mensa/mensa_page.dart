@@ -1,6 +1,7 @@
 import 'package:aesapp/objects/mensa.dart';
 import 'package:aesapp/static/api.dart';
 import 'package:aesapp/ui/mensa/menu_card.dart';
+import 'package:aesapp/ui/mensa/menu_details.dart';
 import 'package:collection/collection.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +21,8 @@ class MensaPage extends StatefulWidget {
 
 class _MensaPageState extends State<MensaPage> {
   Future<List<Menu>> menus = Dio().get(API.apiEndpoint+API.mensa).then((value) => (value.data as List).map((value) => Menu.fromJSON(value)).toList());
+  Menu? selectedMenu;
+  Widget detailedMenu = Text("Wähle ein Datum");
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -37,7 +40,6 @@ class _MensaPageState extends State<MensaPage> {
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-
                         Text(AESAppUtils.dateFormat.format(sortedMenus[index].date), textAlign: TextAlign.start,),
                         MenuCard(menu: sortedMenus[index])
                       ],
@@ -55,7 +57,17 @@ class _MensaPageState extends State<MensaPage> {
                       children: menusByWeek.values.map((e) => Column(
                         children: [
                           ListTile(title: Text("KW ${e.first.date.weekOfYear}"), textColor: Theme.of(context).colorScheme.primary,),
-                          ...e.map((f) => ListTile(title: Text(AESAppUtils.dateFormat.format(f.date)),))
+                          ...e.map((f) => ListTile(
+                            title: Text(AESAppUtils.dateFormat.format(f.date)),
+                            onTap: (){
+                              setState(() {
+                                selectedMenu=f;
+                                detailedMenu=MenuDetails(menu: f);
+                                print(f.normal);
+                              });
+                            },
+                            selected: f==selectedMenu,
+                          ))
                         ],)).toList(),
                     )
 
@@ -63,7 +75,10 @@ class _MensaPageState extends State<MensaPage> {
                   if (context.isLandscape)
                     const VerticalDivider(),
                   if (context.isLandscape)
-                    Flexible(flex: AESAppUtils.getLandscapeSecondFlexFactor(context),child: const Placeholder(),)
+                    Flexible(
+                      flex: AESAppUtils.getLandscapeSecondFlexFactor(context),
+                      child: detailedMenu,
+                    )
                 ],
               );
             }
