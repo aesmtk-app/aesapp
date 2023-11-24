@@ -9,34 +9,47 @@ class MenuDetails extends StatefulWidget {
 }
 
 class _MenuDetailsState extends State<MenuDetails> {
+  String? selectedMenu;
   Widget selectableDish(String category, String? menu){
     if(menu!=null){
-      return Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisSize: MainAxisSize.max,
-        children: [
-          Checkbox(value: false, onChanged: (v){}),
-          Expanded(child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(category, style: Theme.of(context).textTheme.titleLarge,),
-              Text(menu, maxLines: 5,)
-            ],
-          ))
-        ],
+      return RadioListTile(
+          value: category,
+          groupValue: selectedMenu,
+          onChanged: (v){
+            setState(() {
+              selectedMenu=v;
+            });
+          },
+          title: Text(category),
+        subtitle: Text(menu),
       );
     }
     return Container();
   }
   @override
   Widget build(BuildContext context) {
-    print(widget.menu.dessert);
     Menu menu = widget.menu;
-    return Column(
+    return ListView(
       children: [
-        selectableDish("Normal", menu.normal),
-        selectableDish("Vegetarisch", menu.veggie),
-        selectableDish("Pasta", menu.pasta),
+        if(menu.selectableMenus.isNotEmpty)
+        Text("Essensauswahl:", style: Theme.of(context).textTheme.headlineMedium,),
+        RadioListTile(
+          value: null,
+          groupValue: selectedMenu,
+          onChanged: (v){
+            setState(() {
+              selectedMenu=v;
+            });
+          },
+          title: const Text("Kein Essen/Abbestellen"),
+        ),
+        ...menu.selectableMenus.map((e) => selectableDish(e.category, e.menu)),
+
+        if(menu.otherMenus.isNotEmpty)
+        const Divider(),
+        if(menu.otherMenus.isNotEmpty)
+          Text("Allgemein:", style: Theme.of(context).textTheme.headlineMedium,),
+        ...menu.otherMenus.map((e) => ListTile(title: Text(e.category), subtitle: Text(e.menu),))
       ],
     );
   }

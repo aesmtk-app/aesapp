@@ -33,6 +33,7 @@ class _VPlanPageState extends State<VPlanPage> {
             List<VPlanEntry> entries = snapshot.data!.data!.map((e) => VPlanEntry.fromJSON(e)).toList();
             Map<DateTime, List<VPlanEntry>> entriesByDate = groupBy(entries, (p0) => p0.date);
             entriesByDate = Map.fromEntries(entriesByDate.entries.toList()..sort((a, b) => a.key.compareTo(b.key)));
+            if(entriesByDate.keys.length>2) entriesByDate.removeWhere((key, value) => ![entriesByDate.keys.elementAt(entriesByDate.keys.length-2),entriesByDate.keys.elementAt(entriesByDate.keys.length-1)].contains(key));
             for (var element in entriesByDate.values) {element.sort((a,b){
               int aLS = a.lessonStart ?? 0;
               int bLS = b.lessonStart ?? 0;

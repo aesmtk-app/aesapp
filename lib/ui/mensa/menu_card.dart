@@ -16,29 +16,25 @@ class MenuCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<Widget> selectWidgets = [];
+    for (final (i,m) in menu.selectableMenus.indexed){
+      if (i!=0) selectWidgets.add(const VerticalDivider(width: 0, thickness: 0,));
+      selectWidgets.add(Expanded(child: _text(m.menu)));
+    }
+    List<Widget> otherW = [];
+    for (final (i,m) in menu.otherMenus.indexed){
+      if (!(i==0&&selectWidgets.isEmpty)) otherW.add(const Divider(height: 0, thickness: 0,));
+      otherW.add(_text(m.menu));
+    }
       return Card(
         elevation: 0,
         child: Column(
             children: [
               IntrinsicHeight(
                 child: Row(
-                  children: [
-                    Expanded(child: _text(menu.normal??"Kein Essen"),),
-                    if(menu.veggie!=null)
-                      const VerticalDivider(width: 0, thickness: 0,),
-                    if(menu.veggie!=null)
-                      Expanded(child: _text(menu.veggie!)),
-                    if(menu.pasta!=null)
-                      const VerticalDivider(width: 0, thickness: 0,),
-                    if(menu.pasta!=null)
-                      Expanded(child: _text(menu.pasta!))
-
-                  ],),
+                  children: selectWidgets.isEmpty?[Expanded(child: _text("Kein Essen"))]:selectWidgets,),
               ),
-              if(menu.dessert!=null)
-                const Divider(height: 0,thickness: 0,),
-              if(menu.dessert!=null)
-                _text(menu.dessert!)
+              ...otherW
             ],
           ),
       );
