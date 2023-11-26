@@ -112,13 +112,11 @@ class _PageSelectorState extends State<PageSelector> {
       appBar: isPortrait?CustomAppBar.get():null,
       bottomNavigationBar: isPortrait? bottomNavigationBar:null,
       drawer: navigationDrawer,
-      body: SafeArea(
-          child: Row(
+      body: Row(
             children: [
               isPortrait?Container():navigationRail,
-              Expanded(child: AESPage.defaultPages[_selectedPageId]!.page(asWidget: true)),
+              Expanded(child: SafeArea(child: AESPage.defaultPages[_selectedPageId]!.page(asWidget: true),)),
             ],
-          )
       ),
     );
   }

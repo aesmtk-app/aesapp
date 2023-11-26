@@ -22,7 +22,7 @@ class MensaPage extends StatefulWidget {
 class _MensaPageState extends State<MensaPage> {
   Future<List<Menu>> menus = Dio().get(API.apiEndpoint+API.mensa).then((value) => (value.data as List).map((value) => Menu.fromJSON(value)).toList());
   Menu? selectedMenu;
-  Widget detailedMenu = Center(child: Text("Wähle ein Datum"),);
+  Widget detailedMenu = const Center(child: Text("Wähle ein Datum"),);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,10 +59,10 @@ class _MensaPageState extends State<MensaPage> {
                           ListTile(title: Text("KW ${e.first.date.weekOfYear}"), textColor: Theme.of(context).colorScheme.primary,),
                           ...e.map((f) => ListTile(
                             title: Text(AESAppUtils.dateFormat.format(f.date)),
-                            onTap: (){
+                            onTap: ()async{
                               setState(() {
                                 selectedMenu=f;
-                                detailedMenu=MenuDetails(menu: f);
+                                detailedMenu=MenuDetails(menu: f, key: ValueKey(f),);
                               });
                             },
                             selected: f==selectedMenu,

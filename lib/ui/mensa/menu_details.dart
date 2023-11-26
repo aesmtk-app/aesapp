@@ -15,7 +15,8 @@ class _MenuDetailsState extends State<MenuDetails> {
       return RadioListTile(
           value: category,
           groupValue: selectedMenu,
-          onChanged: (v){
+          onChanged: (v)async{
+            await widget.menu.orderMeal(context, category);
             setState(() {
               selectedMenu=v;
             });
@@ -32,11 +33,12 @@ class _MenuDetailsState extends State<MenuDetails> {
     return ListView(
       children: [
         if(menu.selectableMenus.isNotEmpty)
-        Text("Essensauswahl:", style: Theme.of(context).textTheme.headlineMedium,),
+        ListTile(title: Text("Essensauswahl:", style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Theme.of(context).colorScheme.primary),),),
         RadioListTile(
           value: null,
           groupValue: selectedMenu,
-          onChanged: (v){
+          onChanged: (v)async{
+            await widget.menu.orderMeal(context, null);
             setState(() {
               selectedMenu=v;
             });
@@ -44,11 +46,10 @@ class _MenuDetailsState extends State<MenuDetails> {
           title: const Text("Kein Essen/Abbestellen"),
         ),
         ...menu.selectableMenus.map((e) => selectableDish(e.category, e.menu)),
-
         if(menu.otherMenus.isNotEmpty)
         const Divider(),
         if(menu.otherMenus.isNotEmpty)
-          Text("Allgemein:", style: Theme.of(context).textTheme.headlineMedium,),
+          ListTile(title: Text("Weiteres:", style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Theme.of(context).colorScheme.primary),),),
         ...menu.otherMenus.map((e) => ListTile(title: Text(e.category), subtitle: Text(e.menu),))
       ],
     );

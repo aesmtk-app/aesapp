@@ -71,7 +71,7 @@ class _NotificationSettingsState extends State<NotificationSettings> {
         else{
           pd.update(msg: "Fehlgeschlagen :(");
         }
-        pd.close(delay: 2);
+        pd.close(delay: 500);
       }
 
     }
