@@ -1,10 +1,11 @@
 import 'dart:core';
 
 class VPlanEntry{
-  VPlanEntry({required this.id, required this.creationTime, required this.isInfo, required this.date, this.course, this.comment, this.isCancelled, this.lessonStart, this.lessonEnd, this.replacement, this.room, this.subject, this.subjectOld});
+  VPlanEntry({required this.id, required this.creationTime, required this.isInfo, required this.date, this.course, this.comment, this.isCancelled, this.lessonStart, this.lessonEnd, this.replacement, this.room, this.subject, this.subjectOld, required this.isSelfWork});
   int id;
   DateTime creationTime;
   bool isInfo;
+  bool isSelfWork;
   DateTime date;
   String? course;
   String? comment;
@@ -28,6 +29,6 @@ class VPlanEntry{
     replacement = data["replacement"],
     room = data["room"],
     subject = data["subject"],
+    isSelfWork = data["replacement"]=="+",
     subjectOld = data["subject_old"];
-
 }

@@ -54,7 +54,7 @@ class _VPlanPageState extends State<VPlanPage> {
             }
             else{
               return Row(
-                children: entriesByDate.values.map((e) => Expanded(child: ListView(children: [Text(e.first.date.toIso8601String()), ...e.map((f) => VPlanCard(v: f))],))).toList(),
+                children: entriesByDate.values.map((e) => Expanded(child: ListView(children: [Text(AESAppUtils.dateFormat.format(e.first.date)), ...e.map((f) => VPlanCard(v: f))],))).toList(),
               );
             }
           }
