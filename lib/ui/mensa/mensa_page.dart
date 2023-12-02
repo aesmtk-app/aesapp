@@ -39,6 +39,7 @@ class _MensaPageState extends State<MensaPage> {
                   itemBuilder: (BuildContext context, int index){
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
                       children: [
                         Text(AESAppUtils.dateFormat.format(sortedMenus[index].date), textAlign: TextAlign.start,),
                         MenuCard(menu: sortedMenus[index])

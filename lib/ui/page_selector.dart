@@ -115,7 +115,7 @@ class _PageSelectorState extends State<PageSelector> {
       body: Row(
             children: [
               isPortrait?Container():navigationRail,
-              Expanded(child: SafeArea(child: AESPage.defaultPages[_selectedPageId]!.page(asWidget: true),)),
+              Expanded(child: SafeArea(child: AESPage.defaultPages[_selectedPageId]!.page(asWidget: true),bottom: false,)),
             ],
       ),
     );

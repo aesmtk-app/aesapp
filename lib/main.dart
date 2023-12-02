@@ -48,6 +48,15 @@ void main() async {
   });
 
   initFirebase().whenComplete(() => logger.info("fcm initialized"));
+
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarColor: Colors.transparent,
+      systemNavigationBarDividerColor: Colors.transparent,
+  ));
+
+//Setting SystmeUIMode
+  SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge, overlays: [SystemUiOverlay.top]);
+
   runApp(AESApp(box: box,));
 }
 
