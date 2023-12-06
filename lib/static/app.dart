@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 
@@ -52,5 +53,9 @@ class AESAppUtils{
   }
 
   static final DateFormat dateFormat = DateFormat("EEEE, 'den' dd.MM.",);
+  
+  static void internetChecker(){
+    Timer t = Timer.periodic(Duration(seconds: 1), (timer) { print("hi"); });
+  }
 
 }

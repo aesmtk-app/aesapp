@@ -1,6 +1,8 @@
 
+import 'package:aesapp/objects/theme.dart';
 import 'package:aesapp/static/app.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:logging/logging.dart';
 
 import 'aesapp/appbar.dart';
@@ -48,8 +50,16 @@ class _HomePageState extends State<HomePage> {
         ),
         ElevatedButton(
             onPressed: ()async{
-              AESAppUtils.showErrorToast(Navigator.canPop(context).toString());
-
+              //AESAppUtils.showErrorToast(Navigator.canPop(context).toString());
+              ScaffoldMessenger.of(context).showMaterialBanner(
+              MaterialBanner(
+                leading: Icon(Icons.wifi_off, color: Colors.black,),
+                contentTextStyle: TextStyle(color: Colors.black),
+                content: Text("Keine Verbindung zum Server"),
+                dividerColor: Colors.transparent,
+                actions: [Container()],
+                backgroundColor: Get.find<AESTheme>().yellow,
+              ));
               // send to endpoint
 
             },

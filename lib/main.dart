@@ -134,6 +134,7 @@ class AESApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    AESAppUtils.internetChecker();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'AESMTK-APP',
