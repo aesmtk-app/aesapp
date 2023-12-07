@@ -1,3 +1,4 @@
+import 'package:aesapp/static/app.dart';
 import 'package:aesapp/ui/TestPage.dart';
 import 'package:aesapp/ui/aesapp/appbar.dart';
 import 'package:aesapp/ui/homepage.dart';
@@ -6,7 +7,8 @@ import 'package:aesapp/ui/settings/settings_home.dart';
 import 'package:aesapp/ui/vplan/vplan_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:logging/logging.dart';
+Logger logger = Logger("PageSelector");
 class AESPage{
   AESPage({ required this.id, required this.label, required this.icon, required this.selectedIcon, required this.showWhenPortrait, required this.showWhenLandscape, required this.page, required this.routeName});
   String label;
@@ -28,14 +30,14 @@ class AESPage{
   };
 }
 
-class PageSelector extends StatefulWidget {
-  const PageSelector({super.key});
+class RootPageSelector extends StatefulWidget {
+  const RootPageSelector({super.key});
 
   @override
-  State<PageSelector> createState() => _PageSelectorState();
+  State<RootPageSelector> createState() => _RootPageSelectorState();
 }
 
-class _PageSelectorState extends State<PageSelector> {
+class _RootPageSelectorState extends State<RootPageSelector> with WidgetsBindingObserver {
 
   List<AESPage> pages = [];
 
@@ -43,10 +45,26 @@ class _PageSelectorState extends State<PageSelector> {
   void initState() {
     pages = AESPage.defaultPages.values.where((element) => element.showWhenLandscape).toList();
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    AESAppUtils.checkServer().then((value) => null);
+    logger.info("init");
   }
   int _selectedPageIndex = 0;
   int _selectedPageId = 0;
   bool isPortrait = true;
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state){
+    super.didChangeAppLifecycleState(state);
+    if (state==AppLifecycleState.resumed){
+      AESAppUtils.checkServer().then((value) => null);
+    }
+  }
+  @override
+  void dispose(){
+    super.dispose();
+    logger.info("dispose");
+    WidgetsBinding.instance.removeObserver(this);
+  }
 
 
   void _changePage(int changeTo){

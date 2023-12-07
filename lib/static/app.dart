@@ -9,8 +9,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
+import 'package:logging/logging.dart';
 
 import 'hive.dart';
+
+Logger logger = Logger("AESAPP-Utils");
 
 const apiEndpoint = "https://api.aesmtk.app";
 
@@ -55,7 +58,12 @@ class AESAppUtils{
   static final DateFormat dateFormat = DateFormat("EEEE, 'den' dd.MM.",);
   
   static void internetChecker(){
-    Timer t = Timer.periodic(Duration(seconds: 1), (timer) { print("hi"); });
+    Timer t = Timer.periodic(Duration(seconds: 1), (timer) { logger.info("hi"); });
+  }
+
+  static Future<bool> checkServer()async{
+    Future.delayed(Duration(seconds: 2)).then((value) => logger.info("server availabe"));
+    return false;
   }
 
 }

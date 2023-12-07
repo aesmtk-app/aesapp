@@ -134,7 +134,6 @@ class AESApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    AESAppUtils.internetChecker();
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'AESMTK-APP',
@@ -143,7 +142,7 @@ class AESApp extends StatelessWidget {
       builder: BotToastInit(),
       navigatorObservers: [BotToastNavigatorObserver()],
       getPages: [
-        GetPage(name: "/", page: ()=>const PageSelector()),
+        GetPage(name: "/", page: ()=>const RootPageSelector()),
         GetPage(name: "/test", page: ()=>const TestPage(),),
         ...SettingsCategory.categories.map((e) => GetPage(name: e.routeName, page: ()=>e.page())),
         ...AESPage.defaultPages.values.map((e) => GetPage(name: e.routeName, page: ()=>e.page()))
