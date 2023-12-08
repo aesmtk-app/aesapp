@@ -37,6 +37,8 @@ dependencies:
   device_info_plus: ^9.1.0
   week_of_year: ^2.2.0
   intl: ^0.18.1
+  connectivity_plus: ^5.0.2
+  retrofit: ^4.0.3
 
 
 dev_dependencies:

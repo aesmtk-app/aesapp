@@ -8,6 +8,8 @@ import 'package:aesapp/ui/vplan/vplan_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logging/logging.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+
 Logger logger = Logger("PageSelector");
 class AESPage{
   AESPage({ required this.id, required this.label, required this.icon, required this.selectedIcon, required this.showWhenPortrait, required this.showWhenLandscape, required this.page, required this.routeName});
@@ -47,6 +49,9 @@ class _RootPageSelectorState extends State<RootPageSelector> with WidgetsBinding
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     AESAppUtils.checkServer().then((value) => null);
+    Connectivity().onConnectivityChanged.listen((ConnectivityResult event) {
+      logger.info("changed network");
+    });
     logger.info("init");
   }
   int _selectedPageIndex = 0;
