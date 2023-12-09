@@ -2,8 +2,10 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
 
+import 'package:aesapp/static/api.dart';
 import 'package:aesapp/static/themes.dart';
 import 'package:bot_toast/bot_toast.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -11,6 +13,7 @@ import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:logging/logging.dart';
 
+import '../objects/theme.dart';
 import 'hive.dart';
 
 Logger logger = Logger("AESAPP-Utils");
@@ -56,14 +59,60 @@ class AESAppUtils{
   }
 
   static final DateFormat dateFormat = DateFormat("EEEE, 'den' dd.MM.",);
-  
-  static void internetChecker(){
-    Timer t = Timer.periodic(Duration(seconds: 1), (timer) { logger.info("hi"); });
+
+  static void showMissingConnectionBanner(BuildContext context){
+    missingConnectionBannerShown=true;
+    ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(
+      leading: const Icon(
+        Icons.wifi_off,
+        color: Colors.black,
+      ),
+      contentTextStyle: const TextStyle(color: Colors.black),
+      content: const Text("Keine Verbindung zum Server"),
+      dividerColor: Colors.transparent,
+      actions: [
+        Builder(builder: (BuildContext sContext) {
+          return IconButton(
+            onPressed: () {
+              clearMissingConnectionBanner(sContext);
+            },
+            icon: const Icon(Icons.close),
+            color: Colors.black,
+          );
+        })
+      ],
+      backgroundColor: Get.find<AESTheme>().yellow,
+    ));
+}
+
+  static void clearMissingConnectionBanner(BuildContext context){
+    missingConnectionBannerShown=false;
+    ScaffoldMessenger.of(context).clearMaterialBanners();
   }
 
+  static void _processResponse(bool available){
+    BuildContext context = Get.context!;
+    if(!available&&recheckServerTimer==null){
+      recheckServerTimer = Timer.periodic(const Duration(seconds: 10), (timer)async {
+        bool connection = await API.checkConnection();
+        _processResponse(connection);
+      });
+    }else if(!available&&!missingConnectionBannerShown){
+      if (context.mounted)showMissingConnectionBanner(context);
+    }else if(available&&missingConnectionBannerShown){
+      if (context.mounted)clearMissingConnectionBanner(context);
+    }else if(available&&recheckServerTimer!=null){
+      recheckServerTimer?.cancel();
+      recheckServerTimer=null;
+    }
+  }
+
+  static Timer? recheckServerTimer;
+  static bool missingConnectionBannerShown = false;
   static Future<bool> checkServer()async{
-    Future.delayed(Duration(seconds: 2)).then((value) => logger.info("server availabe"));
-    return false;
+    bool works = await API.checkConnection();
+    _processResponse(works);
+    return works;
   }
 
 }

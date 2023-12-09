@@ -39,9 +39,12 @@ void main() async {
   await HiveKeys.setDefaults();
   Box box = Hive.box(HiveKeys.boxName);
   // Logger
+  List<LogRecord> logs = [];
+  Get.put<List<LogRecord>>(logs, tag: "logs");
   Logger.root.level = Level.FINEST; // defaults to Level.INFO
   Logger.root.onRecord.listen((record) {
     if (kDebugMode||(box.get(HiveKeys.settings.debugging.enabled)??false)) {
+      logs.add(record);
       print(
           '${record.loggerName}: ${record.level.name}: ${record.time}: ${record.message}');
     }

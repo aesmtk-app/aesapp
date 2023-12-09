@@ -49,28 +49,8 @@ class _HomePageState extends State<HomePage> {
           ElevatedButton(
               onPressed: () async {
                 //AESAppUtils.showErrorToast(Navigator.canPop(context).toString());
-                ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(
-                  leading: const Icon(
-                    Icons.wifi_off,
-                    color: Colors.black,
-                  ),
-                  contentTextStyle: const TextStyle(color: Colors.black),
-                  content: const Text("Keine Verbindung zum Server"),
-                  dividerColor: Colors.transparent,
-                  actions: [
-                    Builder(builder: (BuildContext context) {
-                      return IconButton(
-                        onPressed: () {
-                          ScaffoldMessenger.of(context).clearMaterialBanners();
-                        },
-                        icon: const Icon(Icons.close),
-                        color: Colors.black,
-                      );
-                    })
-                  ],
-                  backgroundColor: Get.find<AESTheme>().yellow,
-                ));
-                // send to endpoint
+                AESAppUtils.showMissingConnectionBanner(context);
+                                // send to endpoint
               },
               child: const Text("setupFCM")),
         ],

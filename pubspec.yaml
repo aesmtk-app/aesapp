@@ -39,6 +39,7 @@ dependencies:
   intl: ^0.18.1
   connectivity_plus: ^5.0.2
   retrofit: ^4.0.3
+  universal_html: ^2.2.4
 
 
 dev_dependencies:

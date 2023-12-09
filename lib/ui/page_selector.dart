@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'package:flutter/foundation.dart';
+import "package:universal_html/html.dart" as html;
 import 'package:aesapp/static/app.dart';
 import 'package:aesapp/ui/TestPage.dart';
 import 'package:aesapp/ui/aesapp/appbar.dart';
@@ -42,24 +45,35 @@ class RootPageSelector extends StatefulWidget {
 class _RootPageSelectorState extends State<RootPageSelector> with WidgetsBindingObserver {
 
   List<AESPage> pages = [];
+  StreamSubscription? networkSubscription;
 
   @override
   void initState() {
     pages = AESPage.defaultPages.values.where((element) => element.showWhenLandscape).toList();
     super.initState();
-    WidgetsBinding.instance.addObserver(this);
     AESAppUtils.checkServer().then((value) => null);
-    Connectivity().onConnectivityChanged.listen((ConnectivityResult event) {
-      logger.info("changed network");
+    networkSubscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult event) {
+      AESAppUtils.checkServer().then((value) => null);
     });
+    if(kIsWeb){
+      html.window.addEventListener("focus", webVisibilityChange);
+    }else{
+      WidgetsBinding.instance.addObserver(this);
+    }
+
+
     logger.info("init");
   }
   int _selectedPageIndex = 0;
   int _selectedPageId = 0;
   bool isPortrait = true;
+  void webVisibilityChange(html.Event e){
+    didChangeAppLifecycleState(AppLifecycleState.resumed);
+  }
   @override
   void didChangeAppLifecycleState(AppLifecycleState state){
     super.didChangeAppLifecycleState(state);
+    logger.info(state);
     if (state==AppLifecycleState.resumed){
       AESAppUtils.checkServer().then((value) => null);
     }
@@ -67,8 +81,15 @@ class _RootPageSelectorState extends State<RootPageSelector> with WidgetsBinding
   @override
   void dispose(){
     super.dispose();
+
     logger.info("dispose");
-    WidgetsBinding.instance.removeObserver(this);
+    if(kIsWeb){
+      html.window.removeEventListener("focus", webVisibilityChange);
+
+    }else{
+      WidgetsBinding.instance.removeObserver(this);
+    }
+    networkSubscription?.cancel();
   }
 
 

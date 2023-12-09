@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:aesapp/static/hive.dart';
+import 'package:logging/logging.dart';
 class DebugSettings extends StatefulWidget {
   const DebugSettings({this.calledAsWidget=false, super.key});
   final bool calledAsWidget;
@@ -55,6 +56,10 @@ class _DebugSettingsState extends State<DebugSettings> {
           ListTile(
             title: const Text("Speicher zurücksetzen"),
             trailing: ElevatedButton(child: const Text("Reset"),onPressed: ()async=>await HiveKeys.reset().then((value){setState(() {});}),),
+          ),
+          ListTile(
+            title: const Text("Logs anzeigen"),
+            trailing: ElevatedButton(child: const Text("Show"),onPressed: ()=>Get.to(Scaffold(appBar: AppBar(),body: ListView.builder(itemCount: Get.find<List<LogRecord>>(tag: "logs").length, itemBuilder: (BuildContext context, int i){LogRecord record = Get.find<List<LogRecord>>(tag:"logs")[i];return Text('${record.loggerName}: ${record.level.name}: ${record.time}: ${record.message}');}),)),),
           )
         ],
       ),
