@@ -40,6 +40,7 @@ dependencies:
   connectivity_plus: ^5.0.2
   retrofit: ^4.0.3
   universal_html: ^2.2.4
+  json_annotation: ^4.8.1
 
 
 dev_dependencies:
@@ -47,6 +48,8 @@ dev_dependencies:
     sdk: flutter
   flutter_lints: ^3.0.0
   build_runner: ^2.4.6
+  retrofit_generator: '>=7.0.0 <8.0.0'
+  json_serializable: ^6.6.2
 
 
 flutter:

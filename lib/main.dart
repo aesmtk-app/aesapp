@@ -41,6 +41,7 @@ void main() async {
   // Logger
   List<LogRecord> logs = [];
   Get.put<List<LogRecord>>(logs, tag: "logs");
+  Get.put<API>(API(dio.Dio(), baseUrl: API.apiEndpoint));
   Logger.root.level = Level.FINEST; // defaults to Level.INFO
   Logger.root.onRecord.listen((record) {
     if (kDebugMode||(box.get(HiveKeys.settings.debugging.enabled)??false)) {

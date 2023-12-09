@@ -23,14 +23,14 @@ class _VPlanPageState extends State<VPlanPage> {
 
   @override
   Widget build(BuildContext context) {
-    Future<dio.Response<List>> vPlanData = dio.Dio().get(API.apiEndpoint+API.vPlan);
+    Future<List<VPlanEntry>> vPlanData = Get.find<API>().getAllVPlanEntries();
     return Scaffold(
       appBar: (!widget.calledAsWidget)?CustomAppBar.get(title: "Vertretung"):null,
       body: FutureBuilder(
         future: vPlanData,
-        builder: (BuildContext context, AsyncSnapshot<dio.Response<List>> snapshot){
+        builder: (BuildContext context, AsyncSnapshot<List<VPlanEntry>> snapshot){
           if (snapshot.hasData){
-            List<VPlanEntry> entries = snapshot.data!.data!.map((e) => VPlanEntry.fromJSON(e)).toList();
+            List<VPlanEntry> entries = snapshot.data!;
             Map<DateTime, List<VPlanEntry>> entriesByDate = groupBy(entries, (p0) => p0.date);
             entriesByDate = Map.fromEntries(entriesByDate.entries.toList()..sort((a, b) => a.key.compareTo(b.key)));
             if(entriesByDate.keys.length>2) entriesByDate.removeWhere((key, value) => ![entriesByDate.keys.elementAt(entriesByDate.keys.length-2),entriesByDate.keys.elementAt(entriesByDate.keys.length-1)].contains(key));

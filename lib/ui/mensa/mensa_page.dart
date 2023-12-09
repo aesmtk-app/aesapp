@@ -20,7 +20,7 @@ class MensaPage extends StatefulWidget {
 }
 
 class _MensaPageState extends State<MensaPage> {
-  Future<List<Menu>> menus = Dio().get(API.apiEndpoint+API.mensa).then((value) => (value.data as List).map((value) => Menu.fromJSON(value)).toList());
+  Future<List<Menu>> menus = Get.find<API>().getAllMenus();
   Menu? selectedMenu;
   Widget detailedMenu = const Center(child: Text("Wähle ein Datum"),);
   @override

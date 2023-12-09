@@ -1,34 +1,40 @@
 import 'dart:core';
 
+import 'package:json_annotation/json_annotation.dart';
+
+part 'vplan.g.dart';
+
+@JsonSerializable()
 class VPlanEntry{
-  VPlanEntry({required this.id, required this.creationTime, required this.isInfo, required this.date, this.course, this.comment, this.isCancelled, this.lessonStart, this.lessonEnd, this.replacement, this.room, this.subject, this.subjectOld, required this.isSelfWork});
+  VPlanEntry({required this.id, required this.creationTime, required this.isInfo, required this.date, this.course, this.comment, this.isCancelled, this.lessonStart, this.lessonEnd, this.replacement, this.room, this.subject, this.subjectOld,});
+
+  factory VPlanEntry.fromJson(Map<String, dynamic> json) => _$VPlanEntryFromJson(json);
+
   int id;
+  @JsonKey(name: "creation_time", fromJson: _timeFromJson, toJson: _timeToJson)
   DateTime creationTime;
+  @JsonKey(name: "is_info")
   bool isInfo;
-  bool isSelfWork;
   DateTime date;
+  @JsonKey(name: "class")
   String? course;
   String? comment;
+  @JsonKey(name: "is_cancelled")
   bool? isCancelled;
+  @JsonKey(name: "lesson_start")
   int? lessonStart;
+  @JsonKey(name: "lesson_end")
   int? lessonEnd;
   String? replacement;
   String? room;
   String? subject;
+  @JsonKey(name: "subject_old")
   String? subjectOld;
-  VPlanEntry.fromJSON(Map data)
-  : id = data["id"],
-    isInfo = data["is_info"],
-    creationTime = DateTime.parse(data["creation_time"]),
-    date = DateTime.parse(data["date"]),
-    course = data["class"],
-    comment = data["comment"],
-    isCancelled = data["is_cancelled"],
-    lessonStart = data["lesson_start"],
-    lessonEnd = data["lesson_end"],
-    replacement = data["replacement"],
-    room = data["room"],
-    subject = data["subject"],
-    isSelfWork = data["replacement"]=="+",
-    subjectOld = data["subject_old"];
+
+  bool get isSelfWork => "+"==replacement?.trim();
+
+  static DateTime _timeFromJson(String s) =>DateTime.parse(s);
+  static String _timeToJson(DateTime dt)=>dt.toIso8601String();
+
+  Map<String, dynamic> toJson()=> _$VPlanEntryToJson(this);
 }

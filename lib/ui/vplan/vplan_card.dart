@@ -72,7 +72,7 @@ class VPlanCard extends StatelessWidget {
           if(v.replacement!=null) _styledText("Vertretung von ${v.replacement}"),
           if(v.room!=null||((v.subjectOld?.trim()!=v.subject?.trim())&&v.subject!=null))
             _styledText("${(v.room!=null)?" in ${v.room}":""}"
-                "${((v.subjectOld?.trim()!=v.subject?.trim())&&v.subject!=null)?"${(v.room!=null)?" – ":""}${v.subject} statt ${v.subjectOld}":""}")
+                "${((v.subjectOld?.trim()!=v.subject?.trim())&&v.subject!=null)?"${(v.room!=null)?" – ":""}${v.subject}${v.subjectOld!=null?" statt ${v.subjectOld}":""}":""}"),
         ],
       ))
     ];
