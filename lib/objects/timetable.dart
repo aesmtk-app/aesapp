@@ -4,18 +4,23 @@ part 'timetable.g.dart';
 part 'timetable.freezed.dart';
 @unfreezed
 class Timetable with _$Timetable{
-  const factory Timetable({
+  factory Timetable({
    required int id,
    required String title
   })=_Timetable;
-  factory Timetable.fromJson(Map<String, dynamic> json) => _$TimetableFromJson;
+  factory Timetable.fromJson(Map<String, dynamic> json) => _$TimetableFromJson(json);
 }
-class TimetableCell{
-  int id;
-  int timetableId;
-  int weekday;
-  int lesson;
-  String subject;
-  String teacher;
-  String room;
+
+@unfreezed
+class TimetableCell with _$TimetableCell{
+  factory TimetableCell({
+    required int id,
+    required int timetableId,
+    required int weekday,
+    required int lesson,
+    required String subject,
+    required String teacher,
+    required String room
+  })=_TimetableCell;
+  factory TimetableCell.fromJson(Map<String, dynamic> json) => _$TimetableCellFromJson(json);
 }

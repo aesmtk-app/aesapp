@@ -1,40 +1,41 @@
 import 'dart:core';
 
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'vplan.g.dart';
+part 'vplan.freezed.dart';
 
-@JsonSerializable()
-class VPlanEntry{
-  VPlanEntry({required this.id, required this.creationTime, required this.isInfo, required this.date, this.course, this.comment, this.isCancelled, this.lessonStart, this.lessonEnd, this.replacement, this.room, this.subject, this.subjectOld,});
-
+@unfreezed
+class VPlanEntry with _$VPlanEntry{
   factory VPlanEntry.fromJson(Map<String, dynamic> json) => _$VPlanEntryFromJson(json);
 
-  int id;
+  factory VPlanEntry({
+  required int id,
   @JsonKey(name: "creation_time", fromJson: _timeFromJson, toJson: _timeToJson)
-  DateTime creationTime;
+  required DateTime creationTime,
   @JsonKey(name: "is_info")
-  bool isInfo;
-  DateTime date;
+  required bool isInfo,
+  required DateTime date,
   @JsonKey(name: "class")
-  String? course;
-  String? comment;
+  String? course,
+  String? comment,
   @JsonKey(name: "is_cancelled")
-  bool? isCancelled;
+  bool? isCancelled,
   @JsonKey(name: "lesson_start")
-  int? lessonStart;
+  int? lessonStart,
   @JsonKey(name: "lesson_end")
-  int? lessonEnd;
-  String? replacement;
-  String? room;
-  String? subject;
+  int? lessonEnd,
+  String? replacement,
+  String? room,
+  String? subject,
   @JsonKey(name: "subject_old")
-  String? subjectOld;
+  String? subjectOld
+  })=_VPlanEntry;
 
-  bool get isSelfWork => "+"==replacement?.trim();
+
+  bool isSelfWork ()=> "+"==replacement?.trim();
 
   static DateTime _timeFromJson(String s) =>DateTime.parse(s);
   static String _timeToJson(DateTime dt)=>dt.toIso8601String();
-
-  Map<String, dynamic> toJson()=> _$VPlanEntryToJson(this);
 }

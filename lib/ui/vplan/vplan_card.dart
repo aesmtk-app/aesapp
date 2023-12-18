@@ -9,7 +9,7 @@ class VPlanCard extends StatelessWidget {
     AESTheme aesTheme = Get.find<AESTheme>();
     if (v.isInfo) return aesTheme.cyan;
     if (v.isCancelled??false) return aesTheme.red;
-    if(v.isSelfWork) return aesTheme.yellow;
+    if(v.isSelfWork()) return aesTheme.yellow;
     return aesTheme.green;
   }
 
@@ -51,7 +51,7 @@ class VPlanCard extends StatelessWidget {
         ))
       ];
     }
-    else if(v.isSelfWork){
+    else if(v.isSelfWork()){
       return [
         _lessonNumber(context),
         Expanded(child: Column(

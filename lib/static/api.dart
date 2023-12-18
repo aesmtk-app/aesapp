@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:aesapp/objects/mensa.dart';
+import 'package:aesapp/objects/news.dart';
 import 'package:aesapp/objects/vplan.dart';
 import 'package:aesapp/static/hive.dart';
 import 'package:dio/dio.dart';
@@ -27,6 +28,9 @@ abstract class API{
 
   @GET("/mensa")
   Future<List<Menu>> getAllMenus();
+
+  @GET("/news")
+  Future<List<NewsPreview>> getAllArticles();
 
   static Future<bool> checkConnection()async{
     try{

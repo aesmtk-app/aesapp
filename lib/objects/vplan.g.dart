@@ -6,9 +6,10 @@ part of 'vplan.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-VPlanEntry _$VPlanEntryFromJson(Map<String, dynamic> json) => VPlanEntry(
+_$VPlanEntryImpl _$$VPlanEntryImplFromJson(Map<String, dynamic> json) =>
+    _$VPlanEntryImpl(
       id: json['id'] as int,
-      creationTime: VPlanEntry._timeFromJson(json['creation_time'] as String),
+      creationTime: DateTime.parse(json['creation_time'] as String),
       isInfo: json['is_info'] as bool,
       date: DateTime.parse(json['date'] as String),
       course: json['class'] as String?,
@@ -22,10 +23,10 @@ VPlanEntry _$VPlanEntryFromJson(Map<String, dynamic> json) => VPlanEntry(
       subjectOld: json['subject_old'] as String?,
     );
 
-Map<String, dynamic> _$VPlanEntryToJson(VPlanEntry instance) =>
+Map<String, dynamic> _$$VPlanEntryImplToJson(_$VPlanEntryImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'creation_time': VPlanEntry._timeToJson(instance.creationTime),
+      'creation_time': instance.creationTime.toIso8601String(),
       'is_info': instance.isInfo,
       'date': instance.date.toIso8601String(),
       'class': instance.course,
