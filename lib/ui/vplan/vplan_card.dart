@@ -51,7 +51,7 @@ class VPlanCard extends StatelessWidget {
         ))
       ];
     }
-    else if(v.isSelfWork??false){
+    else if(v.isSelfWork){
       return [
         _lessonNumber(context),
         Expanded(child: Column(

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:aesapp/ui/timetable/timetable_page.dart';
 import 'package:flutter/foundation.dart';
 import "package:universal_html/html.dart" as html;
 import 'package:aesapp/static/app.dart';
@@ -30,6 +31,7 @@ class AESPage{
     0:AESPage(id: 0, label: "Home", icon: const Icon(Icons.home), selectedIcon: const Icon(Icons.home_outlined), showWhenPortrait: true, page: ({bool asWidget=false})=> HomePage(calledAsWidget: asWidget,), showWhenLandscape: true, routeName: "/home"),
     1:AESPage(id: 1, label: "Vertretung", icon: const Icon(Icons.table_chart), selectedIcon: const Icon(Icons.table_chart_outlined), showWhenPortrait: true, page: ({bool asWidget=false})=>VPlanPage(calledAsWidget: asWidget,), showWhenLandscape: true, routeName: "/vplan"),
     3:AESPage(id: 3, label: "Mensa", icon: const Icon(Icons.restaurant_menu), selectedIcon: const Icon(Icons.restaurant_menu_outlined), showWhenPortrait: true, showWhenLandscape: true, page: ({bool asWidget=false})=>MensaPage(calledAsWidget: asWidget,), routeName: "/mensa"),
+    4:AESPage(id: 4, label: "Plan", icon: const Icon(Icons.table_chart), selectedIcon: const Icon(Icons.table_chart_outlined), showWhenPortrait: true, showWhenLandscape: true, page: ({bool asWidget=false})=>TimetablePage(calledAsWidget: asWidget,), routeName: "/timetable"),
     2:AESPage(id: 2, label: "test", icon: const Icon(Icons.table_chart), selectedIcon: const Icon(Icons.table_chart_outlined), showWhenPortrait: false, page: ({bool asWidget=false})=>TestPage(calledAsWidget: asWidget,), showWhenLandscape: false, routeName: "/test"),
     99:AESPage(id: 99, label: "Settings", icon: const Icon(Icons.settings), selectedIcon: const Icon(Icons.settings_outlined), showWhenPortrait: true, showWhenLandscape: true, page: ({bool asWidget=false})=>SettingsHome(calledAsWidget: asWidget,), routeName: "/settings")
   };
