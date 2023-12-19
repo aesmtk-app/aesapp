@@ -4,6 +4,7 @@ import 'package:aesapp/helpers/api.dart';
 import 'package:aesapp/helpers/app.dart';
 import 'package:aesapp/helpers/hive.dart';
 import 'package:aesapp/helpers/themes.dart';
+import 'package:aesapp/objects/vplan.dart';
 import 'package:aesapp/ui/TestPage.dart';
 import 'package:aesapp/ui/page_selector.dart';
 import 'package:aesapp/ui/settings/settings_home.dart';
@@ -36,6 +37,7 @@ void main() async {
   // ignore: unnecessary_cast
   Get.put(DarkDashTheme() as AESTheme);
   // init hive
+  Hive.registerAdapter(VPlanEntryAdapter());
   await Hive.initFlutter();
   await Hive.openBox(HiveKeys.boxName);
   await HiveKeys.setDefaults();

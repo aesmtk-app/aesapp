@@ -43,6 +43,7 @@ dependencies:
   json_annotation: ^4.8.1
   responsive_grid_list: ^1.4.0
   freezed_annotation: ^2.4.1
+  listenable_stream: ^1.1.0
 
 
 
@@ -54,6 +55,7 @@ dev_dependencies:
   retrofit_generator: ^8.0.6
   json_serializable: ^6.6.2
   freezed: ^2.4.6
+  hive_generator: ^2.0.1
 
 
 flutter:
