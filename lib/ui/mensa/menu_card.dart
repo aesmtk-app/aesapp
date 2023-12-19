@@ -42,13 +42,13 @@ class _MenuCardState extends State<MenuCard> {
   @override
   Widget build(BuildContext context) {
     List<Widget> selectWidgets = [];
-    for (final (i,m) in menu.equalSelectableMenus.indexed){
+    for (final (i,m) in menu.equalSelectableMenus!.indexed){
       if (i!=0) selectWidgets.add(const VerticalDivider(width: 1, thickness: 1,));
       selectWidgets.add(Expanded(child: _text(m.menu)));
     }
     List<Widget> otherSW = [];
     if(selectWidgets.isNotEmpty) otherSW.add(Divider(thickness: 1, height: 1,));
-    for (final (i,m) in menu.otherSelectableMenus.indexed){
+    for (final (i,m) in menu.otherSelectableMenus!.indexed){
       otherSW.add(Row(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.max,
@@ -62,18 +62,18 @@ class _MenuCardState extends State<MenuCard> {
           ))
     ],
       ));
-      if(i!=menu.otherSelectableMenus.length-1)otherSW.add(const Divider(height: 1, thickness: 1,));
+      if(i!=menu.otherSelectableMenus!.length-1)otherSW.add(const Divider(height: 1, thickness: 1,));
     }
     Widget? lastW;
-    if(menu.otherMenus.isNotEmpty){
-      lastW = _text(menu.otherMenus.last.menu);
+    if(menu.otherMenus!.isNotEmpty){
+      lastW = _text(menu.otherMenus!.last.menu);
     }
     List<Widget> otherW = [];
-    if(menu.otherMenus.isNotEmpty&&(otherSW.isNotEmpty||(otherSW.isEmpty&&selectWidgets.isNotEmpty))) otherW.add(const Divider(thickness: 1, height: 1,));
-    if(menu.otherMenus.isNotEmpty){
-      for (final (i,m) in menu.otherMenus.take(menu.otherMenus.length-1).indexed){
+    if(menu.otherMenus!.isNotEmpty&&(otherSW.isNotEmpty||(otherSW.isEmpty&&selectWidgets.isNotEmpty))) otherW.add(const Divider(thickness: 1, height: 1,));
+    if(menu.otherMenus!.isNotEmpty){
+      for (final (i,m) in menu.otherMenus!.take(menu.otherMenus!.length-1).indexed){
         otherW.add(_text(m.menu));
-        if(i!=menu.otherMenus.length-1)otherW.add(const Divider(height: 1, thickness: 1,));
+        if(i!=menu.otherMenus!.length-1)otherW.add(const Divider(height: 1, thickness: 1,));
       }
     }
     return Card(
@@ -85,7 +85,7 @@ class _MenuCardState extends State<MenuCard> {
               child: Stack(
                 children: [
                   Row(
-                    children: menu.equalSelectableMenus.map((e) => Expanded(
+                    children: menu.equalSelectableMenus!.map((e) => Expanded(
                         child: GestureDetector(
                           child: Container(
                             decoration: BoxDecoration(
@@ -101,7 +101,7 @@ class _MenuCardState extends State<MenuCard> {
                     children: selectWidgets.isEmpty?[Expanded(child: _text("Kein Essen"))]:selectWidgets,
                   ),
                   Row(
-                    children: menu.equalSelectableMenus.map((e) => Expanded(
+                    children: menu.equalSelectableMenus!.map((e) => Expanded(
                       child: GestureDetector(onTap: ()=>onSelect(e.category),),
                     )).toList(),
                   )

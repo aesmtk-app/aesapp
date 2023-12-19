@@ -22,9 +22,9 @@ NewsPreview _$NewsPreviewFromJson(Map<String, dynamic> json) {
 mixin _$NewsPreview {
   int get id => throw _privateConstructorUsedError;
   set id(int value) => throw _privateConstructorUsedError;
-  @JsonKey(toJson: _timeToJson, fromJson: _timeFromJson)
+  @JsonKey()
   DateTime get created => throw _privateConstructorUsedError;
-  @JsonKey(toJson: _timeToJson, fromJson: _timeFromJson)
+  @JsonKey()
   set created(DateTime value) => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   set title(String value) => throw _privateConstructorUsedError;
@@ -34,11 +34,9 @@ mixin _$NewsPreview {
   set source(String value) => throw _privateConstructorUsedError;
   String get author => throw _privateConstructorUsedError;
   set author(String value) => throw _privateConstructorUsedError;
-  @JsonKey(
-      name: "last_edited", toJson: _tryTimeToJson, fromJson: _tryTimeFromJson)
+  @JsonKey(name: "last_edited")
   DateTime? get lastEdited => throw _privateConstructorUsedError;
-  @JsonKey(
-      name: "last_edited", toJson: _tryTimeToJson, fromJson: _tryTimeFromJson)
+  @JsonKey(name: "last_edited")
   set lastEdited(DateTime? value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -55,16 +53,12 @@ abstract class $NewsPreviewCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
-      @JsonKey(toJson: _timeToJson, fromJson: _timeFromJson) DateTime created,
+      @JsonKey() DateTime created,
       String title,
       String preview,
       String source,
       String author,
-      @JsonKey(
-          name: "last_edited",
-          toJson: _tryTimeToJson,
-          fromJson: _tryTimeFromJson)
-      DateTime? lastEdited});
+      @JsonKey(name: "last_edited") DateTime? lastEdited});
 }
 
 /// @nodoc
@@ -131,16 +125,12 @@ abstract class _$$NewsPreviewImplCopyWith<$Res>
   @useResult
   $Res call(
       {int id,
-      @JsonKey(toJson: _timeToJson, fromJson: _timeFromJson) DateTime created,
+      @JsonKey() DateTime created,
       String title,
       String preview,
       String source,
       String author,
-      @JsonKey(
-          name: "last_edited",
-          toJson: _tryTimeToJson,
-          fromJson: _tryTimeFromJson)
-      DateTime? lastEdited});
+      @JsonKey(name: "last_edited") DateTime? lastEdited});
 }
 
 /// @nodoc
@@ -200,17 +190,12 @@ class __$$NewsPreviewImplCopyWithImpl<$Res>
 class _$NewsPreviewImpl implements _NewsPreview {
   _$NewsPreviewImpl(
       {required this.id,
-      @JsonKey(toJson: _timeToJson, fromJson: _timeFromJson)
-      required this.created,
+      @JsonKey() required this.created,
       required this.title,
       required this.preview,
       required this.source,
       required this.author,
-      @JsonKey(
-          name: "last_edited",
-          toJson: _tryTimeToJson,
-          fromJson: _tryTimeFromJson)
-      this.lastEdited});
+      @JsonKey(name: "last_edited") this.lastEdited});
 
   factory _$NewsPreviewImpl.fromJson(Map<String, dynamic> json) =>
       _$$NewsPreviewImplFromJson(json);
@@ -218,7 +203,7 @@ class _$NewsPreviewImpl implements _NewsPreview {
   @override
   int id;
   @override
-  @JsonKey(toJson: _timeToJson, fromJson: _timeFromJson)
+  @JsonKey()
   DateTime created;
   @override
   String title;
@@ -229,8 +214,7 @@ class _$NewsPreviewImpl implements _NewsPreview {
   @override
   String author;
   @override
-  @JsonKey(
-      name: "last_edited", toJson: _tryTimeToJson, fromJson: _tryTimeFromJson)
+  @JsonKey(name: "last_edited")
   DateTime? lastEdited;
 
   @override
@@ -255,17 +239,12 @@ class _$NewsPreviewImpl implements _NewsPreview {
 abstract class _NewsPreview implements NewsPreview {
   factory _NewsPreview(
       {required int id,
-      @JsonKey(toJson: _timeToJson, fromJson: _timeFromJson)
-      required DateTime created,
+      @JsonKey() required DateTime created,
       required String title,
       required String preview,
       required String source,
       required String author,
-      @JsonKey(
-          name: "last_edited",
-          toJson: _tryTimeToJson,
-          fromJson: _tryTimeFromJson)
-      DateTime? lastEdited}) = _$NewsPreviewImpl;
+      @JsonKey(name: "last_edited") DateTime? lastEdited}) = _$NewsPreviewImpl;
 
   factory _NewsPreview.fromJson(Map<String, dynamic> json) =
       _$NewsPreviewImpl.fromJson;
@@ -274,9 +253,9 @@ abstract class _NewsPreview implements NewsPreview {
   int get id;
   set id(int value);
   @override
-  @JsonKey(toJson: _timeToJson, fromJson: _timeFromJson)
+  @JsonKey()
   DateTime get created;
-  @JsonKey(toJson: _timeToJson, fromJson: _timeFromJson)
+  @JsonKey()
   set created(DateTime value);
   @override
   String get title;
@@ -291,11 +270,9 @@ abstract class _NewsPreview implements NewsPreview {
   String get author;
   set author(String value);
   @override
-  @JsonKey(
-      name: "last_edited", toJson: _tryTimeToJson, fromJson: _tryTimeFromJson)
+  @JsonKey(name: "last_edited")
   DateTime? get lastEdited;
-  @JsonKey(
-      name: "last_edited", toJson: _tryTimeToJson, fromJson: _tryTimeFromJson)
+  @JsonKey(name: "last_edited")
   set lastEdited(DateTime? value);
   @override
   @JsonKey(ignore: true)
@@ -311,9 +288,7 @@ NewsArticle _$NewsArticleFromJson(Map<String, dynamic> json) {
 mixin _$NewsArticle {
   int get id => throw _privateConstructorUsedError;
   set id(int value) => throw _privateConstructorUsedError;
-  @JsonKey(toJson: _timeToJson, fromJson: _timeFromJson)
   DateTime get created => throw _privateConstructorUsedError;
-  @JsonKey(toJson: _timeToJson, fromJson: _timeFromJson)
   set created(DateTime value) => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   set title(String value) => throw _privateConstructorUsedError;
@@ -325,11 +300,9 @@ mixin _$NewsArticle {
   set author(String value) => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
   set content(String value) => throw _privateConstructorUsedError;
-  @JsonKey(
-      name: "last_edited", toJson: _tryTimeToJson, fromJson: _tryTimeFromJson)
+  @JsonKey(name: "last_edited")
   DateTime? get lastEdited => throw _privateConstructorUsedError;
-  @JsonKey(
-      name: "last_edited", toJson: _tryTimeToJson, fromJson: _tryTimeFromJson)
+  @JsonKey(name: "last_edited")
   set lastEdited(DateTime? value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -346,17 +319,13 @@ abstract class $NewsArticleCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
-      @JsonKey(toJson: _timeToJson, fromJson: _timeFromJson) DateTime created,
+      DateTime created,
       String title,
       String preview,
       String source,
       String author,
       String content,
-      @JsonKey(
-          name: "last_edited",
-          toJson: _tryTimeToJson,
-          fromJson: _tryTimeFromJson)
-      DateTime? lastEdited});
+      @JsonKey(name: "last_edited") DateTime? lastEdited});
 }
 
 /// @nodoc
@@ -428,17 +397,13 @@ abstract class _$$NewsArticleImplCopyWith<$Res>
   @useResult
   $Res call(
       {int id,
-      @JsonKey(toJson: _timeToJson, fromJson: _timeFromJson) DateTime created,
+      DateTime created,
       String title,
       String preview,
       String source,
       String author,
       String content,
-      @JsonKey(
-          name: "last_edited",
-          toJson: _tryTimeToJson,
-          fromJson: _tryTimeFromJson)
-      DateTime? lastEdited});
+      @JsonKey(name: "last_edited") DateTime? lastEdited});
 }
 
 /// @nodoc
@@ -503,18 +468,13 @@ class __$$NewsArticleImplCopyWithImpl<$Res>
 class _$NewsArticleImpl implements _NewsArticle {
   _$NewsArticleImpl(
       {required this.id,
-      @JsonKey(toJson: _timeToJson, fromJson: _timeFromJson)
       required this.created,
       required this.title,
       required this.preview,
       required this.source,
       required this.author,
       required this.content,
-      @JsonKey(
-          name: "last_edited",
-          toJson: _tryTimeToJson,
-          fromJson: _tryTimeFromJson)
-      this.lastEdited});
+      @JsonKey(name: "last_edited") this.lastEdited});
 
   factory _$NewsArticleImpl.fromJson(Map<String, dynamic> json) =>
       _$$NewsArticleImplFromJson(json);
@@ -522,7 +482,6 @@ class _$NewsArticleImpl implements _NewsArticle {
   @override
   int id;
   @override
-  @JsonKey(toJson: _timeToJson, fromJson: _timeFromJson)
   DateTime created;
   @override
   String title;
@@ -535,8 +494,7 @@ class _$NewsArticleImpl implements _NewsArticle {
   @override
   String content;
   @override
-  @JsonKey(
-      name: "last_edited", toJson: _tryTimeToJson, fromJson: _tryTimeFromJson)
+  @JsonKey(name: "last_edited")
   DateTime? lastEdited;
 
   @override
@@ -561,18 +519,13 @@ class _$NewsArticleImpl implements _NewsArticle {
 abstract class _NewsArticle implements NewsArticle {
   factory _NewsArticle(
       {required int id,
-      @JsonKey(toJson: _timeToJson, fromJson: _timeFromJson)
       required DateTime created,
       required String title,
       required String preview,
       required String source,
       required String author,
       required String content,
-      @JsonKey(
-          name: "last_edited",
-          toJson: _tryTimeToJson,
-          fromJson: _tryTimeFromJson)
-      DateTime? lastEdited}) = _$NewsArticleImpl;
+      @JsonKey(name: "last_edited") DateTime? lastEdited}) = _$NewsArticleImpl;
 
   factory _NewsArticle.fromJson(Map<String, dynamic> json) =
       _$NewsArticleImpl.fromJson;
@@ -581,9 +534,7 @@ abstract class _NewsArticle implements NewsArticle {
   int get id;
   set id(int value);
   @override
-  @JsonKey(toJson: _timeToJson, fromJson: _timeFromJson)
   DateTime get created;
-  @JsonKey(toJson: _timeToJson, fromJson: _timeFromJson)
   set created(DateTime value);
   @override
   String get title;
@@ -601,11 +552,9 @@ abstract class _NewsArticle implements NewsArticle {
   String get content;
   set content(String value);
   @override
-  @JsonKey(
-      name: "last_edited", toJson: _tryTimeToJson, fromJson: _tryTimeFromJson)
+  @JsonKey(name: "last_edited")
   DateTime? get lastEdited;
-  @JsonKey(
-      name: "last_edited", toJson: _tryTimeToJson, fromJson: _tryTimeFromJson)
+  @JsonKey(name: "last_edited")
   set lastEdited(DateTime? value);
   @override
   @JsonKey(ignore: true)

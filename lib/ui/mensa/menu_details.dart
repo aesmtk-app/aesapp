@@ -32,7 +32,7 @@ class _MenuDetailsState extends State<MenuDetails> {
     Menu menu = widget.menu;
     return ListView(
       children: [
-        if(menu.equalSelectableMenus.isNotEmpty)
+        if(menu.equalSelectableMenus!.isNotEmpty)
         ListTile(title: Text("Essensauswahl:", style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Theme.of(context).colorScheme.primary),),),
         RadioListTile(
           value: null,
@@ -45,13 +45,13 @@ class _MenuDetailsState extends State<MenuDetails> {
           },
           title: const Text("Kein Essen/Abbestellen"),
         ),
-        ...menu.equalSelectableMenus.map((e) => selectableDish(e.category, e.menu)),
-        ...menu.otherSelectableMenus.map((e) => selectableDish(e.category, e.menu)),
-        if(menu.otherMenus.isNotEmpty)
+        ...menu.equalSelectableMenus!.map((e) => selectableDish(e.category, e.menu)),
+        ...menu.otherSelectableMenus!.map((e) => selectableDish(e.category, e.menu)),
+      if(menu.otherMenus!.isNotEmpty)
         const Divider(),
-        if(menu.otherMenus.isNotEmpty)
+        if(menu.otherMenus!.isNotEmpty)
           ListTile(title: Text("Weiteres:", style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Theme.of(context).colorScheme.primary),),),
-        ...menu.otherMenus.map((e) => ListTile(title: Text(e.category), subtitle: Text(e.menu),))
+        ...menu.otherMenus!.map((e) => ListTile(title: Text(e.category), subtitle: Text(e.menu),))
       ],
     );
   }

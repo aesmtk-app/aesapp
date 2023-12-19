@@ -22,9 +22,9 @@ VPlanEntry _$VPlanEntryFromJson(Map<String, dynamic> json) {
 mixin _$VPlanEntry {
   int get id => throw _privateConstructorUsedError;
   set id(int value) => throw _privateConstructorUsedError;
-  @JsonKey(name: "creation_time", fromJson: _timeFromJson, toJson: _timeToJson)
+  @JsonKey(name: "creation_time")
   DateTime get creationTime => throw _privateConstructorUsedError;
-  @JsonKey(name: "creation_time", fromJson: _timeFromJson, toJson: _timeToJson)
+  @JsonKey(name: "creation_time")
   set creationTime(DateTime value) => throw _privateConstructorUsedError;
   @JsonKey(name: "is_info")
   bool get isInfo => throw _privateConstructorUsedError;
@@ -75,9 +75,7 @@ abstract class $VPlanEntryCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
-      @JsonKey(
-          name: "creation_time", fromJson: _timeFromJson, toJson: _timeToJson)
-      DateTime creationTime,
+      @JsonKey(name: "creation_time") DateTime creationTime,
       @JsonKey(name: "is_info") bool isInfo,
       DateTime date,
       @JsonKey(name: "class") String? course,
@@ -185,9 +183,7 @@ abstract class _$$VPlanEntryImplCopyWith<$Res>
   @useResult
   $Res call(
       {int id,
-      @JsonKey(
-          name: "creation_time", fromJson: _timeFromJson, toJson: _timeToJson)
-      DateTime creationTime,
+      @JsonKey(name: "creation_time") DateTime creationTime,
       @JsonKey(name: "is_info") bool isInfo,
       DateTime date,
       @JsonKey(name: "class") String? course,
@@ -285,12 +281,10 @@ class __$$VPlanEntryImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$VPlanEntryImpl implements _VPlanEntry {
+class _$VPlanEntryImpl extends _VPlanEntry {
   _$VPlanEntryImpl(
       {required this.id,
-      @JsonKey(
-          name: "creation_time", fromJson: _timeFromJson, toJson: _timeToJson)
-      required this.creationTime,
+      @JsonKey(name: "creation_time") required this.creationTime,
       @JsonKey(name: "is_info") required this.isInfo,
       required this.date,
       @JsonKey(name: "class") this.course,
@@ -301,7 +295,8 @@ class _$VPlanEntryImpl implements _VPlanEntry {
       this.replacement,
       this.room,
       this.subject,
-      @JsonKey(name: "subject_old") this.subjectOld});
+      @JsonKey(name: "subject_old") this.subjectOld})
+      : super._();
 
   factory _$VPlanEntryImpl.fromJson(Map<String, dynamic> json) =>
       _$$VPlanEntryImplFromJson(json);
@@ -309,7 +304,7 @@ class _$VPlanEntryImpl implements _VPlanEntry {
   @override
   int id;
   @override
-  @JsonKey(name: "creation_time", fromJson: _timeFromJson, toJson: _timeToJson)
+  @JsonKey(name: "creation_time")
   DateTime creationTime;
   @override
   @JsonKey(name: "is_info")
@@ -359,12 +354,10 @@ class _$VPlanEntryImpl implements _VPlanEntry {
   }
 }
 
-abstract class _VPlanEntry implements VPlanEntry {
+abstract class _VPlanEntry extends VPlanEntry {
   factory _VPlanEntry(
       {required int id,
-      @JsonKey(
-          name: "creation_time", fromJson: _timeFromJson, toJson: _timeToJson)
-      required DateTime creationTime,
+      @JsonKey(name: "creation_time") required DateTime creationTime,
       @JsonKey(name: "is_info") required bool isInfo,
       required DateTime date,
       @JsonKey(name: "class") String? course,
@@ -376,6 +369,7 @@ abstract class _VPlanEntry implements VPlanEntry {
       String? room,
       String? subject,
       @JsonKey(name: "subject_old") String? subjectOld}) = _$VPlanEntryImpl;
+  _VPlanEntry._() : super._();
 
   factory _VPlanEntry.fromJson(Map<String, dynamic> json) =
       _$VPlanEntryImpl.fromJson;
@@ -384,9 +378,9 @@ abstract class _VPlanEntry implements VPlanEntry {
   int get id;
   set id(int value);
   @override
-  @JsonKey(name: "creation_time", fromJson: _timeFromJson, toJson: _timeToJson)
+  @JsonKey(name: "creation_time")
   DateTime get creationTime;
-  @JsonKey(name: "creation_time", fromJson: _timeFromJson, toJson: _timeToJson)
+  @JsonKey(name: "creation_time")
   set creationTime(DateTime value);
   @override
   @JsonKey(name: "is_info")

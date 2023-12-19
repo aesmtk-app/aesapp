@@ -9,10 +9,10 @@ part 'vplan.freezed.dart';
 @unfreezed
 class VPlanEntry with _$VPlanEntry{
   factory VPlanEntry.fromJson(Map<String, dynamic> json) => _$VPlanEntryFromJson(json);
-
+  const VPlanEntry._();
   factory VPlanEntry({
   required int id,
-  @JsonKey(name: "creation_time", fromJson: _timeFromJson, toJson: _timeToJson)
+  @JsonKey(name: "creation_time")
   required DateTime creationTime,
   @JsonKey(name: "is_info")
   required bool isInfo,
@@ -35,7 +35,4 @@ class VPlanEntry with _$VPlanEntry{
 
 
   bool isSelfWork ()=> "+"==replacement?.trim();
-
-  static DateTime _timeFromJson(String s) =>DateTime.parse(s);
-  static String _timeToJson(DateTime dt)=>dt.toIso8601String();
 }

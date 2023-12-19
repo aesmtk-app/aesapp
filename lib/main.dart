@@ -32,6 +32,7 @@ void main() async {
   usePathUrlStrategy();
   // set services
   WidgetsFlutterBinding.ensureInitialized();
+  // ignore: unnecessary_cast
   Get.put(DarkDashTheme() as AESTheme);
   // init hive
   await Hive.initFlutter();
@@ -53,7 +54,7 @@ void main() async {
 
   initFirebase().whenComplete(() => logger.info("fcm initialized"));
 
-  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       systemNavigationBarColor: Colors.transparent,
       systemNavigationBarDividerColor: Colors.transparent,
   ));
