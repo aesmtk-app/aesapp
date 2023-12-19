@@ -7,7 +7,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:aesapp/static/hive.dart';
+import 'package:aesapp/helpers/hive.dart';
 import 'package:aesapp/main.dart';
 import 'package:hive/hive.dart';
 

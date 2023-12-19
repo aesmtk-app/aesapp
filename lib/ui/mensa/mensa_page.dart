@@ -1,5 +1,5 @@
 import 'package:aesapp/objects/mensa.dart';
-import 'package:aesapp/static/api.dart';
+import 'package:aesapp/helpers/api.dart';
 import 'package:aesapp/ui/mensa/menu_card.dart';
 import 'package:aesapp/ui/mensa/menu_details.dart';
 import 'package:collection/collection.dart';
@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:week_of_year/date_week_extensions.dart';
 
-import '../../static/app.dart';
+import '../../helpers/app.dart';
 import '../aesapp/appbar.dart';
 class MensaPage extends StatefulWidget {
   const MensaPage({this.calledAsWidget=false, super.key});

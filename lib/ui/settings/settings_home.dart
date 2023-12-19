@@ -1,5 +1,5 @@
 
-import 'package:aesapp/static/app.dart';
+import 'package:aesapp/helpers/app.dart';
 import 'package:aesapp/ui/settings/appearance_settings.dart';
 import 'package:aesapp/ui/settings/debug_settings.dart';
 import 'package:aesapp/ui/settings/notification_settings.dart';

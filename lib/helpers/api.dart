@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:aesapp/objects/mensa.dart';
 import 'package:aesapp/objects/news.dart';
 import 'package:aesapp/objects/vplan.dart';
-import 'package:aesapp/static/hive.dart';
+import 'package:aesapp/helpers/hive.dart';
 import 'package:dio/dio.dart';
 import 'package:hive/hive.dart';
 import 'package:logging/logging.dart';

@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:aesapp/ui/timetable/timetable_page.dart';
 import 'package:flutter/foundation.dart';
 import "package:universal_html/html.dart" as html;
-import 'package:aesapp/static/app.dart';
+import 'package:aesapp/helpers/app.dart';
 import 'package:aesapp/ui/TestPage.dart';
 import 'package:aesapp/ui/aesapp/appbar.dart';
 import 'package:aesapp/ui/homepage.dart';

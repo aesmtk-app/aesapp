@@ -12,8 +12,8 @@ class Timetable with _$Timetable{
 }
 
 @unfreezed
-class TimetableCell with _$TimetableCell{
-  factory TimetableCell({
+class TimetableEntry with _$TimetableEntry{
+  factory TimetableEntry({
     required int id,
     required int timetableId,
     required int weekday,
@@ -21,6 +21,6 @@ class TimetableCell with _$TimetableCell{
     required String subject,
     required String teacher,
     required String room
-  })=_TimetableCell;
-  factory TimetableCell.fromJson(Map<String, dynamic> json) => _$TimetableCellFromJson(json);
+  })=_TimetableEntry;
+  factory TimetableEntry.fromJson(Map<String, dynamic> json) => _$TimetableEntryFromJson(json);
 }

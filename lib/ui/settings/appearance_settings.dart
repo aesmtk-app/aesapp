@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:aesapp/objects/theme.dart';
-import 'package:aesapp/static/app.dart';
+import 'package:aesapp/helpers/app.dart';
 import 'package:aesapp/ui/aesapp/appbar.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dynamic_color/dynamic_color.dart';
@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart' as hive;
 
-import 'package:aesapp/static/hive.dart';
+import 'package:aesapp/helpers/hive.dart';
 class AppearanceSettings extends StatefulWidget {
   const AppearanceSettings({this.calledAsWidget=false, super.key});
   final bool calledAsWidget;

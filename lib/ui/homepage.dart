@@ -1,5 +1,5 @@
 import 'package:aesapp/objects/theme.dart';
-import 'package:aesapp/static/app.dart';
+import 'package:aesapp/helpers/app.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logging/logging.dart';

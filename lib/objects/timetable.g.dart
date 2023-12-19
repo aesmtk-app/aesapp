@@ -18,8 +18,8 @@ Map<String, dynamic> _$$TimetableImplToJson(_$TimetableImpl instance) =>
       'title': instance.title,
     };
 
-_$TimetableCellImpl _$$TimetableCellImplFromJson(Map<String, dynamic> json) =>
-    _$TimetableCellImpl(
+_$TimetableEntryImpl _$$TimetableEntryImplFromJson(Map<String, dynamic> json) =>
+    _$TimetableEntryImpl(
       id: json['id'] as int,
       timetableId: json['timetableId'] as int,
       weekday: json['weekday'] as int,
@@ -29,7 +29,8 @@ _$TimetableCellImpl _$$TimetableCellImplFromJson(Map<String, dynamic> json) =>
       room: json['room'] as String,
     );
 
-Map<String, dynamic> _$$TimetableCellImplToJson(_$TimetableCellImpl instance) =>
+Map<String, dynamic> _$$TimetableEntryImplToJson(
+        _$TimetableEntryImpl instance) =>
     <String, dynamic>{
       'id': instance.id,
       'timetableId': instance.timetableId,

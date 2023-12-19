@@ -1,8 +1,9 @@
+import 'package:aesapp/helpers/data_provider.dart';
 import 'package:aesapp/objects/theme.dart';
-import 'package:aesapp/static/api.dart';
-import 'package:aesapp/static/app.dart';
-import 'package:aesapp/static/hive.dart';
-import 'package:aesapp/static/themes.dart';
+import 'package:aesapp/helpers/api.dart';
+import 'package:aesapp/helpers/app.dart';
+import 'package:aesapp/helpers/hive.dart';
+import 'package:aesapp/helpers/themes.dart';
 import 'package:aesapp/ui/TestPage.dart';
 import 'package:aesapp/ui/page_selector.dart';
 import 'package:aesapp/ui/settings/settings_home.dart';
@@ -18,7 +19,7 @@ import 'package:get/get.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:logging/logging.dart';
 import 'generated/l10n.dart';
-import 'static/firebase_options.dart';
+import 'package:aesapp/helpers/firebase_options.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
 final Logger logger = Logger("main");
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
@@ -43,6 +44,7 @@ void main() async {
   List<LogRecord> logs = [];
   Get.put<List<LogRecord>>(logs, tag: "logs");
   Get.put<API>(API(dio.Dio(), baseUrl: API.apiEndpoint));
+  Get.put<DataProvider>(DataProvider());
   Logger.root.level = Level.FINEST; // defaults to Level.INFO
   Logger.root.onRecord.listen((record) {
     if (kDebugMode||(box.get(HiveKeys.settings.debugging.enabled)??false)) {

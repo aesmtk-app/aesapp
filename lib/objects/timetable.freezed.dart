@@ -157,12 +157,12 @@ abstract class _Timetable implements Timetable {
       throw _privateConstructorUsedError;
 }
 
-TimetableCell _$TimetableCellFromJson(Map<String, dynamic> json) {
-  return _TimetableCell.fromJson(json);
+TimetableEntry _$TimetableEntryFromJson(Map<String, dynamic> json) {
+  return _TimetableEntry.fromJson(json);
 }
 
 /// @nodoc
-mixin _$TimetableCell {
+mixin _$TimetableEntry {
   int get id => throw _privateConstructorUsedError;
   set id(int value) => throw _privateConstructorUsedError;
   int get timetableId => throw _privateConstructorUsedError;
@@ -180,15 +180,15 @@ mixin _$TimetableCell {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $TimetableCellCopyWith<TimetableCell> get copyWith =>
+  $TimetableEntryCopyWith<TimetableEntry> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $TimetableCellCopyWith<$Res> {
-  factory $TimetableCellCopyWith(
-          TimetableCell value, $Res Function(TimetableCell) then) =
-      _$TimetableCellCopyWithImpl<$Res, TimetableCell>;
+abstract class $TimetableEntryCopyWith<$Res> {
+  factory $TimetableEntryCopyWith(
+          TimetableEntry value, $Res Function(TimetableEntry) then) =
+      _$TimetableEntryCopyWithImpl<$Res, TimetableEntry>;
   @useResult
   $Res call(
       {int id,
@@ -201,9 +201,9 @@ abstract class $TimetableCellCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$TimetableCellCopyWithImpl<$Res, $Val extends TimetableCell>
-    implements $TimetableCellCopyWith<$Res> {
-  _$TimetableCellCopyWithImpl(this._value, this._then);
+class _$TimetableEntryCopyWithImpl<$Res, $Val extends TimetableEntry>
+    implements $TimetableEntryCopyWith<$Res> {
+  _$TimetableEntryCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -255,11 +255,11 @@ class _$TimetableCellCopyWithImpl<$Res, $Val extends TimetableCell>
 }
 
 /// @nodoc
-abstract class _$$TimetableCellImplCopyWith<$Res>
-    implements $TimetableCellCopyWith<$Res> {
-  factory _$$TimetableCellImplCopyWith(
-          _$TimetableCellImpl value, $Res Function(_$TimetableCellImpl) then) =
-      __$$TimetableCellImplCopyWithImpl<$Res>;
+abstract class _$$TimetableEntryImplCopyWith<$Res>
+    implements $TimetableEntryCopyWith<$Res> {
+  factory _$$TimetableEntryImplCopyWith(_$TimetableEntryImpl value,
+          $Res Function(_$TimetableEntryImpl) then) =
+      __$$TimetableEntryImplCopyWithImpl<$Res>;
   @override
   @useResult
   $Res call(
@@ -273,11 +273,11 @@ abstract class _$$TimetableCellImplCopyWith<$Res>
 }
 
 /// @nodoc
-class __$$TimetableCellImplCopyWithImpl<$Res>
-    extends _$TimetableCellCopyWithImpl<$Res, _$TimetableCellImpl>
-    implements _$$TimetableCellImplCopyWith<$Res> {
-  __$$TimetableCellImplCopyWithImpl(
-      _$TimetableCellImpl _value, $Res Function(_$TimetableCellImpl) _then)
+class __$$TimetableEntryImplCopyWithImpl<$Res>
+    extends _$TimetableEntryCopyWithImpl<$Res, _$TimetableEntryImpl>
+    implements _$$TimetableEntryImplCopyWith<$Res> {
+  __$$TimetableEntryImplCopyWithImpl(
+      _$TimetableEntryImpl _value, $Res Function(_$TimetableEntryImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -291,7 +291,7 @@ class __$$TimetableCellImplCopyWithImpl<$Res>
     Object? teacher = null,
     Object? room = null,
   }) {
-    return _then(_$TimetableCellImpl(
+    return _then(_$TimetableEntryImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -326,8 +326,8 @@ class __$$TimetableCellImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$TimetableCellImpl implements _TimetableCell {
-  _$TimetableCellImpl(
+class _$TimetableEntryImpl implements _TimetableEntry {
+  _$TimetableEntryImpl(
       {required this.id,
       required this.timetableId,
       required this.weekday,
@@ -336,8 +336,8 @@ class _$TimetableCellImpl implements _TimetableCell {
       required this.teacher,
       required this.room});
 
-  factory _$TimetableCellImpl.fromJson(Map<String, dynamic> json) =>
-      _$$TimetableCellImplFromJson(json);
+  factory _$TimetableEntryImpl.fromJson(Map<String, dynamic> json) =>
+      _$$TimetableEntryImplFromJson(json);
 
   @override
   int id;
@@ -356,35 +356,36 @@ class _$TimetableCellImpl implements _TimetableCell {
 
   @override
   String toString() {
-    return 'TimetableCell(id: $id, timetableId: $timetableId, weekday: $weekday, lesson: $lesson, subject: $subject, teacher: $teacher, room: $room)';
+    return 'TimetableEntry(id: $id, timetableId: $timetableId, weekday: $weekday, lesson: $lesson, subject: $subject, teacher: $teacher, room: $room)';
   }
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$TimetableCellImplCopyWith<_$TimetableCellImpl> get copyWith =>
-      __$$TimetableCellImplCopyWithImpl<_$TimetableCellImpl>(this, _$identity);
+  _$$TimetableEntryImplCopyWith<_$TimetableEntryImpl> get copyWith =>
+      __$$TimetableEntryImplCopyWithImpl<_$TimetableEntryImpl>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$TimetableCellImplToJson(
+    return _$$TimetableEntryImplToJson(
       this,
     );
   }
 }
 
-abstract class _TimetableCell implements TimetableCell {
-  factory _TimetableCell(
+abstract class _TimetableEntry implements TimetableEntry {
+  factory _TimetableEntry(
       {required int id,
       required int timetableId,
       required int weekday,
       required int lesson,
       required String subject,
       required String teacher,
-      required String room}) = _$TimetableCellImpl;
+      required String room}) = _$TimetableEntryImpl;
 
-  factory _TimetableCell.fromJson(Map<String, dynamic> json) =
-      _$TimetableCellImpl.fromJson;
+  factory _TimetableEntry.fromJson(Map<String, dynamic> json) =
+      _$TimetableEntryImpl.fromJson;
 
   @override
   int get id;
@@ -409,6 +410,6 @@ abstract class _TimetableCell implements TimetableCell {
   set room(String value);
   @override
   @JsonKey(ignore: true)
-  _$$TimetableCellImplCopyWith<_$TimetableCellImpl> get copyWith =>
+  _$$TimetableEntryImplCopyWith<_$TimetableEntryImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

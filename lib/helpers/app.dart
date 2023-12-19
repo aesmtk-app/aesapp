@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'dart:io';
 import 'dart:ui';
-
-import 'package:aesapp/static/api.dart';
-import 'package:aesapp/static/themes.dart';
+import 'package:aesapp/helpers/api.dart';
+import 'package:aesapp/helpers/themes.dart';
 import 'package:bot_toast/bot_toast.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';

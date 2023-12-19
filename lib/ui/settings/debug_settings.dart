@@ -1,9 +1,9 @@
-import 'package:aesapp/static/app.dart';
+import 'package:aesapp/helpers/app.dart';
 import 'package:aesapp/ui/aesapp/appbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
-import 'package:aesapp/static/hive.dart';
+import 'package:aesapp/helpers/hive.dart';
 import 'package:logging/logging.dart';
 class DebugSettings extends StatefulWidget {
   const DebugSettings({this.calledAsWidget=false, super.key});
