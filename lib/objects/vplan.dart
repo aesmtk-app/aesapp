@@ -2,7 +2,6 @@ import 'dart:core';
 
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive/hive.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'vplan.g.dart';
 part 'vplan.freezed.dart';
