@@ -21,9 +21,10 @@ class VPlanPage extends StatefulWidget {
 }
 
 class _VPlanPageState extends State<VPlanPage> {
+  Stream<List<VPlanEntry>> vPlanBox = Get.find<DataProvider>().allVPlanEntries();
+
   @override
   Widget build(BuildContext context) {
-    Stream<List<VPlanEntry>> vPlanBox = Get.find<DataProvider>().allVPlanEntries();
     return Scaffold(
       appBar: (!widget.calledAsWidget)?CustomAppBar.get(title: "Vertretung"):null,
       body: RefreshIndicator(
@@ -32,7 +33,6 @@ class _VPlanPageState extends State<VPlanPage> {
           stream: vPlanBox,
           builder: (BuildContext context, AsyncSnapshot<List<VPlanEntry>> mbox){
             if (mbox.hasData){
-              print("val cahnged");
               List<VPlanEntry> entries = mbox.data!;
               Map<DateTime, List<VPlanEntry>> entriesByDate = groupBy(entries, (p0) => p0.date);
               entriesByDate = Map.fromEntries(entriesByDate.entries.toList()..sort((a, b) => a.key.compareTo(b.key)));

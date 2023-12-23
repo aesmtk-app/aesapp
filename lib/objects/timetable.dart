@@ -6,6 +6,7 @@ part 'timetable.freezed.dart';
 
 @unfreezed
 class Timetable extends HiveObject with _$Timetable{
+  Timetable._();
   @HiveType(typeId: 2, adapterName: "TimetableAdapter")
   factory Timetable({
     @HiveField(1)
@@ -26,6 +27,7 @@ class Timetable extends HiveObject with _$Timetable{
 
 @unfreezed
 class TimetableEntry extends HiveObject with _$TimetableEntry{
+  TimetableEntry._();
   @HiveType(typeId: 3, adapterName: "TimetableEntryAdapter")
   factory TimetableEntry({
     @HiveField(0)

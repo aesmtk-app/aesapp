@@ -190,7 +190,7 @@ class __$$TimetableImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 @HiveType(typeId: 2, adapterName: "TimetableAdapter")
-class _$TimetableImpl implements _Timetable {
+class _$TimetableImpl extends _Timetable {
   _$TimetableImpl(
       {@HiveField(1) required this.id,
       @HiveField(2) required this.title,
@@ -199,7 +199,8 @@ class _$TimetableImpl implements _Timetable {
       @HiveField(5) required this.lessonTimes,
       @HiveField(6)
       @JsonKey(includeFromJson: false, includeToJson: false)
-      this.entries});
+      this.entries})
+      : super._();
 
   factory _$TimetableImpl.fromJson(Map<String, dynamic> json) =>
       _$$TimetableImplFromJson(json);
@@ -243,7 +244,7 @@ class _$TimetableImpl implements _Timetable {
   }
 }
 
-abstract class _Timetable implements Timetable {
+abstract class _Timetable extends Timetable {
   factory _Timetable(
       {@HiveField(1) required int id,
       @HiveField(2) required String title,
@@ -253,6 +254,7 @@ abstract class _Timetable implements Timetable {
       @HiveField(6)
       @JsonKey(includeFromJson: false, includeToJson: false)
       HiveList<HiveObjectMixin>? entries}) = _$TimetableImpl;
+  _Timetable._() : super._();
 
   factory _Timetable.fromJson(Map<String, dynamic> json) =
       _$TimetableImpl.fromJson;
@@ -479,7 +481,7 @@ class __$$TimetableEntryImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 @HiveType(typeId: 3, adapterName: "TimetableEntryAdapter")
-class _$TimetableEntryImpl implements _TimetableEntry {
+class _$TimetableEntryImpl extends _TimetableEntry {
   _$TimetableEntryImpl(
       {@HiveField(0) required this.id,
       @HiveField(1) required this.timetableId,
@@ -487,7 +489,8 @@ class _$TimetableEntryImpl implements _TimetableEntry {
       @HiveField(3) required this.lesson,
       @HiveField(4) required this.subject,
       @HiveField(5) required this.teacher,
-      @HiveField(6) required this.room});
+      @HiveField(6) required this.room})
+      : super._();
 
   factory _$TimetableEntryImpl.fromJson(Map<String, dynamic> json) =>
       _$$TimetableEntryImplFromJson(json);
@@ -534,7 +537,7 @@ class _$TimetableEntryImpl implements _TimetableEntry {
   }
 }
 
-abstract class _TimetableEntry implements TimetableEntry {
+abstract class _TimetableEntry extends TimetableEntry {
   factory _TimetableEntry(
       {@HiveField(0) required int id,
       @HiveField(1) required int timetableId,
@@ -543,6 +546,7 @@ abstract class _TimetableEntry implements TimetableEntry {
       @HiveField(4) required String subject,
       @HiveField(5) required String teacher,
       @HiveField(6) required String room}) = _$TimetableEntryImpl;
+  _TimetableEntry._() : super._();
 
   factory _TimetableEntry.fromJson(Map<String, dynamic> json) =
       _$TimetableEntryImpl.fromJson;
