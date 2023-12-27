@@ -44,6 +44,8 @@ dependencies:
   responsive_grid_list: ^1.4.0
   freezed_annotation: ^2.4.1
   listenable_stream: ^1.1.0
+  wear: ^1.1.0
+  wearable_rotary: ^2.0.2
 
 
 

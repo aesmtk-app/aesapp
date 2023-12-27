@@ -114,4 +114,13 @@ class AESAppUtils{
     return works;
   }
 
+  static DeviceType getDeviceType (BuildContext context){
+    return context.responsiveValue(mobile: DeviceType.mobile, watch: DeviceType.watch, tablet: DeviceType.tablet, desktop: DeviceType.desktop);
+  }
+
+
+}
+
+enum DeviceType{
+  mobile, desktop, watch, tablet
 }
