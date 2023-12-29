@@ -146,7 +146,7 @@ class AESApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'AESMTK-APP',
-      theme: AESAppUtils.getDeviceType(context)==DeviceType.watch?AESAppUtils.getTheme().copyWith(visualDensity: VisualDensity.compact):AESAppUtils.getTheme(),
+      theme: AESAppUtils.getDeviceType(context)==DeviceType.watch?AESAppUtils.getTheme().copyWith(visualDensity: VisualDensity.compact, useMaterial3: false):AESAppUtils.getTheme(),
       themeMode: ThemeMode.light, // until get v5 released
       builder: BotToastInit(),
       navigatorObservers: [BotToastNavigatorObserver()],

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 import 'package:aesapp/ui/timetable/timetable_page.dart';
 import 'package:aesapp/ui/watch/watch_root.dart';
 import 'package:flutter/foundation.dart';
@@ -154,8 +155,11 @@ class _RootPageSelectorState extends State<RootPageSelector> with WidgetsBinding
 
   @override
   Widget build(BuildContext context) {
-      if(!(AESAppUtils.getDeviceType(context)==DeviceType.watch)) {
-        return Scaffold(
+      if((AESAppUtils.getDeviceType(context)==DeviceType.watch)&&(!kIsWeb)&&Platform.isAndroid) {
+        return const WatchRoot();
+      }
+      isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+      return Scaffold(
           appBar: isPortrait?CustomAppBar.get():null,
           bottomNavigationBar: isPortrait? bottomNavigationBar:null,
           drawer: navigationDrawer,
@@ -166,7 +170,5 @@ class _RootPageSelectorState extends State<RootPageSelector> with WidgetsBinding
             ],
           )
       );
-      }
-      return WatchRoot();
   }
 }
