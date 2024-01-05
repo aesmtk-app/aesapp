@@ -10,6 +10,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
   cupertino_icons: ^1.0.2
   icons_launcher: ^2.1.3
   hexcolor: ^3.0.1
@@ -23,15 +26,44 @@ dependencies:
   web_socket_channel: ^2.4.0
   basic_utils: ^5.6.1
   shared_preferences: ^2.2.1
+  dio: ^5.3.3
+  crypto: ^3.0.3
+  hive: ^2.2.3
+  hive_flutter: ^1.1.0
+  sn_progress_dialog: ^1.1.3
+  bot_toast: ^4.1.3
+  collection: ^1.17.2
+  dynamic_color: ^1.6.8
+  device_info_plus: ^9.1.0
+  week_of_year: ^2.2.0
+  intl: ^0.18.1
+  connectivity_plus: ^5.0.2
+  retrofit: ^4.0.3
+  universal_html: ^2.2.4
+  json_annotation: ^4.8.1
+  responsive_grid_list: ^1.4.0
+  freezed_annotation: ^2.4.1
+  listenable_stream: ^1.1.0
+  wear: ^1.1.0
+  wearable_rotary: ^2.0.2
+
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^3.0.0
   build_runner: ^2.4.6
+  retrofit_generator: ^8.0.6
+  json_serializable: ^6.6.2
+  freezed: ^2.4.6
+  hive_generator: ^2.0.1
+
 
 flutter:
   uses-material-design: true
+  #generate: true
+
 
 icons_launcher:
   image_path: "assets/icons/web/icon-512.png"
@@ -58,4 +90,5 @@ icons_launcher:
     linux:
       enable: true
       image_path: "assets/icons/web/icon-512.png"
-
+flutter_intl:
+  enabled: true

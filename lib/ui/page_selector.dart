@@ -1,62 +1,108 @@
-import 'package:aesapp/main.dart';
+import 'dart:async';
+import 'dart:io';
+import 'package:aesapp/ui/timetable/timetable_page.dart';
+import 'package:aesapp/ui/watch/watch_root.dart';
+import 'package:flutter/foundation.dart';
+import "package:universal_html/html.dart" as html;
+import 'package:aesapp/helpers/app.dart';
+import 'package:aesapp/ui/TestPage.dart';
+import 'package:aesapp/ui/aesapp/appbar.dart';
 import 'package:aesapp/ui/homepage.dart';
+import 'package:aesapp/ui/mensa/mensa_page.dart';
+import 'package:aesapp/ui/settings/settings_home.dart';
+import 'package:aesapp/ui/vplan/vplan_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:logging/logging.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
-class Page{
-  Page({required this.index, required this.label, required this.icon, required this.selectedIcon, required this.showWhenPortrait, required this.showWhenLandscape, required this.content});
+Logger logger = Logger("PageSelector");
+class AESPage{
+  AESPage({ required this.id, required this.label, required this.icon, required this.selectedIcon, required this.showWhenPortrait, required this.showWhenLandscape, required this.page, required this.routeName});
   String label;
-  int index;
+  int id;
   Icon icon;
   Icon selectedIcon;
   bool showWhenPortrait;
   bool showWhenLandscape;
-  Widget content;
+  Widget Function({bool asWidget}) page;
+  String routeName;
+  
+
+  static Map<int, AESPage> defaultPages = {
+    0:AESPage(id: 0, label: "Home", icon: const Icon(Icons.home), selectedIcon: const Icon(Icons.home_outlined), showWhenPortrait: true, page: ({bool asWidget=false})=> HomePage(calledAsWidget: asWidget,), showWhenLandscape: true, routeName: "/home"),
+    1:AESPage(id: 1, label: "Vertretung", icon: const Icon(Icons.table_chart), selectedIcon: const Icon(Icons.table_chart_outlined), showWhenPortrait: true, page: ({bool asWidget=false})=>VPlanPage(calledAsWidget: asWidget,), showWhenLandscape: true, routeName: "/vplan"),
+    3:AESPage(id: 3, label: "Mensa", icon: const Icon(Icons.restaurant_menu), selectedIcon: const Icon(Icons.restaurant_menu_outlined), showWhenPortrait: true, showWhenLandscape: true, page: ({bool asWidget=false})=>MensaPage(calledAsWidget: asWidget,), routeName: "/mensa"),
+    4:AESPage(id: 4, label: "Plan", icon: const Icon(Icons.table_chart), selectedIcon: const Icon(Icons.table_chart_outlined), showWhenPortrait: true, showWhenLandscape: true, page: ({bool asWidget=false})=>TimetablePage(calledAsWidget: asWidget,), routeName: "/timetable"),
+    2:AESPage(id: 2, label: "test", icon: const Icon(Icons.table_chart), selectedIcon: const Icon(Icons.table_chart_outlined), showWhenPortrait: false, page: ({bool asWidget=false})=>TestPage(calledAsWidget: asWidget,), showWhenLandscape: false, routeName: "/test"),
+    99:AESPage(id: 99, label: "Settings", icon: const Icon(Icons.settings), selectedIcon: const Icon(Icons.settings_outlined), showWhenPortrait: true, showWhenLandscape: true, page: ({bool asWidget=false})=>SettingsHome(calledAsWidget: asWidget,), routeName: "/settings")
+  };
 }
 
-class PageSelector extends StatefulWidget {
-  const PageSelector({super.key});
+class RootPageSelector extends StatefulWidget {
+  const RootPageSelector({super.key});
 
   @override
-  State<PageSelector> createState() => _PageSelectorState();
+  State<RootPageSelector> createState() => _RootPageSelectorState();
 }
 
-class _PageSelectorState extends State<PageSelector> {
-  List<Page> pages = [
-    Page(index: 0, label: "Home", icon: const Icon(Icons.home), selectedIcon: const Icon(Icons.home_outlined), showWhenPortrait: true, content: const HomePage(), showWhenLandscape: true),
-    Page(index: 1, label: "Vertretung", icon: const Icon(Icons.table_chart), selectedIcon: const Icon(Icons.table_chart_outlined), showWhenPortrait: true, content: Container(), showWhenLandscape: true)
-  ];
+class _RootPageSelectorState extends State<RootPageSelector> with WidgetsBindingObserver {
+
+  List<AESPage> pages = [];
+  StreamSubscription? networkSubscription;
+
+  @override
+  void initState() {
+    pages = AESPage.defaultPages.values.where((element) => element.showWhenLandscape).toList();
+    super.initState();
+    AESAppUtils.checkServer().then((value) => null);
+    networkSubscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult event) {
+      AESAppUtils.checkServer().then((value) => null);
+    });
+    if(kIsWeb){
+      html.window.addEventListener("focus", webVisibilityChange);
+    }else{
+      WidgetsBinding.instance.addObserver(this);
+    }
+
+
+    logger.info("init");
+  }
   int _selectedPageIndex = 0;
+  int _selectedPageId = 0;
   bool isPortrait = true;
+  void webVisibilityChange(html.Event e){
+    didChangeAppLifecycleState(AppLifecycleState.resumed);
+  }
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state){
+    super.didChangeAppLifecycleState(state);
+    logger.info(state);
+    if (state==AppLifecycleState.resumed){
+      AESAppUtils.checkServer().then((value) => null);
+    }
+  }
+  @override
+  void dispose(){
+    super.dispose();
+
+    logger.info("dispose");
+    if(kIsWeb){
+      html.window.removeEventListener("focus", webVisibilityChange);
+
+    }else{
+      WidgetsBinding.instance.removeObserver(this);
+    }
+    networkSubscription?.cancel();
+  }
+
 
   void _changePage(int changeTo){
     setState(() {
       _selectedPageIndex = changeTo;
+      _selectedPageId = AESPage.defaultPages.values.firstWhere((element) => pages[changeTo].id==element.id).id;
     });
   }
-
-  Widget get menuButton => Builder(
-    builder: (BuildContext context) {
-      return IconButton(
-        icon: const Icon(Icons.menu),
-        onPressed: () {
-          Scaffold.of(context).openDrawer();
-        },
-        tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-
-      );
-    },
-  );
-
-  AppBar get appBar => AppBar(
-    title: Text(MediaQuery.of(context).orientation.name),
-    backgroundColor: Theme.of(context).colorScheme.tertiary,
-    leading: isPortrait?menuButton:Container(),
-    systemOverlayStyle: SystemUiOverlayStyle(
-      systemStatusBarContrastEnforced: true,
-      statusBarIconBrightness: Brightness.light,
-    ),
-  );
 
   NavigationBar get bottomNavigationBar => NavigationBar(
     backgroundColor: Theme.of(context).colorScheme.surface,
@@ -80,39 +126,49 @@ class _PageSelectorState extends State<PageSelector> {
       onDestinationSelected: _changePage,
       selectedIndex: _selectedPageIndex,
       labelType: NavigationRailLabelType.all,
-      leading: menuButton,
+      leading: CustomAppBar.menuButton(),
   );
 
   NavigationDrawer get navigationDrawer => NavigationDrawer(
-      children: [
-        ...pages.map((e) => ListTile(
-          leading: e.icon,
-          title: Text(e.label),
-          onTap: (){
-            Navigator.pop(context);
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      surfaceTintColor: Theme.of(context).colorScheme.surface,
+      children: AESPage.defaultPages.map((key, value) => MapEntry(key, ListTile(
+        leading: value.icon,
+        title: Text(value.label),
+        onTap: (){
+          Navigator.pop(context);
+          if(pages.contains(value)){
             setState(() {
-              _selectedPageIndex=e.index;
+              _selectedPageId=key;
+              _selectedPageIndex=0;
+              AESPage? p = pages.firstWhereOrNull((element) => element.id==key);
+              _selectedPageIndex = p==null?0:pages.indexOf(p);
             });
-          },
-        ))
-      ]
+          }
+          else{
+            Get.toNamed(value.routeName);
+          }
+        },)
+      )).values.toList()
+
   );
 
   @override
   Widget build(BuildContext context) {
-    isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
-    return Scaffold(
-      appBar: isPortrait?appBar:null,
-      bottomNavigationBar: isPortrait? bottomNavigationBar:null,
-      drawer: navigationDrawer,
-      body: SafeArea(
-          child: Row(
+      if((AESAppUtils.getDeviceType(context)==DeviceType.watch)&&(!kIsWeb)&&Platform.isAndroid) {
+        return const WatchRoot();
+      }
+      isPortrait = MediaQuery.of(context).orientation == Orientation.portrait;
+      return Scaffold(
+          appBar: isPortrait?CustomAppBar.get():null,
+          bottomNavigationBar: isPortrait? bottomNavigationBar:null,
+          drawer: navigationDrawer,
+          body: Row(
             children: [
               isPortrait?Container():navigationRail,
-              pages[_selectedPageIndex].content,
+              Expanded(child: SafeArea(child: AESPage.defaultPages[_selectedPageId]!.page(asWidget: true),bottom: false,)),
             ],
           )
-      ),
-    );
+      );
   }
 }

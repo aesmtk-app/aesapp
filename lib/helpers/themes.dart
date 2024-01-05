@@ -1,6 +1,5 @@
 import 'package:aesapp/objects/theme.dart';
 import 'package:flutter/material.dart';
-import 'package:hexcolor/hexcolor.dart';
 
 // from https://github.com/bitbrain/jekyll-dash
 class DarkDashTheme extends AESTheme{
