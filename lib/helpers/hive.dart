@@ -8,6 +8,7 @@ class HiveKeys{
   static String boxName = "aesapp";
   static String apiEndpoint = "api_endpoint";
   static HiveSettingsKeys settings = HiveSettingsKeys();
+  static HivePupil pupil = HivePupil();
 
   static Future setDefaults()async{
     Box box = Hive.box(boxName);
@@ -19,6 +20,12 @@ class HiveKeys{
     Box box = Hive.box(boxName);
     await box.clear().then((value)async => await setDefaults());
   }
+}
+
+class HivePupil{
+  String isHighSchool = "pupil.is_high_school";
+  String classes = "pupil.classes";
+  String course = "pupil.course";
 }
 
 class HiveSettingsKeys{

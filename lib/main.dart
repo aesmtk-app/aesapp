@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:aesapp/helpers/data_provider.dart';
 import 'package:aesapp/objects/theme.dart';
 import 'package:aesapp/helpers/api.dart';
@@ -146,7 +148,7 @@ class AESApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'AESMTK-APP',
-      theme: AESAppUtils.getDeviceType(context)==DeviceType.watch?AESAppUtils.getTheme().copyWith(visualDensity: VisualDensity.compact, useMaterial3: false):AESAppUtils.getTheme(),
+      theme: AESAppUtils.getDeviceType(context)==DeviceType.watch&&(!kIsWeb&&(Platform.isAndroid||Platform.isIOS))?AESAppUtils.getTheme().copyWith(visualDensity: VisualDensity.compact, useMaterial3: false):AESAppUtils.getTheme(),
       themeMode: ThemeMode.light, // until get v5 released
       builder: BotToastInit(),
       navigatorObservers: [BotToastNavigatorObserver()],

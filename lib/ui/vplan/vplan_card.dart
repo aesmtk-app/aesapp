@@ -28,8 +28,15 @@ class VPlanCard extends StatelessWidget {
       maxLines: 7,);
   }
 
+  String _courseName(bool isHS){
+    if(isHS) return "${v.course}\n\r${v.subjectOld} (${v.roomOld})";
+    return "${v.course??"NaN"}\n\r";
+  }
+
 
   List<Widget> _content(BuildContext context){
+
+    bool isHighSchool = v.course?.substring(0,1).isAlphabetOnly??false;
 
     if(v.isInfo) {
       return [
@@ -40,6 +47,8 @@ class VPlanCard extends StatelessWidget {
       ))
     ];
     }
+
+
     else if(v.isCancelled??false){
       return [
         _lessonNumber(context),
@@ -69,10 +78,9 @@ class VPlanCard extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: [
-          if(v.replacement!=null) _styledText("Vertretung von ${v.replacement}"),
-          if(v.room!=null||((v.subjectOld?.trim()!=v.subject?.trim())&&v.subject!=null))
-            _styledText("${(v.room!=null)?" in ${v.room}":""}"
-                "${((v.subjectOld?.trim()!=v.subject?.trim())&&v.subject!=null)?"${(v.room!=null)?" – ":""}${v.subject}${v.subjectOld!=null?" statt ${v.subjectOld}":""}":""}"),
+          if(v.replacement!=null) _styledText("Vertretung von ${v.replacement} für ${_courseName(isHighSchool)}${(v.room!=null||((v.subjectOld?.trim()!=v.subject?.trim())&&v.subject!=null))
+          ?"${(v.room!=null&&v.roomOld!=v.room)?" in ${v.room}":""}${((v.subjectOld?.trim()!=v.subject?.trim())&&v.subject!=null)?"${(v.room!=null)?" – ":""}${v.subject}${v.subjectOld!=null?" statt ${v.subjectOld}":""}":""}":""}")
+
         ],
       ))
     ];
