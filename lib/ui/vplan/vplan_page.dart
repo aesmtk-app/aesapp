@@ -1,17 +1,14 @@
 import 'package:aesapp/helpers/data_provider.dart';
 import 'package:aesapp/objects/vplan.dart';
-import 'package:aesapp/helpers/api.dart';
 import 'package:aesapp/helpers/app.dart';
 import 'package:aesapp/ui/aesapp/appbar.dart';
 import 'package:aesapp/ui/vplan/vplan_card.dart';
 import 'package:collection/collection.dart';
-import 'package:dio/dio.dart' as dio;
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
+import 'package:aesapp/helpers/hive.dart';
 
-import '../../helpers/hive.dart';
 class VPlanPage extends StatefulWidget {
   const VPlanPage({this.calledAsWidget=false, super.key});
   final bool calledAsWidget;
@@ -25,7 +22,7 @@ class _VPlanPageState extends State<VPlanPage> {
   Box box = Hive.box(HiveKeys.boxName);
 
   Widget _typeDropDown(){
-    bool isHS = box.get(HiveKeys.pupil.isHighSchool);
+    bool? isHS = box.get(HiveKeys.pupil.isHighSchool);
     return DropdownButton<bool>(
         items: const [
           DropdownMenuItem(child: Text("Mittelstufe"), value: false,),
@@ -39,6 +36,7 @@ class _VPlanPageState extends State<VPlanPage> {
               box.put(HiveKeys.pupil.isHighSchool, val);
               box.put(HiveKeys.pupil.classes, null);
               box.put(HiveKeys.pupil.course, null);
+              _checkFilter();
             }
           });
         }
@@ -52,10 +50,10 @@ class _VPlanPageState extends State<VPlanPage> {
     List<String> classes = [];
     if (isHS==null){}
     else if (isHS){
-      classes = ["EP", "Q12", "Q34"];
+      classes = ["*", "EP", "Q12", "Q34"];
     }
     else {
-      classes = ["5", "6", "7", "8", "9", "10"];
+      classes = ["*", "05", "06", "07", "08", "09", "10"];
     }
 
     return DropdownButton(
@@ -66,6 +64,7 @@ class _VPlanPageState extends State<VPlanPage> {
             if (!(cl==val)){
               box.put(HiveKeys.pupil.classes, val);
               box.put(HiveKeys.pupil.course, null);
+              _checkFilter();
             }
           });
         }
@@ -82,18 +81,19 @@ class _VPlanPageState extends State<VPlanPage> {
       return Container();
     }
     else if(!isHS){
-      courses = ["A", "B", "C", "D", "E", "F"];
+      courses = ["*", "A", "B", "C", "D", "E", "F"];
     }
     else{
       return Container();
     }
     return DropdownButton(
-        items: courses.map((e) => DropdownMenuItem(child: Text(e), value: e,)).toList(),
+        items: courses.map((e) => DropdownMenuItem(value: e,child: Text(e),)).toList(),
         value: co,
         onChanged: (val){
           setState(() {
             if (!(val==co)){
               box.put(HiveKeys.pupil.course, val);
+              _checkFilter();
             }
           });
         }
@@ -105,9 +105,65 @@ class _VPlanPageState extends State<VPlanPage> {
       children: [
         _typeDropDown(),
         if(box.get(HiveKeys.pupil.isHighSchool)!=null) _classDropDown(),
-        if(box.get(HiveKeys.pupil.classes)!=null) _courseDropDown()
+        if(!_condAll(box.get(HiveKeys.pupil.classes))) _courseDropDown()
       ],
     );
+  }
+
+  void _checkFilter(){
+    bool? isHS = box.get(HiveKeys.pupil.isHighSchool);
+    String? co = box.get(HiveKeys.pupil.course);
+    String? cl = box.get(HiveKeys.pupil.classes);
+    String f = "";
+    if(isHS!=null){
+      if(!_condAll(co)&&!_condAll(cl)){
+        if(isHS){
+          f = "$cl@K$co";
+        }else{
+          f = cl!+co!;
+        }
+      }
+      else if(!_condAll(cl)){
+        if(isHS){
+         f = cl!;
+        }
+      }
+      if (f!=""&&box.get(HiveKeys.pupil.vPlanFilter)){
+        
+      }
+    }
+  }
+
+  bool _condAll(String? v){
+    return v==null||v=="*";
+  }
+
+  List<VPlanEntry> _filter(List<VPlanEntry> list){
+    bool? isHS = box.get(HiveKeys.pupil.isHighSchool);
+    String? co = box.get(HiveKeys.pupil.course);
+    String? cl = box.get(HiveKeys.pupil.classes);
+
+    if(isHS!=null) {
+      if(isHS){
+        if(_condAll(cl)){
+          return list.where((element) => element.course?.substring(0,1).isAlphabetOnly??false||element.isInfo).toList();
+        }
+        else{
+          return list.where((element) => element.course?.toLowerCase()==cl!.toLowerCase()||element.isInfo).toList();
+        }
+      } else{
+        if(_condAll(cl)&&_condAll(co)){
+          return list.where((element) => element.course?.substring(0,1).isNumericOnly??false||element.isInfo).toList();
+        } else if(cl!=null&&_condAll(co)){
+          return list.where((element) => element.course?.toLowerCase().startsWith(cl.toLowerCase())??false||element.isInfo).toList();
+        }
+        else if(!_condAll(cl)&&!_condAll(co)){
+          return list.where((element) => element.course?.toLowerCase()==(cl!+co!).toLowerCase()||element.isInfo).toList();
+        }
+      }
+    }
+
+    return list;
   }
 
   @override
@@ -121,6 +177,7 @@ class _VPlanPageState extends State<VPlanPage> {
           builder: (BuildContext context, AsyncSnapshot<List<VPlanEntry>> mbox){
             if (mbox.hasData){
               List<VPlanEntry> entries = mbox.data!;
+              entries = _filter(entries);
               Map<DateTime, List<VPlanEntry>> entriesByDate = groupBy(entries, (p0) => p0.date);
               entriesByDate = Map.fromEntries(entriesByDate.entries.toList()..sort((a, b) => a.key.compareTo(b.key)));
               for (var element in entriesByDate.values) {element.sort((a,b){

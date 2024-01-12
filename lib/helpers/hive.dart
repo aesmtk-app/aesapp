@@ -26,6 +26,7 @@ class HivePupil{
   String isHighSchool = "pupil.is_high_school";
   String classes = "pupil.classes";
   String course = "pupil.course";
+  String vPlanFilter = "pupil.vPlan_filter";
 }
 
 class HiveSettingsKeys{
