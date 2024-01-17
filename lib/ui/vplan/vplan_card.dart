@@ -29,8 +29,8 @@ class VPlanCard extends StatelessWidget {
   }
 
   String _courseName(bool isHS){
-    if(isHS) return "${v.course}\n\r${v.subjectOld} (${v.roomOld})";
-    return "${v.course??"NaN"}\n\r";
+    if(isHS) return "${v.course}\r\n${v.subjectOld} (${v.roomOld})";
+    return "${v.course??"NaN"}\r\n";
   }
 
 
