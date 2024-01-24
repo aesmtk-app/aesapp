@@ -1,3 +1,4 @@
+import 'package:aesapp/helpers/api.dart';
 import 'package:aesapp/helpers/data_provider.dart';
 import 'package:aesapp/objects/vplan.dart';
 import 'package:aesapp/helpers/app.dart';
@@ -110,7 +111,7 @@ class _VPlanPageState extends State<VPlanPage> {
     );
   }
 
-  void _checkFilter(){
+  void _checkFilter() {
     bool? isHS = box.get(HiveKeys.pupil.isHighSchool);
     String? co = box.get(HiveKeys.pupil.course);
     String? cl = box.get(HiveKeys.pupil.classes);
@@ -128,8 +129,18 @@ class _VPlanPageState extends State<VPlanPage> {
          f = cl!;
         }
       }
-      if (f!=""&&box.get(HiveKeys.pupil.vPlanFilter)){
-        
+      if (f!=""){
+        if (box.get(HiveKeys.settings.notifications.fcmBasedNotificationsEnabled)??false){
+          API api = Get.find<API>();
+          api.getVPlanFilter(box.get(HiveKeys.settings.notifications.aesAppId))
+              .then((value)async{
+            if(!value.contains(f)){
+              await api.deleteAllVPlanFilters(box.get(HiveKeys.settings.notifications.aesAppId))
+                  .whenComplete(() => api.addVPlanFilter(box.get(HiveKeys.settings.notifications.aesAppId), f));
+            }
+          });
+        }
+        AESAppUtils.showErrorToast("notifications disabled");
       }
     }
   }

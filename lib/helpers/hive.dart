@@ -1,8 +1,21 @@
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 
 import '../objects/theme.dart';
+import '../objects/vplan.dart';
 import 'api.dart';
+
+class HiveAPI{
+  Future<HiveAPI> init()async{
+    await Hive.initFlutter();
+    Hive.registerAdapter(VPlanEntryAdapter());
+    await Hive.openBox(HiveKeys.boxName);
+    await HiveKeys.setDefaults();
+
+    return this;
+  }
+}
 
 class HiveKeys{
   static String boxName = "aesapp";

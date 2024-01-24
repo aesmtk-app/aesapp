@@ -38,11 +38,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // ignore: unnecessary_cast
   Get.put(DarkDashTheme() as AESTheme);
-  // init hive
-  Hive.registerAdapter(VPlanEntryAdapter());
-  await Hive.initFlutter();
-  await Hive.openBox(HiveKeys.boxName);
-  await HiveKeys.setDefaults();
+  Get.put(await HiveAPI().init());
+
   Box box = Hive.box(HiveKeys.boxName);
   // Logger
   List<LogRecord> logs = [];

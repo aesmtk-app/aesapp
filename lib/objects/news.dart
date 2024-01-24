@@ -7,15 +7,14 @@ part 'news.freezed.dart';
 @unfreezed
 class NewsPreview with _$NewsPreview{
   factory NewsPreview({
-    required int id,
-    @JsonKey()
-    required DateTime created,
+    required String id,
+    @JsonKey(name: "published_at")
+    required DateTime published,
     required String title,
+    @JsonKey(name: "preview_text")
     required String preview,
     required String source,
     required String author,
-    @JsonKey(name: "last_edited")
-    DateTime? lastEdited,
   })=_NewsPreview;
 
   factory NewsPreview.fromJson(Map<String, dynamic> json) => _$NewsPreviewFromJson(json);
@@ -25,15 +24,17 @@ class NewsPreview with _$NewsPreview{
 @unfreezed
 class NewsArticle with _$NewsArticle{
   factory NewsArticle({
-    required int id,
-    required DateTime created,
+    required String id,
+    @JsonKey(name: "published_at")
+    required DateTime published,
     required String title,
+    @JsonKey(name: "preview_text")
     required String preview,
     required String source,
     required String author,
-    required String content,
-    @JsonKey(name: "last_edited",)
-    DateTime? lastEdited,
+    required String body,
+    @JsonKey(name: "creation_time")
+    required DateTime created,
   })=_NewsArticle;
 
   factory NewsArticle.fromJson(Map<String, dynamic> json) => _$NewsArticleFromJson(json);
