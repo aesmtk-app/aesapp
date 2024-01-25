@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:aesapp/helpers/app.dart';
 import 'package:aesapp/ui/aesapp/appbar.dart';
 import 'package:flutter/material.dart';
@@ -60,7 +62,7 @@ class _DebugSettingsState extends State<DebugSettings> {
           ListTile(
             title: const Text("Logs anzeigen"),
             trailing: ElevatedButton(child: const Text("Show"),onPressed: ()=>Get.to(Scaffold(appBar: AppBar(),body: ListView.builder(itemCount: Get.find<List<LogRecord>>(tag: "logs").length, itemBuilder: (BuildContext context, int i){LogRecord record = Get.find<List<LogRecord>>(tag:"logs")[i];return Text('${record.loggerName}: ${record.level.name}: ${record.time}: ${record.message}');}),)),),
-          )
+          ),
         ],
       ),
     );

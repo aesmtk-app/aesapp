@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> {
                 AESAppUtils.showMissingConnectionBanner(context);
                                 // send to endpoint
               },
-              child: const Text("setupFCM")),
+              child: Text("hi")),
         ],
       ),
     );

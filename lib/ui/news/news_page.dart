@@ -1,4 +1,5 @@
 import 'package:aesapp/helpers/api.dart';
+import 'package:aesapp/ui/news/news_article.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,7 +23,7 @@ class _NewsPageState extends State<NewsPage> {
         builder: (BuildContext context, AsyncSnapshot<List<NewsPreview>> snap){
           if(snap.hasData){
             return ListView(
-              children: snap.data!.map((e) => Text(e.title)).toList(),
+              children: snap.data!.map((e) => GestureDetector(onTap: ()async{String t =(await Get.find<API>().getArticle(e.id)).body;Get.to(()  =>NewsArticlePage(t));},child: Card(child: Text(e.title),),)).toList(),
             );
           }
           return Center(child: CircularProgressIndicator());
