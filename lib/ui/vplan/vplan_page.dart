@@ -149,16 +149,16 @@ class _VPlanPageState extends State<VPlanPage> {
           return list.where((element) => element.course?.substring(0,1).isAlphabetOnly??false||element.isInfo).toList();
         }
         else{
-          return list.where((element) => element.course?.toLowerCase()==cl!.toLowerCase()||element.isInfo).toList();
+          return list.where((element) => element.course?.toLowerCase().contains(cl!.toLowerCase())??false||element.isInfo).toList();
         }
       } else{
         if(_condAll(cl)&&_condAll(co)){
           return list.where((element) => element.course?.substring(0,1).isNumericOnly??false||element.isInfo).toList();
         } else if(cl!=null&&_condAll(co)){
-          return list.where((element) => element.course?.toLowerCase().startsWith(cl.toLowerCase())??false||element.isInfo).toList();
+          return list.where((element) => element.course?.toLowerCase().contains(cl.toLowerCase())??false||element.isInfo).toList();
         }
         else if(!_condAll(cl)&&!_condAll(co)){
-          return list.where((element) => element.course?.toLowerCase()==(cl!+co!).toLowerCase()||element.isInfo).toList();
+          return list.where((element) => element.course?.toLowerCase().contains((cl!+co!).toLowerCase())??false||element.isInfo).toList();
         }
       }
     }

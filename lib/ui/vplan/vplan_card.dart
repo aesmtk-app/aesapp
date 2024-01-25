@@ -55,7 +55,7 @@ class VPlanCard extends StatelessWidget {
         Expanded(child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            _styledText("Entfall von ${v.subjectOld}\r\nfür ${v.course}"),
+            _styledText("Entfall für ${v.course}\r\nvon ${v.subjectOld}${v.roomOld!=null?" (${v.roomOld})":""}"),
           ],
         ))
       ];
@@ -66,7 +66,7 @@ class VPlanCard extends StatelessWidget {
         Expanded(child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            _styledText("Selbstständiges Arbeiten\r\nvon ${v.course} in ${v.subject} (${v.room})"),
+            _styledText("Selbstständiges Arbeiten\r\nvon ${v.course} in ${v.subject}${v.roomOld!=null?" (${v.roomOld})":""}"),
           ],
         ))
       ];
