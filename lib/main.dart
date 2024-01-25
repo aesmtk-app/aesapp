@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:aesapp/helpers/data_provider.dart';
 import 'package:aesapp/objects/theme.dart';
 import 'package:aesapp/helpers/api.dart';
@@ -36,11 +38,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // ignore: unnecessary_cast
   Get.put(DarkDashTheme() as AESTheme);
-  // init hive
-  Hive.registerAdapter(VPlanEntryAdapter());
-  await Hive.initFlutter();
-  await Hive.openBox(HiveKeys.boxName);
-  await HiveKeys.setDefaults();
+  Get.put(await HiveAPI().init());
+
   Box box = Hive.box(HiveKeys.boxName);
   // Logger
   List<LogRecord> logs = [];
@@ -146,7 +145,7 @@ class AESApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'AESMTK-APP',
-      theme: AESAppUtils.getDeviceType(context)==DeviceType.watch?AESAppUtils.getTheme().copyWith(visualDensity: VisualDensity.compact, useMaterial3: false):AESAppUtils.getTheme(),
+      theme: AESAppUtils.getDeviceType(context)==DeviceType.watch&&(!kIsWeb&&(Platform.isAndroid||Platform.isIOS))?AESAppUtils.getTheme().copyWith(visualDensity: VisualDensity.compact, useMaterial3: false):AESAppUtils.getTheme(),
       themeMode: ThemeMode.light, // until get v5 released
       builder: BotToastInit(),
       navigatorObservers: [BotToastNavigatorObserver()],

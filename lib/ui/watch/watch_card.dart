@@ -1,7 +1,5 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'dart:math';
+
 extension GlobalPaintBounds on BuildContext {
   Rect? get globalPaintBounds {
     final renderObject = findRenderObject();

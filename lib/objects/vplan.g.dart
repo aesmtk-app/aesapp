@@ -30,13 +30,14 @@ class VPlanEntryAdapter extends TypeAdapter<_$VPlanEntryImpl> {
       room: fields[11] as String?,
       subject: fields[12] as String?,
       subjectOld: fields[13] as String?,
+      roomOld: fields[14] as String?,
     );
   }
 
   @override
   void write(BinaryWriter writer, _$VPlanEntryImpl obj) {
     writer
-      ..writeByte(13)
+      ..writeByte(14)
       ..writeByte(1)
       ..write(obj.id)
       ..writeByte(2)
@@ -62,7 +63,9 @@ class VPlanEntryAdapter extends TypeAdapter<_$VPlanEntryImpl> {
       ..writeByte(12)
       ..write(obj.subject)
       ..writeByte(13)
-      ..write(obj.subjectOld);
+      ..write(obj.subjectOld)
+      ..writeByte(14)
+      ..write(obj.roomOld);
   }
 
   @override
@@ -95,6 +98,7 @@ _$VPlanEntryImpl _$$VPlanEntryImplFromJson(Map<String, dynamic> json) =>
       room: json['room'] as String?,
       subject: json['subject'] as String?,
       subjectOld: json['subject_old'] as String?,
+      roomOld: json['room_old'] as String?,
     );
 
 Map<String, dynamic> _$$VPlanEntryImplToJson(_$VPlanEntryImpl instance) =>
@@ -112,4 +116,5 @@ Map<String, dynamic> _$$VPlanEntryImplToJson(_$VPlanEntryImpl instance) =>
       'room': instance.room,
       'subject': instance.subject,
       'subject_old': instance.subjectOld,
+      'room_old': instance.roomOld,
     };

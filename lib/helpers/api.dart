@@ -30,7 +30,31 @@ abstract class API{
   Future<List<Menu>> getAllMenus();
 
   @GET("/news")
-  Future<List<NewsPreview>> getAllArticles();
+  Future<List<NewsPreview>> getAllArticles(
+      @Query("page") String page,
+      @Query("count") String count
+      );
+
+  @GET("/news/article")
+  Future<NewsArticle>getArticle(
+      @Query("id") String articleId
+      );
+
+  @GET("/vplan/subscribe")
+  Future<List<String>> getVPlanFilter(
+      @Query("id") String aesappId
+      );
+
+  @DELETE("/vplan/subscribe/all")
+  Future deleteAllVPlanFilters(
+      @Query("id") String aesappId
+      );
+
+  @POST("/vplan/subscribe")
+  Future addVPlanFilter(
+      @Query("id") String aesappId,
+      @Query("filter") String filter,
+      );
 
   static Future<bool> checkConnection()async{
     try{

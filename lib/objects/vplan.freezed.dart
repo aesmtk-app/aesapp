@@ -86,6 +86,12 @@ mixin _$VPlanEntry {
   @JsonKey(name: "subject_old")
   @HiveField(13)
   set subjectOld(String? value) => throw _privateConstructorUsedError;
+  @JsonKey(name: "room_old")
+  @HiveField(14)
+  String? get roomOld => throw _privateConstructorUsedError;
+  @JsonKey(name: "room_old")
+  @HiveField(14)
+  set roomOld(String? value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -112,7 +118,8 @@ abstract class $VPlanEntryCopyWith<$Res> {
       @HiveField(10) String? replacement,
       @HiveField(11) String? room,
       @HiveField(12) String? subject,
-      @JsonKey(name: "subject_old") @HiveField(13) String? subjectOld});
+      @JsonKey(name: "subject_old") @HiveField(13) String? subjectOld,
+      @JsonKey(name: "room_old") @HiveField(14) String? roomOld});
 }
 
 /// @nodoc
@@ -141,6 +148,7 @@ class _$VPlanEntryCopyWithImpl<$Res, $Val extends VPlanEntry>
     Object? room = freezed,
     Object? subject = freezed,
     Object? subjectOld = freezed,
+    Object? roomOld = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -195,6 +203,10 @@ class _$VPlanEntryCopyWithImpl<$Res, $Val extends VPlanEntry>
           ? _value.subjectOld
           : subjectOld // ignore: cast_nullable_to_non_nullable
               as String?,
+      roomOld: freezed == roomOld
+          ? _value.roomOld
+          : roomOld // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -220,7 +232,8 @@ abstract class _$$VPlanEntryImplCopyWith<$Res>
       @HiveField(10) String? replacement,
       @HiveField(11) String? room,
       @HiveField(12) String? subject,
-      @JsonKey(name: "subject_old") @HiveField(13) String? subjectOld});
+      @JsonKey(name: "subject_old") @HiveField(13) String? subjectOld,
+      @JsonKey(name: "room_old") @HiveField(14) String? roomOld});
 }
 
 /// @nodoc
@@ -247,6 +260,7 @@ class __$$VPlanEntryImplCopyWithImpl<$Res>
     Object? room = freezed,
     Object? subject = freezed,
     Object? subjectOld = freezed,
+    Object? roomOld = freezed,
   }) {
     return _then(_$VPlanEntryImpl(
       id: null == id
@@ -301,6 +315,10 @@ class __$$VPlanEntryImplCopyWithImpl<$Res>
           ? _value.subjectOld
           : subjectOld // ignore: cast_nullable_to_non_nullable
               as String?,
+      roomOld: freezed == roomOld
+          ? _value.roomOld
+          : roomOld // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -322,7 +340,8 @@ class _$VPlanEntryImpl extends _VPlanEntry {
       @HiveField(10) this.replacement,
       @HiveField(11) this.room,
       @HiveField(12) this.subject,
-      @JsonKey(name: "subject_old") @HiveField(13) this.subjectOld})
+      @JsonKey(name: "subject_old") @HiveField(13) this.subjectOld,
+      @JsonKey(name: "room_old") @HiveField(14) this.roomOld})
       : super._();
 
   factory _$VPlanEntryImpl.fromJson(Map<String, dynamic> json) =>
@@ -374,10 +393,14 @@ class _$VPlanEntryImpl extends _VPlanEntry {
   @JsonKey(name: "subject_old")
   @HiveField(13)
   String? subjectOld;
+  @override
+  @JsonKey(name: "room_old")
+  @HiveField(14)
+  String? roomOld;
 
   @override
   String toString() {
-    return 'VPlanEntry(id: $id, creationTime: $creationTime, isInfo: $isInfo, date: $date, course: $course, comment: $comment, isCancelled: $isCancelled, lessonStart: $lessonStart, lessonEnd: $lessonEnd, replacement: $replacement, room: $room, subject: $subject, subjectOld: $subjectOld)';
+    return 'VPlanEntry(id: $id, creationTime: $creationTime, isInfo: $isInfo, date: $date, course: $course, comment: $comment, isCancelled: $isCancelled, lessonStart: $lessonStart, lessonEnd: $lessonEnd, replacement: $replacement, room: $room, subject: $subject, subjectOld: $subjectOld, roomOld: $roomOld)';
   }
 
   @JsonKey(ignore: true)
@@ -410,7 +433,8 @@ abstract class _VPlanEntry extends VPlanEntry {
           @HiveField(10) String? replacement,
           @HiveField(11) String? room,
           @HiveField(12) String? subject,
-          @JsonKey(name: "subject_old") @HiveField(13) String? subjectOld}) =
+          @JsonKey(name: "subject_old") @HiveField(13) String? subjectOld,
+          @JsonKey(name: "room_old") @HiveField(14) String? roomOld}) =
       _$VPlanEntryImpl;
   _VPlanEntry._() : super._();
 
@@ -496,6 +520,13 @@ abstract class _VPlanEntry extends VPlanEntry {
   @JsonKey(name: "subject_old")
   @HiveField(13)
   set subjectOld(String? value);
+  @override
+  @JsonKey(name: "room_old")
+  @HiveField(14)
+  String? get roomOld;
+  @JsonKey(name: "room_old")
+  @HiveField(14)
+  set roomOld(String? value);
   @override
   @JsonKey(ignore: true)
   _$$VPlanEntryImplCopyWith<_$VPlanEntryImpl> get copyWith =>

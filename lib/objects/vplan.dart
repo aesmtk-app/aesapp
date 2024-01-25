@@ -37,7 +37,9 @@ class VPlanEntry extends HiveObject with _$VPlanEntry{
     @HiveField(12)
     String? subject,
     @JsonKey(name: "subject_old")@HiveField(13)
-    String? subjectOld
+    String? subjectOld,
+    @JsonKey(name: "room_old")@HiveField(14)
+    String? roomOld
   })=_VPlanEntry;
 
 

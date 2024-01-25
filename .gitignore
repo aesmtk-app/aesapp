@@ -36,3 +36,4 @@ doc/api/
 # Mac
 .DS_Store
 /.firebase/
+firebase-debug.log

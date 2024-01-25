@@ -1,13 +1,27 @@
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
+import 'package:hive_flutter/adapters.dart';
 
 import '../objects/theme.dart';
+import '../objects/vplan.dart';
 import 'api.dart';
+
+class HiveAPI{
+  Future<HiveAPI> init()async{
+    await Hive.initFlutter();
+    Hive.registerAdapter(VPlanEntryAdapter());
+    await Hive.openBox(HiveKeys.boxName);
+    await HiveKeys.setDefaults();
+
+    return this;
+  }
+}
 
 class HiveKeys{
   static String boxName = "aesapp";
   static String apiEndpoint = "api_endpoint";
   static HiveSettingsKeys settings = HiveSettingsKeys();
+  static HivePupil pupil = HivePupil();
 
   static Future setDefaults()async{
     Box box = Hive.box(boxName);
@@ -19,6 +33,13 @@ class HiveKeys{
     Box box = Hive.box(boxName);
     await box.clear().then((value)async => await setDefaults());
   }
+}
+
+class HivePupil{
+  String isHighSchool = "pupil.is_high_school";
+  String classes = "pupil.classes";
+  String course = "pupil.course";
+  String vPlanFilter = "pupil.vPlan_filter";
 }
 
 class HiveSettingsKeys{
