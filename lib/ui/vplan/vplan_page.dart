@@ -140,7 +140,9 @@ class _VPlanPageState extends State<VPlanPage> {
             }
           });
         }
-        AESAppUtils.showErrorToast("notifications disabled");
+        else{
+          AESAppUtils.showErrorToast("notifications disabled");
+        }
       }
     }
   }

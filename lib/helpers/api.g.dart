@@ -77,9 +77,15 @@ class _API implements API {
   }
 
   @override
-  Future<List<NewsPreview>> getAllArticles() async {
+  Future<List<NewsPreview>> getAllArticles(
+    String page,
+    String count,
+  ) async {
     const _extra = <String, dynamic>{};
-    final queryParameters = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{
+      r'page': page,
+      r'count': count,
+    };
     final _headers = <String, dynamic>{};
     final Map<String, dynamic>? _data = null;
     final _result = await _dio

@@ -23,12 +23,12 @@ class _NewsPageState extends State<NewsPage> {
         builder: (BuildContext context, AsyncSnapshot<List<NewsPreview>> snap){
           if(snap.hasData){
             return ListView(
-              children: snap.data!.map((e) => GestureDetector(onTap: ()async{String t =(await Get.find<API>().getArticle(e.id)).body;Get.to(()  =>NewsArticlePage(t));},child: Card(child: Text(e.title),),)).toList(),
+              children: snap.data!.sublist(0,10).map((e) => GestureDetector(onTap: ()async{NewsArticle t =(await Get.find<API>().getArticle(e.id));Get.to(()  =>NewsArticlePage(t));},child: Card(child: Text(e.title),),)).toList(),
             );
           }
           return Center(child: CircularProgressIndicator());
           },
-          future: Get.find<API>().getAllArticles(),
+          future: Get.find<API>().getAllArticles("1","15"),
       ),
     );
   }

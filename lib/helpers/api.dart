@@ -30,7 +30,10 @@ abstract class API{
   Future<List<Menu>> getAllMenus();
 
   @GET("/news")
-  Future<List<NewsPreview>> getAllArticles();
+  Future<List<NewsPreview>> getAllArticles(
+      @Query("page") String page,
+      @Query("count") String count
+      );
 
   @GET("/news/article")
   Future<NewsArticle>getArticle(
