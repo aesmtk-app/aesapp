@@ -32,6 +32,27 @@ abstract class API{
   @GET("/news")
   Future<List<NewsPreview>> getAllArticles();
 
+  @GET("/news/article")
+  Future<NewsArticle>getArticle(
+      @Query("id") String articleId
+      );
+
+  @GET("/vplan/subscribe")
+  Future<List<String>> getVPlanFilter(
+      @Query("id") String aesappId
+      );
+
+  @DELETE("/vplan/subscribe/all")
+  Future deleteAllVPlanFilters(
+      @Query("id") String aesappId
+      );
+
+  @POST("/vplan/subscribe")
+  Future addVPlanFilter(
+      @Query("id") String aesappId,
+      @Query("filter") String filter,
+      );
+
   static Future<bool> checkConnection()async{
     try{
       if(await Dio(BaseOptions(connectTimeout: const Duration(seconds: 4), receiveTimeout: const Duration(seconds: 4))).get("${API.apiEndpoint}/?${Random().nextInt(1000000)}").then((value) => value.statusCode==200)){

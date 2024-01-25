@@ -20,24 +20,22 @@ NewsPreview _$NewsPreviewFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$NewsPreview {
-  int get id => throw _privateConstructorUsedError;
-  set id(int value) => throw _privateConstructorUsedError;
-  @JsonKey()
-  DateTime get created => throw _privateConstructorUsedError;
-  @JsonKey()
-  set created(DateTime value) => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
+  set id(String value) => throw _privateConstructorUsedError;
+  @JsonKey(name: "published_at")
+  DateTime get published => throw _privateConstructorUsedError;
+  @JsonKey(name: "published_at")
+  set published(DateTime value) => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   set title(String value) => throw _privateConstructorUsedError;
+  @JsonKey(name: "preview_text")
   String get preview => throw _privateConstructorUsedError;
+  @JsonKey(name: "preview_text")
   set preview(String value) => throw _privateConstructorUsedError;
   String get source => throw _privateConstructorUsedError;
   set source(String value) => throw _privateConstructorUsedError;
   String get author => throw _privateConstructorUsedError;
   set author(String value) => throw _privateConstructorUsedError;
-  @JsonKey(name: "last_edited")
-  DateTime? get lastEdited => throw _privateConstructorUsedError;
-  @JsonKey(name: "last_edited")
-  set lastEdited(DateTime? value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -52,13 +50,12 @@ abstract class $NewsPreviewCopyWith<$Res> {
       _$NewsPreviewCopyWithImpl<$Res, NewsPreview>;
   @useResult
   $Res call(
-      {int id,
-      @JsonKey() DateTime created,
+      {String id,
+      @JsonKey(name: "published_at") DateTime published,
       String title,
-      String preview,
+      @JsonKey(name: "preview_text") String preview,
       String source,
-      String author,
-      @JsonKey(name: "last_edited") DateTime? lastEdited});
+      String author});
 }
 
 /// @nodoc
@@ -75,21 +72,20 @@ class _$NewsPreviewCopyWithImpl<$Res, $Val extends NewsPreview>
   @override
   $Res call({
     Object? id = null,
-    Object? created = null,
+    Object? published = null,
     Object? title = null,
     Object? preview = null,
     Object? source = null,
     Object? author = null,
-    Object? lastEdited = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      created: null == created
-          ? _value.created
-          : created // ignore: cast_nullable_to_non_nullable
+              as String,
+      published: null == published
+          ? _value.published
+          : published // ignore: cast_nullable_to_non_nullable
               as DateTime,
       title: null == title
           ? _value.title
@@ -107,10 +103,6 @@ class _$NewsPreviewCopyWithImpl<$Res, $Val extends NewsPreview>
           ? _value.author
           : author // ignore: cast_nullable_to_non_nullable
               as String,
-      lastEdited: freezed == lastEdited
-          ? _value.lastEdited
-          : lastEdited // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
     ) as $Val);
   }
 }
@@ -124,13 +116,12 @@ abstract class _$$NewsPreviewImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
-      @JsonKey() DateTime created,
+      {String id,
+      @JsonKey(name: "published_at") DateTime published,
       String title,
-      String preview,
+      @JsonKey(name: "preview_text") String preview,
       String source,
-      String author,
-      @JsonKey(name: "last_edited") DateTime? lastEdited});
+      String author});
 }
 
 /// @nodoc
@@ -145,21 +136,20 @@ class __$$NewsPreviewImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? created = null,
+    Object? published = null,
     Object? title = null,
     Object? preview = null,
     Object? source = null,
     Object? author = null,
-    Object? lastEdited = freezed,
   }) {
     return _then(_$NewsPreviewImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      created: null == created
-          ? _value.created
-          : created // ignore: cast_nullable_to_non_nullable
+              as String,
+      published: null == published
+          ? _value.published
+          : published // ignore: cast_nullable_to_non_nullable
               as DateTime,
       title: null == title
           ? _value.title
@@ -177,10 +167,6 @@ class __$$NewsPreviewImplCopyWithImpl<$Res>
           ? _value.author
           : author // ignore: cast_nullable_to_non_nullable
               as String,
-      lastEdited: freezed == lastEdited
-          ? _value.lastEdited
-          : lastEdited // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
     ));
   }
 }
@@ -190,36 +176,33 @@ class __$$NewsPreviewImplCopyWithImpl<$Res>
 class _$NewsPreviewImpl implements _NewsPreview {
   _$NewsPreviewImpl(
       {required this.id,
-      @JsonKey() required this.created,
+      @JsonKey(name: "published_at") required this.published,
       required this.title,
-      required this.preview,
+      @JsonKey(name: "preview_text") required this.preview,
       required this.source,
-      required this.author,
-      @JsonKey(name: "last_edited") this.lastEdited});
+      required this.author});
 
   factory _$NewsPreviewImpl.fromJson(Map<String, dynamic> json) =>
       _$$NewsPreviewImplFromJson(json);
 
   @override
-  int id;
+  String id;
   @override
-  @JsonKey()
-  DateTime created;
+  @JsonKey(name: "published_at")
+  DateTime published;
   @override
   String title;
   @override
+  @JsonKey(name: "preview_text")
   String preview;
   @override
   String source;
   @override
   String author;
-  @override
-  @JsonKey(name: "last_edited")
-  DateTime? lastEdited;
 
   @override
   String toString() {
-    return 'NewsPreview(id: $id, created: $created, title: $title, preview: $preview, source: $source, author: $author, lastEdited: $lastEdited)';
+    return 'NewsPreview(id: $id, published: $published, title: $title, preview: $preview, source: $source, author: $author)';
   }
 
   @JsonKey(ignore: true)
@@ -238,30 +221,31 @@ class _$NewsPreviewImpl implements _NewsPreview {
 
 abstract class _NewsPreview implements NewsPreview {
   factory _NewsPreview(
-      {required int id,
-      @JsonKey() required DateTime created,
+      {required String id,
+      @JsonKey(name: "published_at") required DateTime published,
       required String title,
-      required String preview,
+      @JsonKey(name: "preview_text") required String preview,
       required String source,
-      required String author,
-      @JsonKey(name: "last_edited") DateTime? lastEdited}) = _$NewsPreviewImpl;
+      required String author}) = _$NewsPreviewImpl;
 
   factory _NewsPreview.fromJson(Map<String, dynamic> json) =
       _$NewsPreviewImpl.fromJson;
 
   @override
-  int get id;
-  set id(int value);
+  String get id;
+  set id(String value);
   @override
-  @JsonKey()
-  DateTime get created;
-  @JsonKey()
-  set created(DateTime value);
+  @JsonKey(name: "published_at")
+  DateTime get published;
+  @JsonKey(name: "published_at")
+  set published(DateTime value);
   @override
   String get title;
   set title(String value);
   @override
+  @JsonKey(name: "preview_text")
   String get preview;
+  @JsonKey(name: "preview_text")
   set preview(String value);
   @override
   String get source;
@@ -269,11 +253,6 @@ abstract class _NewsPreview implements NewsPreview {
   @override
   String get author;
   set author(String value);
-  @override
-  @JsonKey(name: "last_edited")
-  DateTime? get lastEdited;
-  @JsonKey(name: "last_edited")
-  set lastEdited(DateTime? value);
   @override
   @JsonKey(ignore: true)
   _$$NewsPreviewImplCopyWith<_$NewsPreviewImpl> get copyWith =>
@@ -286,24 +265,28 @@ NewsArticle _$NewsArticleFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$NewsArticle {
-  int get id => throw _privateConstructorUsedError;
-  set id(int value) => throw _privateConstructorUsedError;
-  DateTime get created => throw _privateConstructorUsedError;
-  set created(DateTime value) => throw _privateConstructorUsedError;
+  String get id => throw _privateConstructorUsedError;
+  set id(String value) => throw _privateConstructorUsedError;
+  @JsonKey(name: "published_at")
+  DateTime get published => throw _privateConstructorUsedError;
+  @JsonKey(name: "published_at")
+  set published(DateTime value) => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   set title(String value) => throw _privateConstructorUsedError;
+  @JsonKey(name: "preview_text")
   String get preview => throw _privateConstructorUsedError;
+  @JsonKey(name: "preview_text")
   set preview(String value) => throw _privateConstructorUsedError;
   String get source => throw _privateConstructorUsedError;
   set source(String value) => throw _privateConstructorUsedError;
   String get author => throw _privateConstructorUsedError;
   set author(String value) => throw _privateConstructorUsedError;
-  String get content => throw _privateConstructorUsedError;
-  set content(String value) => throw _privateConstructorUsedError;
-  @JsonKey(name: "last_edited")
-  DateTime? get lastEdited => throw _privateConstructorUsedError;
-  @JsonKey(name: "last_edited")
-  set lastEdited(DateTime? value) => throw _privateConstructorUsedError;
+  String get body => throw _privateConstructorUsedError;
+  set body(String value) => throw _privateConstructorUsedError;
+  @JsonKey(name: "creation_time")
+  DateTime get created => throw _privateConstructorUsedError;
+  @JsonKey(name: "creation_time")
+  set created(DateTime value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -318,14 +301,14 @@ abstract class $NewsArticleCopyWith<$Res> {
       _$NewsArticleCopyWithImpl<$Res, NewsArticle>;
   @useResult
   $Res call(
-      {int id,
-      DateTime created,
+      {String id,
+      @JsonKey(name: "published_at") DateTime published,
       String title,
-      String preview,
+      @JsonKey(name: "preview_text") String preview,
       String source,
       String author,
-      String content,
-      @JsonKey(name: "last_edited") DateTime? lastEdited});
+      String body,
+      @JsonKey(name: "creation_time") DateTime created});
 }
 
 /// @nodoc
@@ -342,22 +325,22 @@ class _$NewsArticleCopyWithImpl<$Res, $Val extends NewsArticle>
   @override
   $Res call({
     Object? id = null,
-    Object? created = null,
+    Object? published = null,
     Object? title = null,
     Object? preview = null,
     Object? source = null,
     Object? author = null,
-    Object? content = null,
-    Object? lastEdited = freezed,
+    Object? body = null,
+    Object? created = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      created: null == created
-          ? _value.created
-          : created // ignore: cast_nullable_to_non_nullable
+              as String,
+      published: null == published
+          ? _value.published
+          : published // ignore: cast_nullable_to_non_nullable
               as DateTime,
       title: null == title
           ? _value.title
@@ -375,14 +358,14 @@ class _$NewsArticleCopyWithImpl<$Res, $Val extends NewsArticle>
           ? _value.author
           : author // ignore: cast_nullable_to_non_nullable
               as String,
-      content: null == content
-          ? _value.content
-          : content // ignore: cast_nullable_to_non_nullable
+      body: null == body
+          ? _value.body
+          : body // ignore: cast_nullable_to_non_nullable
               as String,
-      lastEdited: freezed == lastEdited
-          ? _value.lastEdited
-          : lastEdited // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+      created: null == created
+          ? _value.created
+          : created // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ) as $Val);
   }
 }
@@ -396,14 +379,14 @@ abstract class _$$NewsArticleImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int id,
-      DateTime created,
+      {String id,
+      @JsonKey(name: "published_at") DateTime published,
       String title,
-      String preview,
+      @JsonKey(name: "preview_text") String preview,
       String source,
       String author,
-      String content,
-      @JsonKey(name: "last_edited") DateTime? lastEdited});
+      String body,
+      @JsonKey(name: "creation_time") DateTime created});
 }
 
 /// @nodoc
@@ -418,22 +401,22 @@ class __$$NewsArticleImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
-    Object? created = null,
+    Object? published = null,
     Object? title = null,
     Object? preview = null,
     Object? source = null,
     Object? author = null,
-    Object? content = null,
-    Object? lastEdited = freezed,
+    Object? body = null,
+    Object? created = null,
   }) {
     return _then(_$NewsArticleImpl(
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      created: null == created
-          ? _value.created
-          : created // ignore: cast_nullable_to_non_nullable
+              as String,
+      published: null == published
+          ? _value.published
+          : published // ignore: cast_nullable_to_non_nullable
               as DateTime,
       title: null == title
           ? _value.title
@@ -451,14 +434,14 @@ class __$$NewsArticleImplCopyWithImpl<$Res>
           ? _value.author
           : author // ignore: cast_nullable_to_non_nullable
               as String,
-      content: null == content
-          ? _value.content
-          : content // ignore: cast_nullable_to_non_nullable
+      body: null == body
+          ? _value.body
+          : body // ignore: cast_nullable_to_non_nullable
               as String,
-      lastEdited: freezed == lastEdited
-          ? _value.lastEdited
-          : lastEdited // ignore: cast_nullable_to_non_nullable
-              as DateTime?,
+      created: null == created
+          ? _value.created
+          : created // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -468,38 +451,40 @@ class __$$NewsArticleImplCopyWithImpl<$Res>
 class _$NewsArticleImpl implements _NewsArticle {
   _$NewsArticleImpl(
       {required this.id,
-      required this.created,
+      @JsonKey(name: "published_at") required this.published,
       required this.title,
-      required this.preview,
+      @JsonKey(name: "preview_text") required this.preview,
       required this.source,
       required this.author,
-      required this.content,
-      @JsonKey(name: "last_edited") this.lastEdited});
+      required this.body,
+      @JsonKey(name: "creation_time") required this.created});
 
   factory _$NewsArticleImpl.fromJson(Map<String, dynamic> json) =>
       _$$NewsArticleImplFromJson(json);
 
   @override
-  int id;
+  String id;
   @override
-  DateTime created;
+  @JsonKey(name: "published_at")
+  DateTime published;
   @override
   String title;
   @override
+  @JsonKey(name: "preview_text")
   String preview;
   @override
   String source;
   @override
   String author;
   @override
-  String content;
+  String body;
   @override
-  @JsonKey(name: "last_edited")
-  DateTime? lastEdited;
+  @JsonKey(name: "creation_time")
+  DateTime created;
 
   @override
   String toString() {
-    return 'NewsArticle(id: $id, created: $created, title: $title, preview: $preview, source: $source, author: $author, content: $content, lastEdited: $lastEdited)';
+    return 'NewsArticle(id: $id, published: $published, title: $title, preview: $preview, source: $source, author: $author, body: $body, created: $created)';
   }
 
   @JsonKey(ignore: true)
@@ -518,29 +503,34 @@ class _$NewsArticleImpl implements _NewsArticle {
 
 abstract class _NewsArticle implements NewsArticle {
   factory _NewsArticle(
-      {required int id,
-      required DateTime created,
-      required String title,
-      required String preview,
-      required String source,
-      required String author,
-      required String content,
-      @JsonKey(name: "last_edited") DateTime? lastEdited}) = _$NewsArticleImpl;
+          {required String id,
+          @JsonKey(name: "published_at") required DateTime published,
+          required String title,
+          @JsonKey(name: "preview_text") required String preview,
+          required String source,
+          required String author,
+          required String body,
+          @JsonKey(name: "creation_time") required DateTime created}) =
+      _$NewsArticleImpl;
 
   factory _NewsArticle.fromJson(Map<String, dynamic> json) =
       _$NewsArticleImpl.fromJson;
 
   @override
-  int get id;
-  set id(int value);
+  String get id;
+  set id(String value);
   @override
-  DateTime get created;
-  set created(DateTime value);
+  @JsonKey(name: "published_at")
+  DateTime get published;
+  @JsonKey(name: "published_at")
+  set published(DateTime value);
   @override
   String get title;
   set title(String value);
   @override
+  @JsonKey(name: "preview_text")
   String get preview;
+  @JsonKey(name: "preview_text")
   set preview(String value);
   @override
   String get source;
@@ -549,13 +539,13 @@ abstract class _NewsArticle implements NewsArticle {
   String get author;
   set author(String value);
   @override
-  String get content;
-  set content(String value);
+  String get body;
+  set body(String value);
   @override
-  @JsonKey(name: "last_edited")
-  DateTime? get lastEdited;
-  @JsonKey(name: "last_edited")
-  set lastEdited(DateTime? value);
+  @JsonKey(name: "creation_time")
+  DateTime get created;
+  @JsonKey(name: "creation_time")
+  set created(DateTime value);
   @override
   @JsonKey(ignore: true)
   _$$NewsArticleImplCopyWith<_$NewsArticleImpl> get copyWith =>
