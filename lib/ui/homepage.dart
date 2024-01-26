@@ -4,6 +4,7 @@ import 'package:aesapp/objects/theme.dart';
 import 'package:aesapp/helpers/app.dart';
 import 'package:aesapp/ui/news/news_article.dart';
 import 'package:aesapp/ui/news/news_preview.dart';
+import 'package:aesapp/ui/timetable/timeSchool.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -69,6 +70,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
+         
           /*SizedBox(
             width: 100,
             child: TextField(
@@ -77,13 +79,16 @@ class _HomePageState extends State<HomePage> {
                   hintText: "Filter", border: OutlineInputBorder()),
             ),
           ),*/
-          ElevatedButton(
+          /*ElevatedButton(
               onPressed: () async {
                 //AESAppUtils.showErrorToast(Navigator.canPop(context).toString());
                 AESAppUtils.showMissingConnectionBanner(context);
                                 // send to endpoint
               },
-              child: Text("hi")),
+              child: Text("hi")),*/
+          Card(
+            child: TimeSchool(),
+          ),
         ],
       ),
     );
