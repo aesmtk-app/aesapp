@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:text_scroll/text_scroll.dart';
 
 class CustomAppBar{
   static Widget menuButton() {

@@ -59,7 +59,7 @@ class AESAppUtils{
 
   static final DateFormat dateFormat = DateFormat("EEEE, 'den' dd.MM.",);
 
-  static final DateFormat monthDayFormat = DateFormat("dd.MM.");
+  static final DateFormat monthDayYearFormat = DateFormat("d.M.yy");
 
   static void showMissingConnectionBanner(BuildContext context){
     missingConnectionBannerShown=true;

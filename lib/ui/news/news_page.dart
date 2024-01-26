@@ -2,6 +2,7 @@ import 'package:aesapp/helpers/api.dart';
 import 'package:aesapp/helpers/data_provider.dart';
 import 'package:aesapp/ui/news/news_article.dart';
 import 'package:aesapp/ui/news/news_preview_card.dart';
+import 'package:drop_cap_text/drop_cap_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -43,21 +44,25 @@ class _NewsPageState extends State<NewsPage> {
                 ],
               );
             }
+
+
             return Row(
               children: [
                 Flexible(
                     flex: 550,
                     child: ListView(
                       children: [
-                        ...pres.map((e) => ListTile(
-                          title: Column(
-                            children: [
-                              Text(e.title),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [Text(AESAppUtils.monthDayFormat.format(e.published))],
-                              )
-                            ],
+                        ...pres.map((e) {
+                          TextSpan textSpan = TextSpan(text: AESAppUtils.monthDayYearFormat.format(e.published), style: TextStyle(fontSize: 11, height: 1));
+                          final tp = TextPainter(text: textSpan, textDirection: TextDirection.ltr);
+                          tp.layout();
+                          return ListTile(
+                          title: DropCapText(
+                            e.title,
+                            style: Theme.of(context).listTileTheme.titleTextStyle,
+                            dropCapPosition: DropCapPosition.end,
+                            dropCapPadding: EdgeInsets.symmetric(horizontal: 1),
+                            dropCap: DropCap(child: Text(AESAppUtils.monthDayYearFormat.format(e.published), style: TextStyle(fontSize: 11, height: 1, color: Theme.of(context).colorScheme.primary), ), width: tp.width+5, height: tp.height),
                           ),
                           onTap: ()async{
                             setState(() {
@@ -66,7 +71,7 @@ class _NewsPageState extends State<NewsPage> {
                           },
                           selected: e==selectedArticle,
 
-                        )).toList(),
+                        );}).toList(),
                         _loadMoreButton()
                       ],
                     )
