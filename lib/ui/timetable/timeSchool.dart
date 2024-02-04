@@ -24,7 +24,8 @@ class _TimeSchoolState extends State<TimeSchool> {
     {'Period': '4', 'begin':DateTime(0,0,0,11,35), 'end': DateTime(0,0,0,12,20),},
     {'Period': 'PAUSE', 'begin':DateTime(0,0,0,12,20), 'end': DateTime(0,0,0,12,25),},
     {'Period': '6', 'begin':DateTime(0,0,0,12,25), 'end': DateTime(0,0,0,13,10),},
-    {'Period': 'Schuleaus', 'begin':DateTime(0,0,0,0,1), 'end': DateTime(0,0,0,7,55),},
+    {'Period': 'Schuleaus', 'begin':DateTime(0,0,0,13,10), 'end': DateTime(0,0,0,23,59),},
+    {'Period': 'Schuleaus', 'begin':DateTime(0,0,0,0,0), 'end': DateTime(0,0,0,7,55),},
   ];
 
   void currentPeriod(n) {
