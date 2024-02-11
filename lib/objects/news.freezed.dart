@@ -20,21 +20,33 @@ NewsPreview _$NewsPreviewFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$NewsPreview {
+  @HiveField(1)
   String get id => throw _privateConstructorUsedError;
+  @HiveField(1)
   set id(String value) => throw _privateConstructorUsedError;
   @JsonKey(name: "published_at")
+  @HiveField(2)
   DateTime get published => throw _privateConstructorUsedError;
   @JsonKey(name: "published_at")
+  @HiveField(2)
   set published(DateTime value) => throw _privateConstructorUsedError;
+  @HiveField(3)
   String get title => throw _privateConstructorUsedError;
+  @HiveField(3)
   set title(String value) => throw _privateConstructorUsedError;
   @JsonKey(name: "preview_text")
+  @HiveField(4)
   String get preview => throw _privateConstructorUsedError;
   @JsonKey(name: "preview_text")
+  @HiveField(4)
   set preview(String value) => throw _privateConstructorUsedError;
+  @HiveField(5)
   String get source => throw _privateConstructorUsedError;
+  @HiveField(5)
   set source(String value) => throw _privateConstructorUsedError;
+  @HiveField(6)
   String get author => throw _privateConstructorUsedError;
+  @HiveField(6)
   set author(String value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -50,12 +62,12 @@ abstract class $NewsPreviewCopyWith<$Res> {
       _$NewsPreviewCopyWithImpl<$Res, NewsPreview>;
   @useResult
   $Res call(
-      {String id,
-      @JsonKey(name: "published_at") DateTime published,
-      String title,
-      @JsonKey(name: "preview_text") String preview,
-      String source,
-      String author});
+      {@HiveField(1) String id,
+      @JsonKey(name: "published_at") @HiveField(2) DateTime published,
+      @HiveField(3) String title,
+      @JsonKey(name: "preview_text") @HiveField(4) String preview,
+      @HiveField(5) String source,
+      @HiveField(6) String author});
 }
 
 /// @nodoc
@@ -116,12 +128,12 @@ abstract class _$$NewsPreviewImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {String id,
-      @JsonKey(name: "published_at") DateTime published,
-      String title,
-      @JsonKey(name: "preview_text") String preview,
-      String source,
-      String author});
+      {@HiveField(1) String id,
+      @JsonKey(name: "published_at") @HiveField(2) DateTime published,
+      @HiveField(3) String title,
+      @JsonKey(name: "preview_text") @HiveField(4) String preview,
+      @HiveField(5) String source,
+      @HiveField(6) String author});
 }
 
 /// @nodoc
@@ -173,31 +185,39 @@ class __$$NewsPreviewImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$NewsPreviewImpl implements _NewsPreview {
+@HiveType(typeId: 4, adapterName: "NewsPreviewAdapter")
+class _$NewsPreviewImpl extends _NewsPreview {
   _$NewsPreviewImpl(
-      {required this.id,
-      @JsonKey(name: "published_at") required this.published,
-      required this.title,
-      @JsonKey(name: "preview_text") required this.preview,
-      required this.source,
-      required this.author});
+      {@HiveField(1) required this.id,
+      @JsonKey(name: "published_at") @HiveField(2) required this.published,
+      @HiveField(3) required this.title,
+      @JsonKey(name: "preview_text") @HiveField(4) required this.preview,
+      @HiveField(5) required this.source,
+      @HiveField(6) required this.author})
+      : super._();
 
   factory _$NewsPreviewImpl.fromJson(Map<String, dynamic> json) =>
       _$$NewsPreviewImplFromJson(json);
 
   @override
+  @HiveField(1)
   String id;
   @override
   @JsonKey(name: "published_at")
+  @HiveField(2)
   DateTime published;
   @override
+  @HiveField(3)
   String title;
   @override
   @JsonKey(name: "preview_text")
+  @HiveField(4)
   String preview;
   @override
+  @HiveField(5)
   String source;
   @override
+  @HiveField(6)
   String author;
 
   @override
@@ -219,39 +239,52 @@ class _$NewsPreviewImpl implements _NewsPreview {
   }
 }
 
-abstract class _NewsPreview implements NewsPreview {
+abstract class _NewsPreview extends NewsPreview {
   factory _NewsPreview(
-      {required String id,
-      @JsonKey(name: "published_at") required DateTime published,
-      required String title,
-      @JsonKey(name: "preview_text") required String preview,
-      required String source,
-      required String author}) = _$NewsPreviewImpl;
+      {@HiveField(1) required String id,
+      @JsonKey(name: "published_at") @HiveField(2) required DateTime published,
+      @HiveField(3) required String title,
+      @JsonKey(name: "preview_text") @HiveField(4) required String preview,
+      @HiveField(5) required String source,
+      @HiveField(6) required String author}) = _$NewsPreviewImpl;
+  _NewsPreview._() : super._();
 
   factory _NewsPreview.fromJson(Map<String, dynamic> json) =
       _$NewsPreviewImpl.fromJson;
 
   @override
+  @HiveField(1)
   String get id;
+  @HiveField(1)
   set id(String value);
   @override
   @JsonKey(name: "published_at")
+  @HiveField(2)
   DateTime get published;
   @JsonKey(name: "published_at")
+  @HiveField(2)
   set published(DateTime value);
   @override
+  @HiveField(3)
   String get title;
+  @HiveField(3)
   set title(String value);
   @override
   @JsonKey(name: "preview_text")
+  @HiveField(4)
   String get preview;
   @JsonKey(name: "preview_text")
+  @HiveField(4)
   set preview(String value);
   @override
+  @HiveField(5)
   String get source;
+  @HiveField(5)
   set source(String value);
   @override
+  @HiveField(6)
   String get author;
+  @HiveField(6)
   set author(String value);
   @override
   @JsonKey(ignore: true)

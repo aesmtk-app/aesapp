@@ -1,3 +1,4 @@
+import 'package:aesapp/objects/news.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -10,6 +11,7 @@ class HiveAPI{
   Future<HiveAPI> init()async{
     await Hive.initFlutter();
     Hive.registerAdapter(VPlanEntryAdapter());
+    Hive.registerAdapter(NewsPreviewAdapter());
     await Hive.openBox(HiveKeys.boxName);
     await HiveKeys.setDefaults();
 

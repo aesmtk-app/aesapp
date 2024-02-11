@@ -16,7 +16,7 @@ class _NewsArticlePageState extends State<NewsArticlePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: (!widget.calledAsWidget)?CustomAppBar.get(title: "Artikel: ${widget.article.source}"):null,
-      body: MarkdownWidget(data: "### ${widget.article.title}\r\n${widget.article.body}"),
+      body: MarkdownWidget(data: "### ${widget.article.title}\r\n${widget.article.body.replaceAll(r"$$IMAGE_URL$$", API.apiEndpoint)}", config: MarkdownConfig(),),
     );
   }
 }

@@ -47,7 +47,7 @@ dependencies:
   wear: ^1.1.0
   wearable_rotary: ^2.0.2
   markdown_widget: ^2.3.2+3
-  text_scroll: ^0.2.0
+  drop_cap_text: ^1.1.3
 
 
 
