@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:aesapp/ui/news/news_page.dart';
+import 'package:aesapp/ui/polls/polls_page.dart';
 import 'package:aesapp/ui/timetable/timetable_page.dart';
 import 'package:aesapp/ui/watch/watch_root.dart';
 import 'package:flutter/foundation.dart';
@@ -37,7 +38,7 @@ class AESPage{
     4:AESPage(id: 4, label: "Plan", icon: const Icon(Icons.table_chart), selectedIcon: const Icon(Icons.table_chart_outlined), showWhenPortrait: true, showWhenLandscape: true, page: ({bool asWidget=false})=>TimetablePage(calledAsWidget: asWidget,), routeName: "/timetable"),
     5:AESPage(id: 5, label: "News", icon: const Icon(Icons.newspaper), selectedIcon: const Icon(Icons.newspaper_outlined), showWhenPortrait: true, showWhenLandscape: true, page: ({bool asWidget=false})=>NewsPage(calledAsWidget: asWidget,), routeName: "/news"),
     2:AESPage(id: 2, label: "test", icon: const Icon(Icons.table_chart), selectedIcon: const Icon(Icons.table_chart_outlined), showWhenPortrait: false, page: ({bool asWidget=false})=>TestPage(calledAsWidget: asWidget,), showWhenLandscape: false, routeName: "/test"),
-    6:AESPage(id: 6, label: "Umfragen", icon: const Icon(Icons.data_array), selectedIcon: const Icon(Icons.data_array_outlined), showWhenPortrait: true, page: ({bool asWidget=true})=>TestPage(calledAsWidget: asWidget,), showWhenLandscape: false, routeName: "/umfrage"),
+    6:AESPage(id: 6, label: "Umfragen", icon: const Icon(Icons.data_array), selectedIcon: const Icon(Icons.data_array_outlined), showWhenPortrait: true, page: ({bool asWidget=false})=>PollsPage(calledAsWidget: asWidget,), showWhenLandscape: false, routeName: "/umfrage"),
     99:AESPage(id: 99, label: "Settings", icon: const Icon(Icons.settings), selectedIcon: const Icon(Icons.settings_outlined), showWhenPortrait: true, showWhenLandscape: true, page: ({bool asWidget=false})=>SettingsHome(calledAsWidget: asWidget,), routeName: "/settings")
   };
 }
