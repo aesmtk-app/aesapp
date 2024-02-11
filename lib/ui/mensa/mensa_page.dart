@@ -1,9 +1,12 @@
+// import 'dart:html';
+// import 'dart:ui_web' as ui_web;
 import 'package:aesapp/objects/mensa.dart';
 import 'package:aesapp/helpers/api.dart';
 import 'package:aesapp/ui/mensa/menu_card.dart';
 import 'package:aesapp/ui/mensa/menu_details.dart';
 import 'package:collection/collection.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -23,11 +26,31 @@ class _MensaPageState extends State<MensaPage> {
   Future<List<Menu>> menus = Get.find<API>().getAllMenus();
   Menu? selectedMenu;
   Widget detailedMenu = const Center(child: Text("Wähle ein Datum"),);
+
+
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+
+
   @override
   Widget build(BuildContext context) {
+    Widget? iframeWidget;
+    if(kIsWeb){
+      /*
+      final IFrameElement viewFrame = IFrameElement();
+      viewFrame.src = "https://aws1313.de";
+      ui_web.platformViewRegistry.registerViewFactory("iframeElement", (int viewId)=>viewFrame);
+      iframeWidget = HtmlElementView(key: UniqueKey(), viewType: "iframeElement");
+      */
+    }
+
     return Scaffold(
-      appBar: (!widget.calledAsWidget)?CustomAppBar.get(title: "Home"):null,
-      body: FutureBuilder(
+      appBar: (!widget.calledAsWidget)?CustomAppBar.get(title: "Mensa"):null,
+      body: (kIsWeb)?iframeWidget:FutureBuilder(
         future: menus,
         builder: (BuildContext context, AsyncSnapshot<List<Menu>> snap){
           if (snap.hasData){
