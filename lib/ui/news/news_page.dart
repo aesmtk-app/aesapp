@@ -5,6 +5,7 @@ import 'package:aesapp/ui/news/news_preview_card.dart';
 import 'package:drop_cap_text/drop_cap_text.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 
 import '../../helpers/app.dart';
 import '../../objects/news.dart';
@@ -22,6 +23,25 @@ class _NewsPageState extends State<NewsPage> {
   NewsPreview? selectedArticle;
   Stream<List<NewsPreview>> newsPreviews = Get.find<DataProvider>().allNews();
 
+  static const int _pageSize = 20;
+  final PagingController<int, NewsPreview> _pagingController = PagingController(firstPageKey: 0);
+  
+  @override
+  void initState() {
+    _pagingController.addPageRequestListener((pageKey)=>_fetchPreviews(pageKey));
+    super.initState();
+  }
+
+  Future<void> _fetchPreviews(int pageKey)async{
+    List<NewsPreview> items = await Get.find<API>().getAllArticles(pageKey.toString(), _pageSize.toString());
+    final isLastPage = items.length < _pageSize;
+    if (isLastPage) {
+      _pagingController.appendPage(items, pageKey + items.length);
+    } else {
+      final nextPageKey = pageKey + items.length;
+      _pagingController.appendPage(items, nextPageKey);
+    }
+  }
   Widget _loadMoreButton(){
     return ElevatedButton(onPressed: ()=>Get.find<DataProvider>().getMoreNews(), child: Text("Weitere 15 laden"));
   }
@@ -36,13 +56,12 @@ class _NewsPageState extends State<NewsPage> {
             print("build");
             List<NewsPreview> pres = snap.data!;
             if(context.isPortrait){
-              return ListView(
-                children: [
-                  ...pres.map((e)
-                  => GestureDetector(onTap: ()async{NewsArticle t =(await Get.find<API>().getArticle(e.id));Get.to(()  =>NewsArticlePage(t));},child: NewsPreviewCard(e),)).toList(),
-                  _loadMoreButton()
-                ],
-              );
+              return PagedListView<int, NewsPreview>(pagingController: _pagingController,
+                  builderDelegate: PagedChildBuilderDelegate<NewsPreview>(
+                    itemBuilder: (context, e, index){
+                      return GestureDetector(onTap: ()async{NewsArticle t =(await Get.find<API>().getArticle(e.id));Get.to(()  =>NewsArticlePage(t));},child: NewsPreviewCard(e),);
+                    }
+                  ));
             }
 
 
