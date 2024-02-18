@@ -1,12 +1,12 @@
 {
-    "name": "aesapp",
-    "short_name": "aesapp",
+    "name": "AESApp",
+    "short_name": "AES",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
     "description": "AESApp",
-    "orientation": "portrait-primary",
+    "orientation": "any",
     "prefer_related_applications": false,
     "icons": [
         {
