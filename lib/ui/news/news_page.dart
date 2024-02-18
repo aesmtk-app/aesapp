@@ -33,19 +33,15 @@ class _NewsPageState extends State<NewsPage> {
   }
 
   Future<void> _fetchPreviews(int pageKey)async{
-    List<NewsPreview> items = await Get.find<API>().getAllArticles(pageKey.toString(), _pageSize.toString());
+    List<NewsPreview> items = await Get.find<API>().getAllArticles((pageKey~/_pageSize).toString(), _pageSize.toString());
     final isLastPage = items.length < _pageSize;
     if (isLastPage) {
-      _pagingController.appendPage(items, pageKey + items.length);
+      _pagingController.appendLastPage(items);
     } else {
       final nextPageKey = pageKey + items.length;
       _pagingController.appendPage(items, nextPageKey);
     }
   }
-  Widget _loadMoreButton(){
-    return ElevatedButton(onPressed: ()=>Get.find<DataProvider>().getMoreNews(), child: Text("Weitere 15 laden"));
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,13 +65,13 @@ class _NewsPageState extends State<NewsPage> {
               children: [
                 Flexible(
                     flex: 550,
-                    child: ListView(
-                      children: [
-                        ...pres.map((e) {
-                          TextSpan textSpan = TextSpan(text: AESAppUtils.monthDayYearFormat.format(e.published), style: TextStyle(fontSize: 11, height: 1));
-                          final tp = TextPainter(text: textSpan, textDirection: TextDirection.ltr);
-                          tp.layout();
-                          return ListTile(
+                    child: PagedListView<int, NewsPreview>(pagingController: _pagingController,
+                    builderDelegate: PagedChildBuilderDelegate(
+                      itemBuilder: (context, e, index){
+                        TextSpan textSpan = TextSpan(text: AESAppUtils.monthDayYearFormat.format(e.published), style: TextStyle(fontSize: 11, height: 1));
+                        final tp = TextPainter(text: textSpan, textDirection: TextDirection.ltr);
+                        tp.layout();
+                        return ListTile(
                           title: DropCapText(
                             e.title,
                             style: Theme.of(context).listTileTheme.titleTextStyle,
@@ -90,10 +86,9 @@ class _NewsPageState extends State<NewsPage> {
                           },
                           selected: e==selectedArticle,
 
-                        );}).toList(),
-                        _loadMoreButton()
-                      ],
-                    )
+                        );
+                      }
+                    ))
 
                 ),
                 if (context.isLandscape)

@@ -11,8 +11,6 @@ import 'package:get/get.dart';
 import 'package:logging/logging.dart';
 
 import 'aesapp/appbar.dart';
-import 'dart:js' as js;
-final bool isCanvasKit = js.context['flutterCanvasKit'] != null;
 final logger = Logger("home");
 
 class HomePage extends StatefulWidget {
@@ -90,7 +88,6 @@ class _HomePageState extends State<HomePage> {
           Card(
             child: TimeSchool(),
           ),
-          Text(isCanvasKit.toString())
         ],
       ),
     );
