@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:universal_html/html.dart';
 
 class TimeSchool extends StatefulWidget {
   const TimeSchool({super.key});
