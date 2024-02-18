@@ -22,7 +22,7 @@ class _NewsPreviewWidgetState extends State<NewsPreviewWidget> {
         builder: (BuildContext context, AsyncSnapshot<List<NewsPreview>> snap){
           if(snap.hasData){
             return ListView(
-              children: snap.data!.sublist(0,10).map((e) => GestureDetector(onTap: ()async{NewsArticle t =(await Get.find<API>().getArticle(e.id));Get.to(()  =>NewsArticlePage(t));},child: Card(child:
+              children: snap.data!.sublist(0,10).map((e) => GestureDetector(onTap: ()async{Get.to(()  =>NewsArticlePage(e));},child: Card(child:
               Column(
                 children: [
                   Text(e.preview),

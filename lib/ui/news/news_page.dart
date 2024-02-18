@@ -49,13 +49,12 @@ class _NewsPageState extends State<NewsPage> {
       body: StreamBuilder(
         builder: (BuildContext context, AsyncSnapshot<List<NewsPreview>> snap){
           if(snap.hasData){
-            print("build");
             List<NewsPreview> pres = snap.data!;
             if(context.isPortrait){
               return PagedListView<int, NewsPreview>(pagingController: _pagingController,
                   builderDelegate: PagedChildBuilderDelegate<NewsPreview>(
                     itemBuilder: (context, e, index){
-                      return GestureDetector(onTap: ()async{NewsArticle t =(await Get.find<API>().getArticle(e.id));Get.to(()  =>NewsArticlePage(t));},child: NewsPreviewCard(e),);
+                      return GestureDetector(onTap: ()async{Get.to(()=>NewsArticlePage(e));},child: NewsPreviewCard(e),);
                     }
                   ));
             }
@@ -96,7 +95,8 @@ class _NewsPageState extends State<NewsPage> {
                 if (context.isLandscape)
                   Flexible(
                     flex: AESAppUtils.getLandscapeSecondFlexFactor(context),
-                    child: Placeholder(),
+                    child: selectedArticle==null?Container(child: Center(child: Text("Bitte Artikel auswählen"),),)
+                        :NewsArticlePage(selectedArticle!, key: ValueKey(selectedArticle?.id),calledAsWidget: true,),
                   )
               ],
             );
