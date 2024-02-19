@@ -24,7 +24,7 @@ jobs:
         uses: timheuer/base64-to-file@v1
         with:
           fileDir: '/home/runner/.keys'
-          fileName: 'automaten_kollektiv_app.jks'
+          fileName: 'aesmtk_app.jks'
           encodedString: ${{ secrets.KEYSTORE }}        
 
       - name: Prepare Android
