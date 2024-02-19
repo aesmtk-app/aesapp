@@ -12,6 +12,12 @@ if (localPropertiesFile.exists()) {
     }
 }
 
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
 if (flutterVersionCode == null) {
     flutterVersionCode = '1'
@@ -23,7 +29,7 @@ if (flutterVersionName == null) {
 }
 
 android {
-    namespace "net.redsolver.aesapp"
+    namespace "net.redsolver.aesapp.debug"
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
@@ -51,11 +57,37 @@ android {
         versionName flutterVersionName
     }
 
+    signingConfigs {
+        release {
+            if (keystorePropertiesFile.exists()) {
+                println "Using local keystore"
+                keyAlias keystoreProperties['keyAlias']
+                keyPassword keystoreProperties['keyPassword']
+                storeFile file(keystoreProperties['storeFile'])
+                storePassword keystoreProperties['storePassword']
+            }
+            else {
+                println "Using GitHub keystore"
+                def tmpFilePath = System.getProperty("user.home") + "/work/_temp/keystore/"
+                def allFilesFromDir = new File(tmpFilePath).listFiles()
+
+                if (allFilesFromDir != null) {
+                    def keystoreFile = allFilesFromDir.first()
+                    keystoreFile.renameTo(System.getProperty("user.home")+ "/.keys/aesmtk_app.jks")
+                }
+
+                storeFile = file(System.getProperty("user.home")+ "/.keys/aesmtk_app.jks")
+                storePassword System.getenv("SIGNING_STORE_PASSWORD")
+                keyAlias System.getenv("SIGNING_KEY_ALIAS")
+                keyPassword System.getenv("SIGNING_KEY_PASSWORD")
+            }
+        }
+    }
+
     buildTypes {
         release {
-            // TODO: Add your own signing config for the release build.
-            // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
+            println "Signing with release-keys"
         }
     }
 }
