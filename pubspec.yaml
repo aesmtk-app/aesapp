@@ -51,6 +51,9 @@ dependencies:
   infinite_scroll_pagination: ^4.0.0
   web: ^0.5.0
 
+dependency_overrides:
+  wear:
+    git: https://github.com/aws1313/flutter_wear_plugin.git
 
 dev_dependencies:
   flutter_test:
