@@ -13,15 +13,10 @@ class _TimeSchoolState extends State<TimeSchool> {
 
   List<Map> SchoolTime = [
     {'Period': '1', 'begin':DateTime(0,0,0,7,55), 'end': DateTime(0,0,0,8,45),},
-    {'Period': 'PAUSE', 'begin':DateTime(0,0,0,8,45), 'end': DateTime(0,0,0,8,50),},
     {'Period': '2', 'begin':DateTime(0,0,0,8,50), 'end': DateTime(0,0,0,9,30),},
-    {'Period': 'PAUSE', 'begin':DateTime(0,0,0,9,30), 'end': DateTime(0,0,0,9,45),},
     {'Period': '3', 'begin':DateTime(0,0,0,9,45), 'end': DateTime(0,0,0,10,30),},
-    {'Period': 'PAUSE', 'begin':DateTime(0,0,0,10,30), 'end': DateTime(0,0,0,10,35),},
     {'Period': '4', 'begin':DateTime(0,0,0,10,35), 'end': DateTime(0,0,0,11,20),},
-    {'Period': 'PAUSE', 'begin':DateTime(0,0,0,11,20), 'end': DateTime(0,0,0,11,35),},
     {'Period': '4', 'begin':DateTime(0,0,0,11,35), 'end': DateTime(0,0,0,12,20),},
-    {'Period': 'PAUSE', 'begin':DateTime(0,0,0,12,20), 'end': DateTime(0,0,0,12,25),},
     {'Period': '6', 'begin':DateTime(0,0,0,12,25), 'end': DateTime(0,0,0,13,10),},
     {'Period': 'Schuleaus', 'begin':DateTime(0,0,0,13,10), 'end': DateTime(0,0,0,23,59),},
     {'Period': 'Schuleaus', 'begin':DateTime(0,0,0,0,0), 'end': DateTime(0,0,0,7,55),},

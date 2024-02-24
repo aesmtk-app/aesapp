@@ -16,6 +16,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
@@ -39,7 +40,7 @@ void main() async {
   // ignore: unnecessary_cast
   Get.put(DarkDashTheme() as AESTheme);
   Get.put(await HiveAPI().init());
-
+  debugRepaintRainbowEnabled = true;
   Box box = Hive.box(HiveKeys.boxName);
   // Logger
   List<LogRecord> logs = [];
@@ -144,6 +145,7 @@ class AESApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
+
       title: 'AESMTK-APP',
       theme: AESAppUtils.getDeviceType(context)==DeviceType.watch&&(!kIsWeb&&(Platform.isAndroid||Platform.isIOS))?AESAppUtils.getTheme().copyWith(visualDensity: VisualDensity.compact, useMaterial3: false):AESAppUtils.getTheme(),
       themeMode: ThemeMode.light, // until get v5 released

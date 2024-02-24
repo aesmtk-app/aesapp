@@ -61,6 +61,8 @@ class AESAppUtils{
 
   static final DateFormat monthDayYearFormat = DateFormat("d.M.yy");
 
+  static final DateFormat hourMinuteFormat = DateFormat("HH:mm");
+
   static void showMissingConnectionBanner(BuildContext context){
     missingConnectionBannerShown=true;
     ScaffoldMessenger.of(context).showMaterialBanner(MaterialBanner(

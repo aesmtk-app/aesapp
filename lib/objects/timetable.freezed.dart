@@ -12,7 +12,7 @@ part of 'timetable.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 Timetable _$TimetableFromJson(Map<String, dynamic> json) {
   return _Timetable.fromJson(json);
@@ -331,6 +331,10 @@ mixin _$TimetableEntry {
   String get room => throw _privateConstructorUsedError;
   @HiveField(6)
   set room(String value) => throw _privateConstructorUsedError;
+  @HiveField(7)
+  int get color => throw _privateConstructorUsedError;
+  @HiveField(7)
+  set color(int value) => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -351,7 +355,8 @@ abstract class $TimetableEntryCopyWith<$Res> {
       @HiveField(3) int lesson,
       @HiveField(4) String subject,
       @HiveField(5) String teacher,
-      @HiveField(6) String room});
+      @HiveField(6) String room,
+      @HiveField(7) int color});
 }
 
 /// @nodoc
@@ -374,6 +379,7 @@ class _$TimetableEntryCopyWithImpl<$Res, $Val extends TimetableEntry>
     Object? subject = null,
     Object? teacher = null,
     Object? room = null,
+    Object? color = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -404,6 +410,10 @@ class _$TimetableEntryCopyWithImpl<$Res, $Val extends TimetableEntry>
           ? _value.room
           : room // ignore: cast_nullable_to_non_nullable
               as String,
+      color: null == color
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -423,7 +433,8 @@ abstract class _$$TimetableEntryImplCopyWith<$Res>
       @HiveField(3) int lesson,
       @HiveField(4) String subject,
       @HiveField(5) String teacher,
-      @HiveField(6) String room});
+      @HiveField(6) String room,
+      @HiveField(7) int color});
 }
 
 /// @nodoc
@@ -444,6 +455,7 @@ class __$$TimetableEntryImplCopyWithImpl<$Res>
     Object? subject = null,
     Object? teacher = null,
     Object? room = null,
+    Object? color = null,
   }) {
     return _then(_$TimetableEntryImpl(
       id: null == id
@@ -474,6 +486,10 @@ class __$$TimetableEntryImplCopyWithImpl<$Res>
           ? _value.room
           : room // ignore: cast_nullable_to_non_nullable
               as String,
+      color: null == color
+          ? _value.color
+          : color // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -489,7 +505,8 @@ class _$TimetableEntryImpl extends _TimetableEntry {
       @HiveField(3) required this.lesson,
       @HiveField(4) required this.subject,
       @HiveField(5) required this.teacher,
-      @HiveField(6) required this.room})
+      @HiveField(6) required this.room,
+      @HiveField(7) required this.color})
       : super._();
 
   factory _$TimetableEntryImpl.fromJson(Map<String, dynamic> json) =>
@@ -516,10 +533,13 @@ class _$TimetableEntryImpl extends _TimetableEntry {
   @override
   @HiveField(6)
   String room;
+  @override
+  @HiveField(7)
+  int color;
 
   @override
   String toString() {
-    return 'TimetableEntry(id: $id, timetableId: $timetableId, weekday: $weekday, lesson: $lesson, subject: $subject, teacher: $teacher, room: $room)';
+    return 'TimetableEntry(id: $id, timetableId: $timetableId, weekday: $weekday, lesson: $lesson, subject: $subject, teacher: $teacher, room: $room, color: $color)';
   }
 
   @JsonKey(ignore: true)
@@ -545,7 +565,8 @@ abstract class _TimetableEntry extends TimetableEntry {
       @HiveField(3) required int lesson,
       @HiveField(4) required String subject,
       @HiveField(5) required String teacher,
-      @HiveField(6) required String room}) = _$TimetableEntryImpl;
+      @HiveField(6) required String room,
+      @HiveField(7) required int color}) = _$TimetableEntryImpl;
   _TimetableEntry._() : super._();
 
   factory _TimetableEntry.fromJson(Map<String, dynamic> json) =
@@ -586,6 +607,11 @@ abstract class _TimetableEntry extends TimetableEntry {
   String get room;
   @HiveField(6)
   set room(String value);
+  @override
+  @HiveField(7)
+  int get color;
+  @HiveField(7)
+  set color(int value);
   @override
   @JsonKey(ignore: true)
   _$$TimetableEntryImplCopyWith<_$TimetableEntryImpl> get copyWith =>

@@ -39,14 +39,6 @@ class _MensaPageState extends State<MensaPage> {
   @override
   Widget build(BuildContext context) {
     Widget? iframeWidget;
-    if(kIsWeb){
-      /*
-      final IFrameElement viewFrame = IFrameElement();
-      viewFrame.src = "https://aws1313.de";
-      ui_web.platformViewRegistry.registerViewFactory("iframeElement", (int viewId)=>viewFrame);
-      iframeWidget = HtmlElementView(key: UniqueKey(), viewType: "iframeElement");
-      */
-    }
 
     return Scaffold(
       appBar: (!widget.calledAsWidget)?CustomAppBar.get(title: "Mensa"):null,

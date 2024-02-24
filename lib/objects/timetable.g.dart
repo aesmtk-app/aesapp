@@ -74,13 +74,14 @@ class TimetableEntryAdapter extends TypeAdapter<_$TimetableEntryImpl> {
       subject: fields[4] as String,
       teacher: fields[5] as String,
       room: fields[6] as String,
+      color: fields[7] as int,
     );
   }
 
   @override
   void write(BinaryWriter writer, _$TimetableEntryImpl obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.id)
       ..writeByte(1)
@@ -94,7 +95,9 @@ class TimetableEntryAdapter extends TypeAdapter<_$TimetableEntryImpl> {
       ..writeByte(5)
       ..write(obj.teacher)
       ..writeByte(6)
-      ..write(obj.room);
+      ..write(obj.room)
+      ..writeByte(7)
+      ..write(obj.color);
   }
 
   @override
@@ -146,6 +149,7 @@ _$TimetableEntryImpl _$$TimetableEntryImplFromJson(Map<String, dynamic> json) =>
       subject: json['subject'] as String,
       teacher: json['teacher'] as String,
       room: json['room'] as String,
+      color: json['color'] as int,
     );
 
 Map<String, dynamic> _$$TimetableEntryImplToJson(
@@ -158,4 +162,5 @@ Map<String, dynamic> _$$TimetableEntryImplToJson(
       'subject': instance.subject,
       'teacher': instance.teacher,
       'room': instance.room,
+      'color': instance.color,
     };

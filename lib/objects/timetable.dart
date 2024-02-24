@@ -43,7 +43,9 @@ class TimetableEntry extends HiveObject with _$TimetableEntry{
     @HiveField(5)
     required String teacher,
     @HiveField(6)
-    required String room
+    required String room,
+    @HiveField(7)
+    required int color,
   })=_TimetableEntry;
   factory TimetableEntry.fromJson(Map<String, dynamic> json) => _$TimetableEntryFromJson(json);
 }

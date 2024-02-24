@@ -43,6 +43,7 @@ class _HomePageState extends State<HomePage> {
       appBar: (!widget.calledAsWidget) ? CustomAppBar.get(title: "Home") : null,
       body: Column(
         children: [
+          /*
           Card(
             
             child: FractionallySizedBox(
@@ -69,7 +70,7 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ),
-         
+         */
           /*SizedBox(
             width: 100,
             child: TextField(
@@ -85,9 +86,10 @@ class _HomePageState extends State<HomePage> {
                                 // send to endpoint
               },
               child: Text("hi")),*/
+          /*
           Card(
             child: TimeSchool(),
-          ),
+          ),*/
         ],
       ),
     );

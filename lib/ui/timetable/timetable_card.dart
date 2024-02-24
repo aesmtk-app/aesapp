@@ -19,7 +19,7 @@ class TimetableCellCard extends StatelessWidget {
         child: Container(
           decoration: BoxDecoration(
             border: Border(
-              left: BorderSide(color: Colors.pink, width: 5)
+              left: BorderSide(color: Color(entry.color), width: 5)
             )
           ),
           padding: const EdgeInsets.fromLTRB(2, 0, 0, 0),
