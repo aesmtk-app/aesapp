@@ -40,7 +40,7 @@ void main() async {
   // ignore: unnecessary_cast
   Get.put(DarkDashTheme() as AESTheme);
   Get.put(await HiveAPI().init());
-  debugRepaintRainbowEnabled = true;
+  // debugRepaintRainbowEnabled = true;
   Box box = Hive.box(HiveKeys.boxName);
   // Logger
   List<LogRecord> logs = [];

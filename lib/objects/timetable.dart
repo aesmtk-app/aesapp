@@ -48,4 +48,5 @@ class TimetableEntry extends HiveObject with _$TimetableEntry{
     required int color,
   })=_TimetableEntry;
   factory TimetableEntry.fromJson(Map<String, dynamic> json) => _$TimetableEntryFromJson(json);
+  TimetableEntry.empty();
 }

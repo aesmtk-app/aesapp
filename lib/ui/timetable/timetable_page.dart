@@ -32,6 +32,8 @@ class _TimetablePageState extends State<TimetablePage> {
   Stream<List<TimetableEntry>> entriesStream = Get.find<DataProvider>().timetableEntriesByTimetableId(1);
   var days = DateFormat.EEEE(io.Platform.localeName).dateSymbols.STANDALONESHORTWEEKDAYS;
 
+  bool dragging = false;
+
   List<LessonTime> lessonTime = [
     LessonTime(1, DateTime(0,0,0,7,55), DateTime(0,0,0,8,45)),
     LessonTime(2, DateTime(0,0,0,8,50), DateTime(0,0,0,9,30)),
@@ -113,7 +115,7 @@ class _TimetablePageState extends State<TimetablePage> {
             late List<List<Widget>> widgetMatrix;
             widgetMatrix = List.generate(dimensions.y, (index) =>
                 List.generate(dimensions.x+1, (i)=>TableCell(child: DragTarget<TimetableEntry>(builder: (context, candidateItems, rejectedItems){
-                  return Card(color: candidateItems.isNotEmpty?Colors.green:Colors.blue, child: Text(i.toString()),);
+                  return (!dragging)?Container():TimetableCellCard(TimetableEntry.empty(), dragField: true, candidate: candidateItems.isNotEmpty,);
                 }, onAcceptWithDetails: (details)=>setState(() {
                     entries.add(details.data.copyWith(lesson: index, weekday: i-1));
                   print("acc");
@@ -122,7 +124,12 @@ class _TimetablePageState extends State<TimetablePage> {
             for (TimetableEntry element in entries) {
               Widget w = LongPressDraggable<TimetableEntry>(
                 data: element,
-                onDragStarted: ()=>print("hi"),
+                onDragStarted: ()=>setState(() {
+                  dragging=true;
+                }),
+                onDragEnd: (f)=>setState(() {
+                  dragging=false;
+                }),
                 dragAnchorStrategy: pointerDragAnchorStrategy,
                   child: TimetableCellCard(element), feedback: SizedBox(height: 50, width: 50, key: _draggableKey, child: Container(color: Colors.red,),)
               );

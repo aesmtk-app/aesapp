@@ -170,7 +170,7 @@ class _RootPageSelectorState extends State<RootPageSelector> with WidgetsBinding
           body: Row(
             children: [
               isPortrait?Container():navigationRail,
-              Expanded(child: SafeArea(child: AESPage.defaultPages[_selectedPageId]!.page(asWidget: true),bottom: false,)),
+              Expanded(child: SafeArea(bottom: false,child: AESPage.defaultPages[_selectedPageId]!.page(asWidget: true),)),
             ],
           )
       );
