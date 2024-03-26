@@ -33,6 +33,7 @@ class _TimetablePageState extends State<TimetablePage> {
   var days = DateFormat.EEEE(io.Platform.localeName).dateSymbols.STANDALONESHORTWEEKDAYS;
 
   bool dragging = false;
+  bool editing = false;
 
   List<LessonTime> lessonTime = [
     LessonTime(1, DateTime(0,0,0,7,55), DateTime(0,0,0,8,45)),
@@ -97,9 +98,13 @@ class _TimetablePageState extends State<TimetablePage> {
   List<TimetableEntry> entries = [
     TimetableEntry(id: 1, timetableId: 1, weekday: 0, lesson: 0, subject: "hi", teacher: "wo", room: "ja", color: Colors.amber.value),
     TimetableEntry(id: 2, timetableId: 1, weekday: 1, lesson: 2, subject: "hi", teacher: "wo", room: "ja", color: Colors.red.value),
-    TimetableEntry(id: 3, timetableId: 1, weekday: 1, lesson: 1, subject: "hi", teacher: "wo", room: "ja", color: Colors.amber.value),
+    TimetableEntry(id: 3, timetableId: 1, weekday: 1, lesson: 1, subject: "hi", teacher: "wo", room: "ja", color: Colors.orange.value),
     TimetableEntry(id: 4, timetableId: 1, weekday: 4, lesson: 5, subject: "hi", teacher: "wo", room: "ja", color: Colors.greenAccent.value),
   ];
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -130,11 +135,12 @@ class _TimetablePageState extends State<TimetablePage> {
                 onDragEnd: (f)=>setState(() {
                   dragging=false;
                 }),
-                dragAnchorStrategy: pointerDragAnchorStrategy,
-                  child: TimetableCellCard(element), feedback: SizedBox(height: 50, width: 50, key: _draggableKey, child: Container(color: Colors.red,),)
+                dragAnchorStrategy: pointerDragAnchorStrategy, feedback: TimetableCellCard(element),
+                  child: TimetableCellCard(element)
               );
               widgetMatrix[element.lesson][element.weekday+1] = TableCell(child: w);
             }
+
             for (final (i, w) in widgetMatrix.indexed){
               w[0] = _getLessonCell(i);
             }

@@ -56,7 +56,7 @@ class TimetableCellCard extends StatelessWidget {
               Text(entry.teacher),
               Text(entry.room)
             ],
-          ):const Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(""), Text(""), Text("")]),
+          ):const Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(" "), Text(" "), Text(" ")]),
         ),
       ),
     );

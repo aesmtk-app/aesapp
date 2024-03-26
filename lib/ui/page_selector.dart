@@ -60,7 +60,7 @@ class _RootPageSelectorState extends State<RootPageSelector> with WidgetsBinding
     pages = AESPage.defaultPages.values.where((element) => element.showWhenLandscape).toList();
     super.initState();
     AESAppUtils.checkServer().then((value) => null);
-    networkSubscription = Connectivity().onConnectivityChanged.listen((ConnectivityResult event) {
+    networkSubscription = Connectivity().onConnectivityChanged.listen((List<ConnectivityResult> event) {
       AESAppUtils.checkServer().then((value) => null);
     });
     if(kIsWeb){
