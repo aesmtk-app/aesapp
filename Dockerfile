@@ -3,7 +3,7 @@ FROM ubuntu:latest AS build-env
 
 RUN apt-get update
 # Install necessary dependencies for running Flutter on web
-RUN apt-get install -y libxi6 libgtk-3-0 libxrender1 libxtst6 libxslt1.1 curl git wget unzip libgconf-2-4 gdb libstdc++6 libglu1-mesa fonts-droid-fallback lib32stdc++6 python3
+RUN apt-get install -y libxi6 libgtk-3-0 libxrender1 libxtst6 libxslt1.1 curl git wget unzip gdb libstdc++6 libglu1-mesa fonts-droid-fallback lib32stdc++6 python3
 RUN apt-get clean
 
 RUN git clone https://github.com/flutter/flutter.git /usr/local/flutter
