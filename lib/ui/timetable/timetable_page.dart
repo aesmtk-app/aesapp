@@ -110,11 +110,21 @@ class _TimetablePageState extends State<TimetablePage> {
     );
   }
 
+  Key k1 = GlobalKey();
+  Key k2 = GlobalKey();
+  Key k3 = GlobalKey();
+  TextEditingController subject = TextEditingController();
+  TextEditingController room = TextEditingController();
+  TextEditingController teacher = TextEditingController();
+
   Widget _addHint(int x, int y){
     return Center(child: IconButton(
       icon: const Icon(Icons.add_circle_outline_rounded),
       onPressed: ()async{
-        TimetableEntry? e = await showDialog(context: context, builder: (builder)=>_addDialog());
+        subject.clear();
+        room.clear();
+        teacher.clear();
+        TimetableEntry? e = await showDialog(context: context, builder: (builder)=>_addDialog(), useSafeArea: true);
         if (e!=null){
           await Get.find<DataProvider>().addTimetableEntry(e.copyWith(weekday: x-1, lesson: y));
         }
@@ -125,9 +135,6 @@ class _TimetablePageState extends State<TimetablePage> {
   Widget _addDialog(){
     final formKey = GlobalKey<FormState>();
     Color? selectedColor;
-    TextEditingController subject = TextEditingController();
-    TextEditingController room = TextEditingController();
-    TextEditingController teacher = TextEditingController();
     return Dialog(
       child: Padding(
         padding: const EdgeInsets.all(10),
@@ -140,6 +147,7 @@ class _TimetablePageState extends State<TimetablePage> {
                 SizedBox(
                   width: 300,
                   child:TextFormField(
+                    key: k1,
                     controller: subject,
                     decoration: InputDecoration(
                       hintText: "Fach",
@@ -154,6 +162,7 @@ class _TimetablePageState extends State<TimetablePage> {
                 SizedBox(
                   width: 300,
                   child: TextFormField(
+                    key: k2,
                     controller: room,
                     decoration: InputDecoration(
                       hintText: "Raum",
@@ -168,6 +177,7 @@ class _TimetablePageState extends State<TimetablePage> {
                 SizedBox(
                   width: 300,
                   child: TextFormField(
+                    key: k3,
                     controller: teacher,
                     decoration: InputDecoration(
                       hintText: "Lehrer",
