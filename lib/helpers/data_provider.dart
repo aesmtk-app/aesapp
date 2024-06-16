@@ -92,4 +92,9 @@ class DataProvider{
     timetableEntryChange.value=!timetableEntryChange.value;
   }
 
+  Future deleteTimetableEntry(TimetableEntry e) async{
+    await e.delete();
+    timetableEntryChange.value=!timetableEntryChange.value;
+  }
+
 }

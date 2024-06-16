@@ -205,7 +205,7 @@ class _TimetablePageState extends State<TimetablePage> {
   Widget _trashTarget(){
     return DragTarget<TimetableEntry>(builder: (context, candidateItems, rejectedItems){
       return Container(child: Icon(Icons.delete_forever, color: candidateItems.isEmpty?null:Colors.pink,),);
-    }, onAcceptWithDetails: (details)async=>details.data.delete());
+    }, onAcceptWithDetails: (details)async=>Get.find<DataProvider>().deleteTimetableEntry(details.data));
   }
 
   bool editorMode = false;
