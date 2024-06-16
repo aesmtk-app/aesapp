@@ -11,7 +11,7 @@ import 'api.dart';
 class DataProvider{
   Future<Box<VPlanEntry>> vPlanFuture = Hive.openBox<VPlanEntry>("vplan");
   Future<Box<Timetable>> timetableFuture = Hive.openBox("timetable");
-  Future<Box<TimetableEntry>> timetableEntryFuture = Hive.openBox("timetable_entries");
+  Future<Box<TimetableEntry>> timetableEntryFuture = Hive.openBox<TimetableEntry>("timetable_entries");
   Future<Box<NewsPreview>> newsPreviewCache = Hive.openBox("news_preview_cache");
   DataProvider();
 
@@ -78,5 +78,18 @@ class DataProvider{
     ] ;
   }
 
+  Stream<List<TimetableEntry>> timetableEntries()async*{
+    Box<TimetableEntry> entries = await timetableEntryFuture;
+    yield entries.values.toList();
+    await for (final n in timetableEntryChange.toStream()){
+      yield entries.values.toList();
+   }
+  }
+
+  Future addTimetableEntry(TimetableEntry e)async{
+    Box<TimetableEntry> entries = await timetableEntryFuture;
+    entries.add(e);
+    timetableEntryChange.value=!timetableEntryChange.value;
+  }
 
 }

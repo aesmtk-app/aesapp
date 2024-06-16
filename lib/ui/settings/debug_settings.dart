@@ -47,7 +47,7 @@ class _DebugSettingsState extends State<DebugSettings> {
             title: const Text("Debugging-Eintellungen eingeschaltet?"),
             value: enabled,
             onChanged: setEnabled,
-            thumbColor: MaterialStateProperty.resolveWith((states) => AESAppUtils.getSwitchThumbColor(states)),
+            thumbColor: WidgetStateProperty.resolveWith((states) => AESAppUtils.getSwitchThumbColor(states)),
 
           ),
           ListTile(

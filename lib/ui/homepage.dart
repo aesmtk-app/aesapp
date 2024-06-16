@@ -1,13 +1,4 @@
-import 'package:aesapp/helpers/api.dart';
-import 'package:aesapp/objects/news.dart';
-import 'package:aesapp/objects/theme.dart';
-import 'package:aesapp/helpers/app.dart';
-import 'package:aesapp/ui/news/news_article.dart';
-import 'package:aesapp/ui/news/news_preview.dart';
-import 'package:aesapp/ui/timetable/timeSchool.dart';
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:logging/logging.dart';
 
 import 'aesapp/appbar.dart';
@@ -41,8 +32,9 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: (!widget.calledAsWidget) ? CustomAppBar.get(title: "Home") : null,
-      body: Column(
-        children: [
+      body: Placeholder(),
+      //body: Column(
+        //children: [
           /*
           Card(
             
@@ -90,8 +82,8 @@ class _HomePageState extends State<HomePage> {
           Card(
             child: TimeSchool(),
           ),*/
-        ],
-      ),
+        //],
+      //),
     );
   }
 }
