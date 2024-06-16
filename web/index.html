@@ -35,7 +35,7 @@
 
   <script>
     // The value below is injected by flutter build, do not touch.
-    const {{flutter_service_worker_version}} = null;
+    const serviceWorkerVersion = null;
   </script>
 
   <!-- Theme -->
@@ -63,7 +63,7 @@
   <script>
     window.addEventListener('load', function(ev) {
       // Download main.dart.js
-      _flutter.loader.load({
+      _flutter.loader.loadEntrypoint({
         serviceWorker: {
           serviceWorkerVersion: serviceWorkerVersion,
         },
