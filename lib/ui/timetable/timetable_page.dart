@@ -266,7 +266,7 @@ class _TimetablePageState extends State<TimetablePage> {
                           dragging = false;
                         }),
                     dragAnchorStrategy: pointerDragAnchorStrategy,
-                    feedback: TimetableCellCard(element),
+                    feedback: SizedBox(child: TimetableCellCard(element), width: Get.width/7,),
                     child: TimetableCellCard(element)
                 );
                 widgetMatrix[element.lesson][element.weekday + 1] =
