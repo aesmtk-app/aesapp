@@ -4,7 +4,9 @@ import 'package:aesapp/ui/news/news_page.dart';
 import 'package:aesapp/ui/polls/polls_page.dart';
 import 'package:aesapp/ui/timetable/timetable_page.dart';
 import 'package:aesapp/ui/watch/watch_root.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import "package:universal_html/html.dart" as html;
 import 'package:aesapp/helpers/app.dart';
 import 'package:aesapp/ui/TestPage.dart';
@@ -34,11 +36,11 @@ class AESPage{
   static Map<int, AESPage> defaultPages = {
     0:AESPage(id: 0, label: "Home", icon: const Icon(Icons.home), selectedIcon: const Icon(Icons.home_outlined), showWhenPortrait: true, page: ({bool asWidget=false})=> HomePage(calledAsWidget: asWidget,), showWhenLandscape: true, routeName: "/home"),
     1:AESPage(id: 1, label: "Vertretung", icon: const Icon(Icons.table_chart), selectedIcon: const Icon(Icons.table_chart_outlined), showWhenPortrait: true, page: ({bool asWidget=false})=>VPlanPage(calledAsWidget: asWidget,), showWhenLandscape: true, routeName: "/vplan"),
-    3:AESPage(id: 3, label: "Mensa", icon: const Icon(Icons.restaurant_menu), selectedIcon: const Icon(Icons.restaurant_menu_outlined), showWhenPortrait: true, showWhenLandscape: true, page: ({bool asWidget=false})=>MensaPage(calledAsWidget: asWidget,), routeName: "/mensa"),
+    //3:AESPage(id: 3, label: "Mensa", icon: const Icon(Icons.restaurant_menu), selectedIcon: const Icon(Icons.restaurant_menu_outlined), showWhenPortrait: true, showWhenLandscape: true, page: ({bool asWidget=false})=>MensaPage(calledAsWidget: asWidget,), routeName: "/mensa"),
     4:AESPage(id: 4, label: "Plan", icon: const Icon(Icons.table_chart), selectedIcon: const Icon(Icons.table_chart_outlined), showWhenPortrait: true, showWhenLandscape: true, page: ({bool asWidget=false})=>TimetablePage(calledAsWidget: asWidget,), routeName: "/timetable"),
     5:AESPage(id: 5, label: "News", icon: const Icon(Icons.newspaper), selectedIcon: const Icon(Icons.newspaper_outlined), showWhenPortrait: true, showWhenLandscape: true, page: ({bool asWidget=false})=>NewsPage(calledAsWidget: asWidget,), routeName: "/news"),
-    2:AESPage(id: 2, label: "test", icon: const Icon(Icons.table_chart), selectedIcon: const Icon(Icons.table_chart_outlined), showWhenPortrait: false, page: ({bool asWidget=false})=>TestPage(calledAsWidget: asWidget,), showWhenLandscape: false, routeName: "/test"),
-    6:AESPage(id: 6, label: "Umfragen", icon: const Icon(Icons.data_array), selectedIcon: const Icon(Icons.data_array_outlined), showWhenPortrait: true, page: ({bool asWidget=false})=>PollsPage(calledAsWidget: asWidget,), showWhenLandscape: false, routeName: "/polls"),
+    //2:AESPage(id: 2, label: "test", icon: const Icon(Icons.table_chart), selectedIcon: const Icon(Icons.table_chart_outlined), showWhenPortrait: false, page: ({bool asWidget=false})=>TestPage(calledAsWidget: asWidget,), showWhenLandscape: false, routeName: "/test"),
+    //6:AESPage(id: 6, label: "Umfragen", icon: const Icon(Icons.data_array), selectedIcon: const Icon(Icons.data_array_outlined), showWhenPortrait: true, page: ({bool asWidget=false})=>PollsPage(calledAsWidget: asWidget,), showWhenLandscape: false, routeName: "/polls"),
     99:AESPage(id: 99, label: "Settings", icon: const Icon(Icons.settings), selectedIcon: const Icon(Icons.settings_outlined), showWhenPortrait: true, showWhenLandscape: true, page: ({bool asWidget=false})=>SettingsHome(calledAsWidget: asWidget,), routeName: "/settings")
   };
 }
@@ -54,6 +56,7 @@ class _RootPageSelectorState extends State<RootPageSelector> with WidgetsBinding
 
   List<AESPage> pages = [];
   StreamSubscription? networkSubscription;
+  Future<PackageInfo> packageInfo = PackageInfo.fromPlatform();
 
   @override
   void initState() {
@@ -136,7 +139,7 @@ class _RootPageSelectorState extends State<RootPageSelector> with WidgetsBinding
   NavigationDrawer get navigationDrawer => NavigationDrawer(
       backgroundColor: Theme.of(context).colorScheme.surface,
       surfaceTintColor: Theme.of(context).colorScheme.surface,
-      children: AESPage.defaultPages.map((key, value) => MapEntry(key, ListTile(
+      children: [...AESPage.defaultPages.map((key, value) => MapEntry(key, ListTile(
         leading: value.icon,
         title: Text(value.label),
         onTap: (){
@@ -153,7 +156,8 @@ class _RootPageSelectorState extends State<RootPageSelector> with WidgetsBinding
             Get.toNamed(value.routeName);
           }
         },)
-      )).values.toList()
+      )).values,
+      ]
 
   );
 

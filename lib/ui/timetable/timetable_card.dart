@@ -52,9 +52,9 @@ class TimetableCellCard extends StatelessWidget {
           child: (!dragField)?Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(entry.subject),
-              Text(entry.teacher),
-              Text(entry.room)
+              Text(entry.subject.padRight(5, " ").substring(0,5), overflow: TextOverflow.clip,),
+              Text(entry.teacher.padRight(5, " ").substring(0,5),overflow: TextOverflow.clip,),
+              Text(entry.room.padRight(5, " ").substring(0,5),overflow: TextOverflow.clip,)
             ],
           ):const Column(crossAxisAlignment: CrossAxisAlignment.start, children: [Text(" "), Text(" "), Text(" ")]),
         ),

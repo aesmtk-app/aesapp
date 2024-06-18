@@ -1,4 +1,5 @@
 import 'package:aesapp/objects/news.dart';
+import 'package:aesapp/objects/timetable.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -12,6 +13,7 @@ class HiveAPI{
     await Hive.initFlutter();
     Hive.registerAdapter(VPlanEntryAdapter());
     Hive.registerAdapter(NewsPreviewAdapter());
+    Hive.registerAdapter(TimetableEntryAdapter());
     await Hive.openBox(HiveKeys.boxName);
     await HiveKeys.setDefaults();
 
