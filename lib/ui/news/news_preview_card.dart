@@ -10,6 +10,13 @@ class NewsPreviewCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       elevation: 0,
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+          side: BorderSide(
+          width: 1,
+          color: Colors.white
+        )
+      ),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: 5, vertical: 3),
         child: Column(

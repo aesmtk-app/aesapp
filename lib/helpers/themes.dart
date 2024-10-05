@@ -29,14 +29,12 @@ class DarkDashTheme extends AESTheme{
       primary: pink,
       secondary: blue,
       tertiary: green,
-      surface: background,
-      background: backgroundAlt,
+      surface: backgroundAlt,
       error: red,
       onPrimary: backgroundAlt,
       onSecondary: foreground,
       onTertiary: foreground,
       onSurface: foreground,
-      onBackground: foreground,
       onError: backgroundAlt
     );
   }
