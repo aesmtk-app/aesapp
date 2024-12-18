@@ -1,22 +1,18 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:js_interop';
 import 'package:aesapp/ui/news/news_page.dart';
-import 'package:aesapp/ui/polls/polls_page.dart';
 import 'package:aesapp/ui/timetable/timetable_page.dart';
 import 'package:aesapp/ui/watch/watch_root.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:web/web.dart' as web;
 import 'package:aesapp/helpers/app.dart';
-import 'package:aesapp/ui/TestPage.dart';
 import 'package:aesapp/ui/aesapp/appbar.dart';
 import 'package:aesapp/ui/homepage.dart';
-import 'package:aesapp/ui/mensa/mensa_page.dart';
 import 'package:aesapp/ui/settings/settings_home.dart';
 import 'package:aesapp/ui/vplan/vplan_page.dart';
 import 'package:flutter/material.dart';
+import 'package:universal_html/html.dart' as html;
 import 'package:get/get.dart';
 import 'package:logging/logging.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -32,7 +28,7 @@ class AESPage{
   bool showWhenLandscape;
   Widget Function({bool asWidget}) page;
   String routeName;
-  
+
 
   static Map<int, AESPage> defaultPages = {
     0:AESPage(id: 0, label: "Home", icon: const Icon(Icons.home), selectedIcon: const Icon(Icons.home_outlined), showWhenPortrait: true, page: ({bool asWidget=false})=> HomePage(calledAsWidget: asWidget,), showWhenLandscape: true, routeName: "/home"),
@@ -68,7 +64,7 @@ class _RootPageSelectorState extends State<RootPageSelector> with WidgetsBinding
       AESAppUtils.checkServer().then((value) => null);
     });
     if(kIsWeb){
-      web.window.addEventListener("focus", webVisibilityChange.toJS);
+      html.window.addEventListener("focus", webVisibilityChange);
     }else{
       WidgetsBinding.instance.addObserver(this);
     }
@@ -79,7 +75,8 @@ class _RootPageSelectorState extends State<RootPageSelector> with WidgetsBinding
   int _selectedPageIndex = 0;
   int _selectedPageId = 0;
   bool isPortrait = true;
-  void webVisibilityChange(web.Event e){
+
+  void webVisibilityChange(html.Event e){
     didChangeAppLifecycleState(AppLifecycleState.resumed);
   }
   @override
@@ -96,8 +93,7 @@ class _RootPageSelectorState extends State<RootPageSelector> with WidgetsBinding
 
     logger.info("dispose");
     if(kIsWeb){
-      web.window.removeEventListener("focus", webVisibilityChange.toJS);
-
+      html.window.removeEventListener("focus", webVisibilityChange);
     }else{
       WidgetsBinding.instance.removeObserver(this);
     }

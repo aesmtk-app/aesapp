@@ -1,12 +1,10 @@
 import 'dart:io';
-
 import 'package:aesapp/helpers/data_provider.dart';
 import 'package:aesapp/objects/theme.dart';
 import 'package:aesapp/helpers/api.dart';
 import 'package:aesapp/helpers/app.dart';
 import 'package:aesapp/helpers/hive.dart';
 import 'package:aesapp/helpers/themes.dart';
-import 'package:aesapp/objects/vplan.dart';
 import 'package:aesapp/ui/TestPage.dart';
 import 'package:aesapp/ui/page_selector.dart';
 import 'package:aesapp/ui/settings/settings_home.dart';
@@ -16,7 +14,6 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
@@ -24,7 +21,7 @@ import 'package:hive_ce_flutter/adapters.dart';
 import 'package:logging/logging.dart';
 import 'generated/l10n.dart';
 import 'package:aesapp/helpers/firebase_options.dart';
-import 'package:flutter_web_plugins/url_strategy.dart';
+
 final Logger logger = Logger("main");
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   // If you're going to use other Firebase services in the background, such as Firestore,

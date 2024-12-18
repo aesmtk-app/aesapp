@@ -34,8 +34,8 @@ class TimetablePage extends StatefulWidget {
 class _TimetablePageState extends State<TimetablePage> {
   Stream<List<TimetableEntry>> entriesStream = Get.find<DataProvider>().timetableEntries();
 
-  // TODO: until universal_io gets web support: var days = DateFormat.EEEE(io.Platform.localeName).dateSymbols.STANDALONESHORTWEEKDAYS;
-  var days = DateFormat.EEEE("de_DE").dateSymbols.STANDALONESHORTWEEKDAYS;
+  var days = DateFormat.EEEE(io.Platform.localeName).dateSymbols.STANDALONESHORTWEEKDAYS;
+
   bool dragging = false;
   bool editing = false;
 
