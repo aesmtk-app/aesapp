@@ -26,8 +26,8 @@ WORKDIR /app/
 # Build the Flutter web application
 RUN flutter build web --release --wasm
 
-FROM nginx:stable-alpine
+FROM nginx:mainline-alpine
 COPY --from=build-env /app/build/web /usr/share/nginx/html
-
+RUN sed -i 's/^ *\s*application\/javascript.*/    application\/javascript                                         js mjs;/g' /etc/nginx/mime.types
 # EXPOSE <EXPOSE PORT THAT YOU WANT>
 EXPOSE 80
