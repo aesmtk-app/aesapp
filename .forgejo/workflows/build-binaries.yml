@@ -1,0 +1,109 @@
+name: Build binaries
+on:
+  push:
+    tags:
+      - "v*.*.*"
+  workflow_dispatch:
+jobs:
+  build:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Prepare Flutter-Env
+        uses: https://github.com/subosito/flutter-action@v2
+        with:
+          channel: 'stable'
+      - name: Prepare Keystore
+        run: |
+          mkdir /home/runner/.keys
+      - name: Decode Keystore
+        id: decode_keystore
+        uses: https://github.com/timheuer/base64-to-file@v1
+        with:
+          fileDir: '/home/runner/.keys'
+          fileName: 'aesmtk_app.jks'
+          encodedString: ${{ secrets.KEYSTORE }}        
+
+      - name: Prepare Android
+        uses: https://github.com/actions/setup-java@v2
+        with:
+          distribution: 'zulu'
+          java-version: '17'
+      - name: Get dependencies
+        run: | 
+          flutter --version
+          flutter pub get
+      - name: Enable Linux-Desktop
+        run: flutter config --enable-linux-desktop
+      - name: Build Android all Arch
+        run: flutter build apk --release
+        env:
+          SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
+          SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+          SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
+      - name: Build Android split-per-abi
+        run: flutter build apk --split-per-abi --release
+        env:
+          SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
+          SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+          SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
+      - name: Build Android appbundle
+        run: flutter build appbundle --release
+        env:
+          SIGNING_KEY_ALIAS: ${{ secrets.SIGNING_KEY_ALIAS }}
+          SIGNING_KEY_PASSWORD: ${{ secrets.SIGNING_KEY_PASSWORD }}
+          SIGNING_STORE_PASSWORD: ${{ secrets.SIGNING_STORE_PASSWORD }}
+      - name: Move and rename Android builds
+        run: |
+          ls
+          mv build/app/outputs/flutter-apk/app-release.apk aesapp-android-all-arch-$GITHUB_REF_NAME.apk
+          mv build/app/outputs/flutter-apk/app-armeabi-v7a-release.apk aesapp-android-armeabi-v7a-$GITHUB_REF_NAME.apk
+          mv build/app/outputs/flutter-apk/app-arm64-v8a-release.apk aesapp-android-arm64-v8a-$GITHUB_REF_NAME.apk
+          mv build/app/outputs/flutter-apk/app-x86_64-release.apk aesapp-android-x86_64-$GITHUB_REF_NAME.apk
+          mv build/app/outputs/bundle/release/app-release.aab aesapp-android-all-arch-bundle-$GITHUB_REF_NAME.aab
+          ls
+      - name: Prepare Linux-Desktop
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y ninja-build libgtk-3-dev
+          sudo apt-get update -y
+          sudo apt-get install -y tar clang cmake ninja-build pkg-config libgtk-3-dev make python3-pip python3-setuptools desktop-file-utils libgdk-pixbuf2.0-dev fakeroot strace fuse libunwind-dev locate patchelf gir1.2-appindicator3-0.1 libappindicator3-1 libappindicator3-dev libsecret-1-0 libjsoncpp25 libsecret-1-dev libjsoncpp-dev libnotify-bin libnotify-dev mpv libmpv-dev
+
+      - name: Install AppImage Tool
+        run: |
+          wget -O appimagetool "https://github.com/AppImage/AppImageKit/releases/download/continuous/appimagetool-x86_64.AppImage"
+          chmod +x appimagetool
+          mv appimagetool /usr/local/bin/
+      - name: Build Linux-Desktop
+        run: | 
+          dart pub global activate flutter_distributor
+          alias dpkg-deb="dpkg-deb --Zxz"
+          flutter_distributor package --platform=linux --targets=deb
+          flutter_distributor package --platform=linux --targets=appimage
+          flutter_distributor package --platform=linux --targets=rpm
+      - name: Move and rename builds
+        run: |
+          ls
+          mv dist/**/aesapp-*-linux.deb aesapp-linux-x86_64-$GITHUB_REF_NAME.deb
+          mv dist/**/aesapp-*-linux.rpm aesapp-linux-x86_64-$GITHUB_REF_NAME.rpm
+          mv dist/**/aesapp-*-linux.AppImage aesapp-linux-x86_64-$GITHUB_REF_NAME.AppImage
+          ls
+      - name: Release Android
+        uses: https://gitea.com/actions/gitea-release-action@v2
+        if: startsWith(github.ref, 'refs/tags/')
+        env:
+          NODE_OPTIONS: '--experimental-fetch' # if nodejs < 18
+        with:
+          files: |
+            ./aesapp-android-all-arch-${{ github.ref_name }}.apk
+            ./aesapp-android-armeabi-v7a-${{ github.ref_name }}.apk
+            ./aesapp-android-arm64-v8a-${{ github.ref_name }}.apk
+            ./aesapp-android-x86_64-${{ github.ref_name }}.apk
+            ./aesapp-android-all-arch-bundle-${{ github.ref_name }}.aab
+            ./aesapp-linux-x86_64-${{ github.ref_name }}.deb
+            ./aesapp-linux-x86_64-${{ github.ref_name }}.rpm
+            ./aesapp-linux-x86_64-${{ github.ref_name }}.AppImage
+            

@@ -75,8 +75,8 @@ class _NewsPageState extends State<NewsPage> {
                             e.title,
                             style: Theme.of(context).listTileTheme.titleTextStyle,
                             dropCapPosition: DropCapPosition.end,
-                            dropCapPadding: EdgeInsets.symmetric(horizontal: 1),
-                            dropCap: DropCap(child: Text(AESAppUtils.monthDayYearFormat.format(e.published), style: TextStyle(fontSize: 11, height: 1, color: Theme.of(context).colorScheme.primary), ), width: tp.width+5, height: tp.height),
+                            dropCapPadding: const EdgeInsets.symmetric(horizontal: 1),
+                            dropCap: DropCap(width: tp.width+5, height: tp.height, child: Text(AESAppUtils.monthDayYearFormat.format(e.published), style: TextStyle(fontSize: 11, height: 1, color: Theme.of(context).colorScheme.primary), )),
                           ),
                           onTap: ()async{
                             setState(() {
@@ -95,7 +95,7 @@ class _NewsPageState extends State<NewsPage> {
                 if (context.isLandscape)
                   Flexible(
                     flex: AESAppUtils.getLandscapeSecondFlexFactor(context),
-                    child: selectedArticle==null?Container(child: Center(child: Text("Bitte Artikel auswählen"),),)
+                    child: selectedArticle==null?const Center(child: Text("Bitte Artikel auswählen"),)
                         :NewsArticlePage(selectedArticle!, key: ValueKey(selectedArticle?.id),calledAsWidget: true,),
                   )
               ],
