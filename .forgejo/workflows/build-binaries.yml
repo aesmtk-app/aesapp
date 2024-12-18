@@ -18,12 +18,12 @@ jobs:
           channel: 'stable'
       - name: Prepare Keystore
         run: |
-          mkdir /home/runner/.keys
+          mkdir /opt/.keys
       - name: Decode Keystore
         id: decode_keystore
         uses: https://github.com/timheuer/base64-to-file@v1
         with:
-          fileDir: '/home/runner/.keys'
+          fileDir: '/opt/.keys'
           fileName: 'aesmtk_app.jks'
           encodedString: ${{ secrets.KEYSTORE }}        
 
