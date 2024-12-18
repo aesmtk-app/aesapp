@@ -20,7 +20,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:get/get.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:hive_ce_flutter/adapters.dart';
 import 'package:logging/logging.dart';
 import 'generated/l10n.dart';
 import 'package:aesapp/helpers/firebase_options.dart';
@@ -34,7 +34,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print("Handling a background message: ${message.messageId}");
 }
 void main() async {
-  usePathUrlStrategy();
+  // use when supported by getx: usePathUrlStrategy();
   // set services
   WidgetsFlutterBinding.ensureInitialized();
   // ignore: unnecessary_cast

@@ -9,7 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:aesapp/helpers/hive.dart';
 import 'package:aesapp/main.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {

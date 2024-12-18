@@ -1,6 +1,6 @@
 import 'package:aesapp/generated/l10n.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'news.g.dart';

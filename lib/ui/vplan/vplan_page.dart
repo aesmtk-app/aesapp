@@ -7,7 +7,7 @@ import 'package:aesapp/ui/vplan/vplan_card.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:aesapp/helpers/hive.dart';
 
 class VPlanPage extends StatefulWidget {

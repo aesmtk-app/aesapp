@@ -8,7 +8,7 @@ import 'package:dynamic_color/dynamic_color.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart' as hive;
+import 'package:hive_ce/hive.dart' as hive;
 
 import 'package:aesapp/helpers/hive.dart';
 class AppearanceSettings extends StatefulWidget {

@@ -19,10 +19,10 @@
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="AESApp">
+  <meta name="description" content="A new Flutter project.">
 
   <!-- iOS meta tags & icons -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
   <meta name="apple-mobile-web-app-title" content="aesapp">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
@@ -30,18 +30,16 @@
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>aesapp</title>
+  <title>AESMTK-APP</title>
   <link rel="manifest" href="manifest.json">
 
   <script>
     // The value below is injected by flutter build, do not touch.
-    const serviceWorkerVersion = null;
+    const serviceWorkerVersion = '{{flutter_service_worker_version}}';
   </script>
 
-  <!-- Theme -->
   <meta name="theme-color" content="#1E2227">
-  <!-- This script adds the flutter initialization JS code -->
-  <script src="flutter.js" defer></script>
+
   <script>
     ;(function () {
   var src = '//cdn.jsdelivr.net/npm/eruda';
@@ -50,6 +48,7 @@
   document.write('<scr' + 'ipt>eruda.init();</scr' + 'ipt>');
   })();
   </script>
+
 </head>
 <body>
   <!-- Loading Indicator -->
@@ -57,32 +56,21 @@
     <img src="icons/Icon-512.png" alt="logo">
   </div>
   <div class="wrapper">
-      <p class="load-wrapper"><span class="loader"></span></p>
+    <p class="load-wrapper"><span class="loader"></span></p>
   </div>
   <!-- End Loading Indicator -->
-  <script>
-    window.addEventListener('load', function(ev) {
-      // Download main.dart.js
-      _flutter.loader.loadEntrypoint({
-        serviceWorker: {
-          serviceWorkerVersion: serviceWorkerVersion,
-        },
-        onEntrypointLoaded: function(engineInitializer) {
-          engineInitializer.initializeEngine().then(function(appRunner) {
-            appRunner.runApp();
+  <!-- init flutter -->
+  <!-- with https://github.com/firebase/flutterfire/blob/c0321e259307bf22926d62133145db17de4e4fd5/packages/firebase_messaging/firebase_messaging/example/web/index.html -->
+  <script src="flutter_bootstrap.js" async>
+      if ('serviceWorker' in navigator) {
+        // Service workers are supported. Use them.
+        window.addEventListener('load', function () {
+          // Register Firebase Messaging service worker.
+          navigator.serviceWorker.register('firebase-messaging-sw.js', {
+            scope: '/firebase-cloud-messaging-push-scope',
           });
-        }
-      });
-    });
-  </script>
-  <script>
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", function () {
-        navigator.serviceWorker.register("/firebase-messaging-sw.js");
-      });
-
-
-    }
+        });
+      }
   </script>
 </body>
 </html>

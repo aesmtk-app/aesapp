@@ -6,7 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart' as fcm;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:logging/logging.dart';
 import 'package:aesapp/helpers/firebase_options.dart';
 import 'package:sn_progress_dialog/progress_dialog.dart';

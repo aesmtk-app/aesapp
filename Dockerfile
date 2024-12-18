@@ -24,8 +24,7 @@ COPY . /app/
 WORKDIR /app/
 
 # Build the Flutter web application
-# TODO: add --wasm when app is adopted
-RUN flutter build web --release
+RUN flutter build web --release --wasm
 
 FROM nginx:stable-alpine
 COPY --from=build-env /app/build/web /usr/share/nginx/html

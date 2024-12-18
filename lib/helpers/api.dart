@@ -5,7 +5,7 @@ import 'package:aesapp/objects/news.dart';
 import 'package:aesapp/objects/vplan.dart';
 import 'package:aesapp/helpers/hive.dart';
 import 'package:dio/dio.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:logging/logging.dart';
 import 'package:retrofit/http.dart';
 
@@ -16,7 +16,7 @@ Logger logger = Logger("API");
 @RestApi()
 abstract class API{
   factory API(Dio dio, {String baseUrl}) = _API;
-  static String defaultApiEndpoint = "https://api.aesmtk.app";
+  static String defaultApiEndpoint = "https://api.aes.schule";
   static String get apiEndpoint => Hive.box(HiveKeys.boxName).get(HiveKeys.apiEndpoint);
   static String vPlanSubscribe = "/vplan/subscribe";
   static String vPlan = "/vplan";

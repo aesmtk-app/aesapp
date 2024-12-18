@@ -3,7 +3,7 @@ import 'package:aesapp/objects/vplan.dart';
 import 'package:aesapp/objects/timetable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:hive_ce_flutter/adapters.dart';
 import 'package:listenable_stream/listenable_stream.dart';
 
 import 'api.dart';

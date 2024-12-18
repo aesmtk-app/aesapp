@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:js_interop';
 import 'package:aesapp/ui/news/news_page.dart';
 import 'package:aesapp/ui/polls/polls_page.dart';
 import 'package:aesapp/ui/timetable/timetable_page.dart';
@@ -7,7 +8,7 @@ import 'package:aesapp/ui/watch/watch_root.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import "package:universal_html/html.dart" as html;
+import 'package:web/web.dart' as web;
 import 'package:aesapp/helpers/app.dart';
 import 'package:aesapp/ui/TestPage.dart';
 import 'package:aesapp/ui/aesapp/appbar.dart';
@@ -67,7 +68,7 @@ class _RootPageSelectorState extends State<RootPageSelector> with WidgetsBinding
       AESAppUtils.checkServer().then((value) => null);
     });
     if(kIsWeb){
-      html.window.addEventListener("focus", webVisibilityChange);
+      web.window.addEventListener("focus", webVisibilityChange.toJS);
     }else{
       WidgetsBinding.instance.addObserver(this);
     }
@@ -78,7 +79,7 @@ class _RootPageSelectorState extends State<RootPageSelector> with WidgetsBinding
   int _selectedPageIndex = 0;
   int _selectedPageId = 0;
   bool isPortrait = true;
-  void webVisibilityChange(html.Event e){
+  void webVisibilityChange(web.Event e){
     didChangeAppLifecycleState(AppLifecycleState.resumed);
   }
   @override
@@ -95,7 +96,7 @@ class _RootPageSelectorState extends State<RootPageSelector> with WidgetsBinding
 
     logger.info("dispose");
     if(kIsWeb){
-      html.window.removeEventListener("focus", webVisibilityChange);
+      web.window.removeEventListener("focus", webVisibilityChange.toJS);
 
     }else{
       WidgetsBinding.instance.removeObserver(this);

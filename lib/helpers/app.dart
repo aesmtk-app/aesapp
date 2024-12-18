@@ -8,7 +8,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:intl/intl.dart';
 import 'package:logging/logging.dart';
 
@@ -17,7 +17,7 @@ import 'hive.dart';
 
 Logger logger = Logger("AESAPP-Utils");
 
-const apiEndpoint = "https://api.aesmtk.app";
+const apiEndpoint = "https://api.aes.schule";
 
 class AESAppUtils{
   static int getLandscapeSecondFlexFactor(BuildContext context){
