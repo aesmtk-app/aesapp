@@ -92,7 +92,7 @@ jobs:
           mv dist/**/aesapp-*-linux.AppImage aesapp-linux-x86_64-$GITHUB_REF_NAME.AppImage
           ls
       - name: Release Android
-        uses: https://gitea.com/actions/gitea-release-action@v2
+        uses: https://gitea.com/actions/gitea-release-action@v1
         if: startsWith(github.ref, 'refs/tags/')
         env:
           NODE_OPTIONS: '--experimental-fetch' # if nodejs < 18

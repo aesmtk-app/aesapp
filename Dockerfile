@@ -24,7 +24,8 @@ COPY . /app/
 WORKDIR /app/
 
 # Build the Flutter web application
-RUN flutter build web --release --web-renderer canvaskit
+# TODO: add --wasm when app is adopted
+RUN flutter build web --release
 
 FROM nginx:stable-alpine
 COPY --from=build-env /app/build/web /usr/share/nginx/html
